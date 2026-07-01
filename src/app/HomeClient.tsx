@@ -39,7 +39,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
             hidden: {},
             show: { transition: { staggerChildren: 0.2, delayChildren: 0.5 } }
           }}
-          className="relative z-10 w-full px-4 md:px-12 lg:px-24 pb-24 md:pb-32 flex flex-col md:flex-row justify-between items-end gap-12"
+          className="relative z-10 w-full px-4 md:px-12 lg:px-24 pb-24 md:pb-32 flex flex-col items-start md:flex-row md:items-end justify-between gap-12"
         >
           <div className="max-w-3xl">
             <motion.span variants={FADE_UP_ANIMATION_VARIANTS} className="text-white/70 uppercase tracking-[0.4em] text-[10px] md:text-xs mb-8 block">
@@ -75,14 +75,14 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </div>
 
       {/* Editorial Categories - Offset Grid Layout */}
-      <section className="py-32 md:py-48 bg-[#FDFCF8]">
+      <section className="py-20 md:py-32 lg:py-48 bg-[#FDFCF8]">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div 
             initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }}
             variants={FADE_UP_ANIMATION_VARIANTS}
-            className="flex flex-col md:flex-row justify-between items-end mb-24"
+            className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8"
           >
-            <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#1A1D1A] max-w-2xl leading-[1.1] tracking-tight">
+            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#1A1D1A] max-w-2xl leading-[1.1] tracking-tight">
               Curated for the <span className="italic text-gray-400">modern</span> wearer.
             </h2>
             <Link href="/collections" className="hidden md:flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A] group pb-2 border-b border-transparent hover:border-black transition-all">
@@ -115,7 +115,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
             </motion.div>
 
             {/* Small Categories Stack */}
-            <div className="md:col-span-5 flex flex-col gap-12 mt-12 md:mt-48">
+            <div className="md:col-span-5 flex flex-col gap-12 mt-8 md:mt-48">
               <motion.div 
                 initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
@@ -141,7 +141,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </section>
 
       {/* Best Sellers */}
-      <section className="py-32 md:py-40 bg-white">
+      <section className="py-20 md:py-32 lg:py-40 bg-white">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div 
             initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP_ANIMATION_VARIANTS}
@@ -168,7 +168,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </section>
 
       {/* The Muse / Celebrity Section */}
-      <section className="py-24 md:py-32 bg-white overflow-hidden">
+      <section className="py-16 md:py-24 lg:py-32 bg-white overflow-hidden">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
@@ -220,7 +220,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </section>
 
       {/* Editorial Section - Magazine Overlap */}
-      <section className="py-32 md:py-48 bg-[#FDFCF8] overflow-hidden">
+      <section className="py-20 md:py-32 lg:py-48 bg-[#FDFCF8] overflow-hidden">
         <div className="container mx-auto px-4 md:px-8">
           <div className="relative grid grid-cols-1 lg:grid-cols-12 items-center">
             

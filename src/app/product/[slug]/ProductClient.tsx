@@ -46,7 +46,7 @@ export default function ProductClient({ product }: { product: Product }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-24">
+    <div className="min-h-screen bg-[#FDFCF8] pt-24 md:pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
           

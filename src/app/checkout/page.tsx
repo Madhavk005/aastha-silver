@@ -181,7 +181,7 @@ export default function CheckoutPage() {
   if (items.length === 0) return null;
 
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-16">
+    <div className="min-h-screen bg-[#FDFCF8] pt-24 md:pt-32 pb-16">
       <Script 
         src="https://checkout.razorpay.com/v1/checkout.js" 
         onLoad={() => setIsScriptLoaded(true)}

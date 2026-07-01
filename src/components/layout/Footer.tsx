@@ -29,7 +29,7 @@ const FOOTER_LINKS = {
 
 export function Footer() {
   return (
-    <footer className="bg-[#1A1D1A] text-white pt-24 pb-12">
+    <footer className="bg-[#1A1D1A] text-white pt-16 md:pt-24 pb-12">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-20">
           
@@ -101,7 +101,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 text-gray-500 font-light text-xs">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 text-gray-500 font-light text-xs text-center md:text-left gap-4 md:gap-0">
           <p>&copy; {new Date().getFullYear()} Aastha Silver. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             {FOOTER_LINKS.Legal.map((link) => (
