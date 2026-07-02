@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Heart, User, ShoppingBag, Menu } from "lucide-react";
+import Image from "next/image";
+import { Search, Heart, User, ShoppingBag, Menu, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Sheet,
@@ -12,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { useCartStore } from "@/store/cart-store";
 import { useAuth, UserButton, SignInButton } from "@clerk/nextjs";
+import { SearchModal } from "./SearchModal";
 const NAV_LINKS = [
   { name: "Collections", href: "/collections" },
   { name: "New", href: "/new" },
@@ -27,6 +29,7 @@ export function Navbar() {
   const { openCart, getItemCount } = useCartStore();
   const cartItemCount = getItemCount();
   const { isLoaded, isSignedIn } = useAuth();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     // Avoid synchronous setState in effect (React 19 best practice)
@@ -96,7 +99,11 @@ export function Navbar() {
               </div>
             </SheetContent>
           </Sheet>
-          <button aria-label="Search" className="text-foreground/80 hover:text-foreground transition-colors">
+          <button 
+            aria-label="Search" 
+            onClick={() => setIsSearchOpen(true)}
+            className="text-foreground/80 hover:text-foreground transition-colors"
+          >
             <Search className="w-5 h-5" />
           </button>
         </div>
@@ -109,21 +116,49 @@ export function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center justify-center flex-1 gap-12">
+        <nav className="hidden lg:flex items-center justify-center flex-1 gap-12 h-full">
           {NAV_LINKS.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#1A1D1A]/60 hover:text-[#1A1D1A] transition-colors duration-300"
-            >
-              {link.name}
-            </Link>
+            <div key={link.name} className="relative h-full flex items-center group">
+              <Link
+                href={link.href}
+                className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#1A1D1A]/60 group-hover:text-[#1A1D1A] transition-colors duration-300 py-8 flex items-center gap-1"
+              >
+                {link.name}
+                {link.name === "Collections" && (
+                  <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+                )}
+              </Link>
+              
+              {/* Mega Menu Dropdown */}
+              {link.name === "Collections" && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[800px] bg-[#FDFCF8] border-t border-black/5 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                  <div className="grid grid-cols-3 gap-8 p-12">
+                    {[
+                      { name: "Necklaces", slug: "necklaces", img: "/images/featured-necklace.png" },
+                      { name: "Rings", slug: "rings", img: "/images/featured-ring.png" },
+                      { name: "Earrings", slug: "earrings", img: "/images/editorial.png" },
+                    ].map((cat) => (
+                      <Link key={cat.name} href={`/collections/${cat.slug}`} className="group/item block text-center">
+                        <div className="relative aspect-[4/5] bg-[#F5F3EC] overflow-hidden mb-6">
+                          <Image src={cat.img} alt={cat.name} fill className="object-cover transition-transform duration-700 group-hover/item:scale-110" />
+                        </div>
+                        <h3 className="font-serif text-xl text-[#1A1D1A] group-hover/item:text-black/60 transition-colors">{cat.name}</h3>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           ))}
         </nav>
 
         {/* Desktop & Mobile Right Icons */}
         <div className="flex items-center gap-4 lg:gap-6">
-          <button aria-label="Search" className="hidden lg:block text-black/70 hover:text-black transition-colors">
+          <button 
+            aria-label="Search" 
+            onClick={() => setIsSearchOpen(true)}
+            className="hidden lg:block text-black/70 hover:text-black transition-colors"
+          >
             <Search className="w-5 h-5 stroke-[1.5]" />
           </button>
           <Link href="/wishlist" aria-label="Wishlist" className="text-black/70 hover:text-black transition-colors">
@@ -156,6 +191,7 @@ export function Navbar() {
           </button>
         </div>
       </div>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 }

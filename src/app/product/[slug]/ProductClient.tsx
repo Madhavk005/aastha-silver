@@ -11,7 +11,7 @@ import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
 import { formatCurrency } from "@/lib/utils";
 
-export default function ProductClient({ product }: { product: Product }) {
+export default function ProductClient({ product, relatedProducts }: { product: Product, relatedProducts: Product[] }) {
   const { addItem: addCartItem } = useCartStore();
   const { addItem: addWishlistItem, hasItem: hasWishlistItem, removeItem: removeWishlistItem } = useWishlistStore();
 
@@ -171,6 +171,36 @@ export default function ProductClient({ product }: { product: Product }) {
             </div>
           </div>
         </div>
+
+        {/* Related Products */}
+        <div className="mt-32 pt-24 border-t border-black/5">
+          <h2 className="font-serif text-3xl md:text-4xl text-center text-[#1A1D1A] mb-12">
+            You might also like
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {relatedProducts.map(relatedProduct => (
+                <Link
+                  key={relatedProduct._id}
+                  href={`/product/${relatedProduct.slug.current}`}
+                  className="group block"
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#F5F3EC] mb-4">
+                    <Image
+                      src={relatedProduct.images?.[0] || "/placeholder.jpg"}
+                      alt={relatedProduct.title}
+                      fill
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                  </div>
+                  <h3 className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#1A1D1A] group-hover:text-black/50 transition-colors">
+                    {relatedProduct.title}
+                  </h3>
+                  <p className="text-gray-400 text-xs font-light mt-2">{formatCurrency(relatedProduct.price)}</p>
+                </Link>
+              ))}
+          </div>
+        </div>
+
       </div>
     </div>
   );

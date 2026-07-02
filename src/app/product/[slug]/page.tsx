@@ -1,7 +1,7 @@
 import React from "react";
 import { Product } from "@/features/products/types";
 import ProductClient from "./ProductClient";
-import { getProductBySlug } from "@/lib/data";
+import { getProductBySlug, getProducts } from "@/lib/data";
 
 export default async function ProductPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
@@ -18,6 +18,8 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
     images: ["/images/featured-ring.png"],
     category: "Jewellery"
   };
+  const allProducts = await getProducts();
+  const relatedProducts = allProducts.filter(p => p._id !== product._id).slice(0, 4);
   
-  return <ProductClient product={product} />;
+  return <ProductClient product={product} relatedProducts={relatedProducts} />;
 }
