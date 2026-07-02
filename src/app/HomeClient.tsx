@@ -41,21 +41,21 @@ export default function HomeClient({ products }: { products: Product[] }) {
           }}
           className="relative z-10 w-full px-4 md:px-12 lg:px-24 pb-24 md:pb-32 flex flex-col items-start md:flex-row md:items-end justify-between gap-12"
         >
-          <div className="max-w-3xl">
-            <motion.span variants={FADE_UP_ANIMATION_VARIANTS} className="text-white/70 uppercase tracking-[0.4em] text-[10px] md:text-xs mb-8 block">
+          <div className="max-w-4xl">
+            <motion.span variants={FADE_UP_ANIMATION_VARIANTS} className="text-white/70 uppercase tracking-[0.5em] text-[9px] md:text-[10px] mb-8 block font-medium">
               The New Collection
             </motion.span>
-            <motion.h1 variants={FADE_UP_ANIMATION_VARIANTS} className="font-serif text-6xl md:text-8xl lg:text-[10rem] text-white tracking-tighter font-light leading-[0.9]">
-              Everyday <br/><span className="italic text-white/90">Elegance</span>
+            <motion.h1 variants={FADE_UP_ANIMATION_VARIANTS} className="font-serif text-[4rem] sm:text-7xl md:text-8xl lg:text-[11rem] text-white tracking-tight font-light leading-[0.85] mb-12">
+              Everyday <br/><span className="italic font-light text-white/90">Elegance</span>
             </motion.h1>
           </div>
-          <motion.div variants={FADE_UP_ANIMATION_VARIANTS}>
+          <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="mb-4 md:mb-0">
             <Link 
               href="/collections/all"
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 text-xs font-medium tracking-[0.1em] uppercase transition-all duration-700 hover:border-white/50"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-white/5 backdrop-blur-xl border border-white/20 text-white px-12 py-6 text-[10px] font-medium tracking-[0.2em] uppercase transition-all duration-700 hover:border-white/60 hover:bg-white/10"
             >
-              <span className="relative z-10 group-hover:text-black transition-colors duration-500">Shop Now</span>
-              <div className="absolute inset-0 -translate-y-full bg-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
+              <span className="relative z-10 transition-colors duration-500">Shop Now</span>
+              <div className="absolute inset-0 -translate-y-full bg-white/5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
             </Link>
           </motion.div>
         </motion.div>
@@ -82,8 +82,8 @@ export default function HomeClient({ products }: { products: Product[] }) {
             variants={FADE_UP_ANIMATION_VARIANTS}
             className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8"
           >
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#1A1D1A] max-w-2xl leading-[1.1] tracking-tight">
-              Curated for the <span className="italic text-gray-400">modern</span> wearer.
+            <h2 className="font-serif text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[5rem] text-[#1A1D1A] max-w-3xl leading-[1.05] tracking-tight font-light">
+              Curated for the <span className="italic text-black/40">modern</span> wearer.
             </h2>
             <Link href="/collections" className="hidden md:flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A] group pb-2 border-b border-transparent hover:border-black transition-all">
               Explore All 

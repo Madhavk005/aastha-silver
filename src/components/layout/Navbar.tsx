@@ -48,14 +48,14 @@ export function Navbar() {
 
   return (
     <header
-      className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 transition-all duration-500"
+      className={cn(
+        "fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        isScrolled 
+          ? "bg-white/95 backdrop-blur-xl border-b border-black/5 py-4 shadow-sm"
+          : "bg-transparent py-6"
+      )}
     >
-      <div className={cn(
-        "rounded-full px-6 lg:px-10 flex items-center justify-between transition-all duration-500",
-        isScrolled
-          ? "bg-white/90 backdrop-blur-lg border border-black/10 py-4 shadow-xl shadow-black/5"
-          : "bg-transparent py-4"
-      )}>
+      <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
         
         {/* Mobile Left */}
         <div className="flex items-center gap-4 lg:hidden">
@@ -65,30 +65,30 @@ export function Navbar() {
                 <Menu className="w-5 h-5" />
               </button>
             } />
-            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-              <SheetTitle className="font-serif text-2xl mb-8">Aastha Silver</SheetTitle>
-              <nav className="flex flex-col gap-6">
+            <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-[#FDFCF8] border-r-0 p-8 flex flex-col">
+              <SheetTitle className="font-serif text-2xl tracking-[0.05em] font-light mb-12 text-[#1A1D1A]">Aastha Silver</SheetTitle>
+              <nav className="flex flex-col gap-8 flex-1">
                 {NAV_LINKS.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="text-lg font-medium text-foreground/80 hover:text-foreground transition-colors"
+                    className="text-2xl font-serif font-light text-[#1A1D1A]/80 hover:text-[#1A1D1A] transition-colors"
                   >
                     {link.name}
                   </Link>
                 ))}
               </nav>
 
-              <div className="mt-12 pt-6 border-t border-black/10">
+              <div className="mt-auto pt-8 border-t border-black/10">
                 {isLoaded && isSignedIn ? (
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-4">
                     <UserButton />
-                    <span className="text-sm font-medium">My Account</span>
+                    <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#1A1D1A]/70">My Account</span>
                   </div>
                 ) : isLoaded && !isSignedIn ? (
                   <SignInButton mode="modal">
-                    <button aria-label="Sign In" className="text-lg font-medium text-foreground/80 hover:text-foreground transition-colors flex items-center gap-3">
-                      <User className="w-5 h-5 stroke-[1.5]" />
+                    <button aria-label="Sign In" className="text-xs uppercase tracking-[0.2em] font-medium text-[#1A1D1A]/70 hover:text-[#1A1D1A] transition-colors flex items-center gap-3">
+                      <User className="w-4 h-4 stroke-[1.5]" />
                       Sign In / Register
                     </button>
                   </SignInButton>
@@ -104,17 +104,17 @@ export function Navbar() {
         {/* Logo */}
         <div className="flex-1 lg:flex-none text-center lg:text-left">
           <Link href="/" className="inline-block">
-            <span className="font-serif text-2xl tracking-wide font-medium">Aastha Silver</span>
+            <span className="font-serif text-xl md:text-2xl tracking-[0.05em] font-light">Aastha Silver</span>
           </Link>
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center justify-center flex-1 gap-10">
+        <nav className="hidden lg:flex items-center justify-center flex-1 gap-12">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-xs uppercase tracking-[0.1em] font-medium text-black/70 hover:text-black transition-colors"
+              className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#1A1D1A]/60 hover:text-[#1A1D1A] transition-colors duration-300"
             >
               {link.name}
             </Link>
