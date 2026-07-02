@@ -290,6 +290,37 @@ export default function HomeClient({ products }: { products: Product[] }) {
         </div>
       </section>
 
+      {/* Newsletter Section */}
+      <section className="py-24 md:py-32 lg:py-48 bg-[#FDFCF8] border-b border-black/5">
+        <div className="container mx-auto px-4 md:px-8 max-w-2xl text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}
+          >
+            <span className="uppercase tracking-[0.2em] text-[10px] text-black/40 mb-8 block font-medium">Newsletter</span>
+            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1A1D1A] mb-6 leading-tight tracking-tight">
+              Join the inner circle.
+            </h2>
+            <p className="text-gray-500 text-xs md:text-sm mb-12 font-light tracking-wide">
+              Sign up for our newsletter to receive early access to new collections, exclusive editorial content, and special privileges.
+            </p>
+            <form className="flex flex-col sm:flex-row gap-4" onSubmit={(e) => e.preventDefault()}>
+              <input 
+                type="email" 
+                placeholder="Enter your email address" 
+                required
+                className="flex-1 bg-transparent border border-black/10 px-6 py-4 text-xs font-light text-black placeholder:text-gray-400 focus:outline-none focus:border-black transition-colors"
+              />
+              <button 
+                type="submit"
+                className="bg-black text-white px-8 py-4 uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-black/80 transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
     </div>
   );
 }

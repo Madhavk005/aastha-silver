@@ -56,8 +56,8 @@ export function CartDrawer() {
           ) : (
             <div className="space-y-8">
               {items.map((item) => (
-                <div key={item.id} className="flex gap-4 md:gap-6">
-                  <div className="relative w-24 h-28 md:w-28 md:h-32 bg-[#F5F3EC] overflow-hidden flex-shrink-0 rounded-2xl">
+                <div key={item.id} className="flex gap-4 md:gap-6 border-b border-black/5 pb-6 last:border-0 last:pb-0">
+                  <div className="relative w-20 h-28 md:w-24 md:h-32 bg-[#F9F8F5] overflow-hidden flex-shrink-0">
                     <Image
                       src={item.image || "/placeholder.jpg"}
                       alt={item.name}
@@ -112,16 +112,32 @@ export function CartDrawer() {
         </div>
 
         {items.length > 0 && (
-          <div className="border-t border-black/5 p-6 md:p-8 bg-white">
+          <div className="border-t border-black/5 p-6 md:p-8 bg-[#FDFCF8]">
+            {/* Shipping Progress */}
+            <div className="mb-6">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-[10px] uppercase tracking-[0.15em] text-black/60 font-medium">Shipping</span>
+                <span className="text-[10px] font-medium text-black">
+                  {getTotal() >= 10000 ? "Free" : `${formatCurrency(10000 - getTotal())} away from Free`}
+                </span>
+              </div>
+              <div className="w-full h-1 bg-black/5 overflow-hidden">
+                <div 
+                  className="h-full bg-black transition-all duration-700 ease-out" 
+                  style={{ width: `${Math.min((getTotal() / 10000) * 100, 100)}%` }} 
+                />
+              </div>
+            </div>
+
             <div className="flex justify-between items-center mb-4 md:mb-6">
-              <span className="uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A]">Subtotal</span>
+              <span className="uppercase tracking-[0.2em] text-[10px] font-medium text-[#1A1D1A]">Subtotal</span>
               <span className="text-lg font-light text-[#1A1D1A]">{formatCurrency(getTotal())}</span>
             </div>
-            <p className="text-xs text-gray-400 mb-8 text-center font-light">Shipping and taxes calculated at checkout.</p>
+            <p className="text-[10px] text-black/40 mb-8 text-center font-light uppercase tracking-widest">Shipping and taxes calculated at checkout.</p>
             <Link 
               href="/checkout" 
               onClick={closeCart}
-              className="w-full h-14 bg-black text-white hover:bg-black/80 rounded-full uppercase tracking-[0.1em] text-xs transition-colors shadow-lg flex items-center justify-center font-medium"
+              className="w-full h-14 bg-black text-white hover:bg-black/80 rounded-none uppercase tracking-[0.2em] text-[10px] transition-colors shadow-lg flex items-center justify-center font-medium"
             >
               Proceed to Checkout
             </Link>

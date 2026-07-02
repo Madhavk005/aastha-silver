@@ -2,8 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import { Heart, ChevronRight, ZoomIn } from "lucide-react";
 import { Product } from "@/features/products/types";
 import { useCartStore } from "@/store/cart-store";
 import { useWishlistStore } from "@/store/wishlist-store";
@@ -14,17 +16,25 @@ export default function ProductClient({ product }: { product: Product }) {
   const { addItem: addWishlistItem, hasItem: hasWishlistItem, removeItem: removeWishlistItem } = useWishlistStore();
 
   const isWishlisted = hasWishlistItem(product._id);
+  const router = useRouter();
   
-  const mainImage = product.images?.[0] || "/images/featured-ring.png";
+  const [activeImage, setActiveImage] = React.useState(product.images?.[0] || "/images/featured-ring.png");
+  // Ensure we have an array for the gallery
+  const galleryImages = product.images && product.images.length > 0 ? product.images : [activeImage, "/images/featured-necklace.png", "/images/hero.png"];
 
   const handleAddToCart = () => {
     addCartItem({
       id: product._id,
       name: product.title,
       price: product.price,
-      image: mainImage,
+      image: activeImage,
       slug: product.slug.current,
     });
+  };
+
+  const handleBuyNow = () => {
+    handleAddToCart();
+    router.push('/checkout');
   };
 
   const toggleWishlist = () => {
@@ -35,7 +45,7 @@ export default function ProductClient({ product }: { product: Product }) {
         id: product._id,
         name: product.title,
         price: product.price,
-        image: mainImage,
+        image: activeImage,
         slug: product.slug.current,
       });
     }
@@ -44,19 +54,45 @@ export default function ProductClient({ product }: { product: Product }) {
   return (
     <div className="min-h-screen bg-[#FDFCF8] pt-24 md:pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-7xl">
+        {/* Breadcrumbs */}
+        <nav className="flex items-center text-[10px] uppercase tracking-[0.2em] font-medium text-black/50 mb-12">
+          <Link href="/" className="hover:text-black transition-colors">Home</Link>
+          <ChevronRight className="w-3 h-3 mx-2" />
+          <Link href="/collections" className="hover:text-black transition-colors">Collections</Link>
+          <ChevronRight className="w-3 h-3 mx-2" />
+          <span className="text-black/80">{product.title}</span>
+        </nav>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
           
           {/* Product Image Gallery */}
-          <div className="space-y-6">
-            <div className="relative w-full aspect-[4/5] bg-[#F5F3EC] rounded-[2rem] overflow-hidden">
+          <div className="flex flex-col gap-4">
+            <div className="relative w-full aspect-[4/5] bg-[#F9F8F5] overflow-hidden group cursor-crosshair">
               <Image
-                src={mainImage}
+                src={activeImage}
                 alt={product.title}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-500 group-hover:scale-125"
                 priority
               />
+              <div className="absolute bottom-4 right-4 bg-white/50 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                <ZoomIn className="w-4 h-4 text-black/70" />
+              </div>
             </div>
+            {/* Thumbnails */}
+            {galleryImages.length > 1 && (
+              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                {galleryImages.map((img, idx) => (
+                  <button 
+                    key={idx}
+                    onClick={() => setActiveImage(img)}
+                    className={`relative w-20 aspect-square flex-shrink-0 overflow-hidden bg-[#F9F8F5] transition-all duration-300 ${activeImage === img ? 'ring-1 ring-black ring-offset-2' : 'opacity-60 hover:opacity-100'}`}
+                  >
+                    <Image src={img} alt={`${product.title} thumbnail ${idx}`} fill className="object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Product Details */}
@@ -80,21 +116,29 @@ export default function ProductClient({ product }: { product: Product }) {
                 </p>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   onClick={handleAddToCart}
-                  className="flex-1 h-14 bg-black text-white hover:bg-black/80 rounded-full shadow-lg uppercase tracking-[0.1em] text-xs font-medium transition-all"
+                  variant="outline"
+                  className="flex-1 h-14 bg-transparent border-black text-black hover:bg-black/5 rounded-none uppercase tracking-[0.2em] text-[10px] font-medium transition-all"
                 >
                   Add to Cart
                 </Button>
                 <Button 
+                  onClick={handleBuyNow}
+                  className="flex-1 h-14 bg-black text-white hover:bg-black/80 rounded-none shadow-lg uppercase tracking-[0.2em] text-[10px] font-medium transition-all"
+                >
+                  Buy Now
+                </Button>
+                <Button 
                   onClick={toggleWishlist}
                   variant="outline" 
-                  className={`w-14 h-14 rounded-full border-black/10 flex items-center justify-center transition-colors ${
-                    isWishlisted ? "bg-red-50 border-red-100 text-red-500 hover:bg-red-100" : "hover:bg-black/5"
+                  className={`w-14 h-14 rounded-none border-black flex items-center justify-center transition-colors ${
+                    isWishlisted ? "bg-red-50 border-red-200 text-red-500 hover:bg-red-100" : "hover:bg-black/5"
                   }`}
+                  aria-label="Wishlist"
                 >
-                  <Heart className={`w-5 h-5 stroke-[1.5] ${isWishlisted ? "fill-current" : ""}`} />
+                  <Heart className={`w-5 h-5 stroke-[1.2] ${isWishlisted ? "fill-current" : ""}`} />
                 </Button>
               </div>
               
