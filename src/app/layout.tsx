@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { CartDrawer } from "@/features/cart/components/CartDrawer";
+import { FloatingActions } from "@/components/layout/FloatingActions";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -74,6 +75,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <FloatingActions />
         </TooltipProvider>
       </body>
       </html>
