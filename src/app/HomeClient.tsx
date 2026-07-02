@@ -52,7 +52,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
           <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="mb-4 md:mb-0">
             <Link 
               href="/collections/all"
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-none bg-white/5 backdrop-blur-xl border border-white/20 text-white px-12 py-6 text-[10px] font-medium tracking-[0.2em] uppercase transition-all duration-700 hover:border-white/60 hover:bg-white/10"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-white/5 backdrop-blur-xl border border-white/20 text-white px-12 py-6 text-[10px] font-medium tracking-[0.2em] uppercase transition-all duration-700 hover:border-white/60 hover:bg-white/10"
             >
               <span className="relative z-10 transition-colors duration-500">Shop Now</span>
               <div className="absolute inset-0 -translate-y-full bg-white/5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
@@ -98,7 +98,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               className="md:col-span-7"
             >
               <Link href="/collections/necklaces" className="group flex flex-col">
-                <div className="relative w-full aspect-[4/5] md:aspect-[16/11] overflow-hidden bg-[#F5F5F5] mb-8 rounded-none">
+                <div className="relative w-full aspect-[4/5] md:aspect-[16/11] overflow-hidden bg-[#F5F5F5] mb-8 rounded-[2rem]">
                   <Image
                     src="/images/featured-necklace.png"
                     alt="Necklaces"
@@ -120,7 +120,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
                 initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Link href="/collections/rings" className="group flex flex-col">
-                  <div className="relative w-full aspect-square md:aspect-[4/5] overflow-hidden bg-[#F5F5F5] mb-8 rounded-none">
+                  <div className="relative w-full aspect-square md:aspect-[4/5] overflow-hidden bg-[#F5F5F5] mb-8 rounded-[2rem]">
                     <Image
                       src="/images/featured-ring.png"
                       alt="Rings"
@@ -158,7 +158,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP_ANIMATION_VARIANTS} className="mt-24 flex justify-center">
             <Link 
               href="/best-sellers" 
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-none border border-[#1A1D1A] bg-transparent text-[#0F0F0F] px-12 py-5 text-xs font-medium tracking-[0.1em] uppercase transition-all duration-700"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-[2rem] border border-[#1A1D1A] bg-transparent text-[#0F0F0F] px-12 py-5 text-xs font-medium tracking-[0.1em] uppercase transition-all duration-700"
             >
               <span className="relative z-10 group-hover:text-white transition-colors duration-500">View Full Collection</span>
               <div className="absolute inset-0 translate-y-full bg-[#215650] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
@@ -190,7 +190,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               <motion.div 
                 key={celeb.id}
                 initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="relative min-w-[280px] md:min-w-[400px] aspect-[3/4] rounded-none overflow-hidden snap-center group cursor-pointer"
+                className="relative min-w-[280px] md:min-w-[400px] aspect-[3/4] rounded-[2rem] overflow-hidden snap-center group cursor-pointer"
               >
                 <Image
                   src={celeb.img}
@@ -226,7 +226,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
             
             <motion.div 
               initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.5, ease: "easeOut" }}
-              className="lg:col-span-7 relative aspect-[3/4] lg:aspect-square overflow-hidden z-10 rounded-none"
+              className="lg:col-span-7 relative aspect-[3/4] lg:aspect-square overflow-hidden z-10 rounded-[2rem]"
             >
               <Image
                 src="/images/editorial.png"
@@ -238,7 +238,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
             
             <motion.div 
               initial={{ x: 50, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:col-span-6 lg:-ml-32 z-20 bg-white p-12 md:p-16 lg:p-24 shadow-2xl shadow-black/5 mt-8 lg:mt-0 rounded-none"
+              className="lg:col-span-6 lg:-ml-32 z-20 bg-white p-12 md:p-16 lg:p-24 shadow-2xl shadow-black/5 mt-8 lg:mt-0 rounded-[2rem]"
             >
               <span className="uppercase tracking-[0.3em] text-[10px] text-gray-400 mb-8 block">Our Philosophy</span>
               <h2 className="font-serif text-4xl md:text-6xl mb-8 text-[#0F0F0F] leading-[1.1] tracking-tight">

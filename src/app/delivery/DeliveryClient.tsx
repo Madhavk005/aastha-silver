@@ -45,7 +45,7 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
                 <div className="space-y-6 text-gray-600 font-light leading-relaxed text-sm">
                   <p>We take pride in securely packaging and delivering your luxury silver jewelry. All our shipments are fully insured until they reach your doorstep.</p>
                   
-                  <div className="bg-[#F5F5F5] p-6 rounded-none">
+                  <div className="bg-[#F5F5F5] p-6 rounded-[2rem]">
                     <h3 className="font-medium text-[#0F0F0F] uppercase tracking-[0.1em] text-xs mb-4">Domestic (India)</h3>
                     <ul className="space-y-4">
                       <li className="flex justify-between items-center border-b border-black/5 pb-2">
@@ -63,7 +63,7 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
                     </ul>
                   </div>
 
-                  <div className="bg-[#F5F5F5] p-6 rounded-none">
+                  <div className="bg-[#F5F5F5] p-6 rounded-[2rem]">
                     <h3 className="font-medium text-[#0F0F0F] uppercase tracking-[0.1em] text-xs mb-4">International</h3>
                     <ul className="space-y-4">
                       <li className="flex justify-between items-center border-b border-black/5 pb-2">

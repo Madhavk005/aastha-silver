@@ -54,7 +54,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
         isScrolled 
-          ? "bg-white/95 backdrop-blur-xl border-b border-black/5 py-4 shadow-sm"
+          ? "bg-white/60 backdrop-blur-2xl border-white/20 border-b border-black/5 py-4 shadow-sm"
           : "bg-transparent py-6"
       )}
     >
@@ -68,7 +68,7 @@ export function Navbar() {
                 <Menu className="w-5 h-5" />
               </button>
             } />
-            <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white border-r-0 p-8 flex flex-col">
+            <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white/80 backdrop-blur-3xl border-r-0 p-8 flex flex-col">
               <SheetTitle className="font-serif text-2xl tracking-[0.05em] font-light mb-12 text-[#0F0F0F]">Aastha Silver</SheetTitle>
               <nav className="flex flex-col gap-8 flex-1">
                 {NAV_LINKS.map((link) => (

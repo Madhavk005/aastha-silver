@@ -24,7 +24,7 @@ export default function CollectionsIndex() {
               href={`/collections/${category.slug}`}
               className="group block"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-none bg-[#F5F5F5] mb-6">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#F5F5F5] mb-6">
                 <Image
                   src={category.image}
                   alt={category.name}

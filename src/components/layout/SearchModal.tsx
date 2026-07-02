@@ -60,7 +60,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white/98 backdrop-blur-xl animate-in fade-in duration-300">
+    <div className="fixed inset-0 z-50 flex flex-col bg-white/70 backdrop-blur-3xl border-b border-white/20 animate-in fade-in duration-300">
       {/* Search Header */}
       <div className="border-b border-black/5">
         <div className="container mx-auto px-4 md:px-8 py-6 flex items-center gap-4">

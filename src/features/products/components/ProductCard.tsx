@@ -53,7 +53,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       href={`/product/${product.slug.current}`}
       className="group block"
     >
-      <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[#FAFAFA] mb-6">
+      <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[#FAFAFA] rounded-2xl mb-6">
         {mainImage ? (
           <Image
             src={mainImage}
@@ -83,7 +83,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         <div className="hidden lg:block absolute inset-x-4 bottom-6 translate-y-[120%] lg:group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
           <Button 
             onClick={handleAddToCart}
-            className="w-full bg-white/90 backdrop-blur-md text-black hover:bg-[#215650] hover:text-white rounded-none h-12 uppercase tracking-[0.2em] text-[10px] font-medium transition-all duration-500"
+            className="w-full bg-white/50 backdrop-blur-xl border border-white/40 text-black hover:bg-[#215650] hover:text-white rounded-full h-12 uppercase tracking-[0.2em] text-[10px] font-medium transition-all duration-500"
           >
             Quick Add
           </Button>

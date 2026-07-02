@@ -27,7 +27,7 @@ export function CartDrawer() {
         onClick={closeCart}
       />
       
-      <div className="fixed inset-y-0 right-0 w-full md:w-[450px] bg-white shadow-2xl z-50 flex flex-col transform transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
+      <div className="fixed inset-y-0 right-0 w-full md:w-[450px] bg-white/80 backdrop-blur-3xl shadow-2xl border-l border-white/20 z-50 flex flex-col transform transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
         <div className="flex items-center justify-between p-6 md:p-8 border-b border-black/5">
           <h2 className="uppercase tracking-[0.2em] text-[10px] text-[#0F0F0F] font-medium flex items-center gap-3">
             <ShoppingBag className="w-4 h-4 stroke-[1.5]" />
@@ -44,12 +44,12 @@ export function CartDrawer() {
         <div className="flex-1 overflow-y-auto p-6 md:p-8">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
-              <div className="w-16 h-16 rounded-none bg-[#F5F5F5] flex items-center justify-center text-black mb-2">
+              <div className="w-16 h-16 rounded-full bg-[#F5F5F5] flex items-center justify-center text-black mb-2">
                 <ShoppingBag className="w-6 h-6 stroke-[1.5]" />
               </div>
               <p className="font-serif text-3xl text-[#0F0F0F]">Your cart is empty.</p>
               <p className="text-gray-500 text-sm font-light max-w-xs">Discover our elegant collections to find your next piece.</p>
-              <Button onClick={closeCart} className="mt-8 bg-transparent border-black text-black hover:bg-[#215650] hover:text-white rounded-none px-10 py-6 uppercase tracking-[0.15em] text-[10px] transition-colors" variant="outline">
+              <Button onClick={closeCart} className="mt-8 bg-transparent border-black text-black hover:bg-[#215650] hover:text-white rounded-full px-10 py-6 uppercase tracking-[0.15em] text-[10px] transition-colors" variant="outline">
                 Continue Shopping
               </Button>
             </div>
@@ -88,7 +88,7 @@ export function CartDrawer() {
                     </div>
 
                     <div className="flex items-center gap-4 mt-4">
-                      <div className="flex items-center border border-black/10 rounded-none">
+                      <div className="flex items-center border border-black/10 rounded-full">
                         <button
                           onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
                           className="p-2.5 text-gray-400 hover:text-black transition-colors"
@@ -137,7 +137,7 @@ export function CartDrawer() {
             <Link 
               href="/checkout" 
               onClick={closeCart}
-              className="w-full h-14 bg-black text-white hover:bg-[#215650]/80 rounded-none uppercase tracking-[0.2em] text-[10px] transition-colors shadow-lg flex items-center justify-center font-medium"
+              className="w-full h-14 bg-black text-white hover:bg-[#215650]/80 rounded-full uppercase tracking-[0.2em] text-[10px] transition-colors shadow-lg flex items-center justify-center font-medium"
             >
               Proceed to Checkout
             </Link>
