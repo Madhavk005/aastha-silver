@@ -116,7 +116,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     key={cat.slug} 
                     href={`/collections/${cat.slug}`}
                     onClick={onClose}
-                    className="px-6 py-3 bg-[#F5F5F5] text-xs uppercase tracking-[0.1em] text-[#0F0F0F] hover:bg-black hover:text-white transition-colors rounded-full"
+                    className="px-6 py-3 bg-[#F5F5F5] text-xs uppercase tracking-[0.1em] text-[#0F0F0F] hover:bg-[#215650] hover:text-white transition-colors rounded-full"
                   >
                     {cat.name}
                   </Link>

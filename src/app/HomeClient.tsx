@@ -62,7 +62,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </section>
 
       {/* Infinite Marquee */}
-      <div className="w-full bg-[#0F0F0F] py-6 overflow-hidden flex whitespace-nowrap">
+      <div className="w-full bg-[#215650] py-6 overflow-hidden flex whitespace-nowrap">
         <motion.div 
           className="flex gap-12 text-white/80 uppercase tracking-[0.1em] text-xs font-medium"
           animate={{ x: ["0%", "-50%"] }}
@@ -105,7 +105,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
                     fill
                     className="object-cover transition-transform duration-[2.5s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/10" />
+                  <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-[#215650]/10" />
                 </div>
                 <div className="flex justify-between items-center border-b border-black/10 pb-4">
                   <h3 className="text-[#0F0F0F] uppercase tracking-[0.2em] text-xs font-medium">Necklaces</h3>
@@ -127,7 +127,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
                       fill
                       className="object-cover transition-transform duration-[2.5s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/10" />
+                    <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-[#215650]/10" />
                   </div>
                   <div className="flex justify-between items-center border-b border-black/10 pb-4">
                     <h3 className="text-[#0F0F0F] uppercase tracking-[0.2em] text-xs font-medium">Rings</h3>
@@ -161,7 +161,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               className="group relative inline-flex items-center justify-center overflow-hidden rounded-none border border-[#1A1D1A] bg-transparent text-[#0F0F0F] px-12 py-5 text-xs font-medium tracking-[0.1em] uppercase transition-all duration-700"
             >
               <span className="relative z-10 group-hover:text-white transition-colors duration-500">View Full Collection</span>
-              <div className="absolute inset-0 translate-y-full bg-[#0F0F0F] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
+              <div className="absolute inset-0 translate-y-full bg-[#215650] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
             </Link>
           </motion.div>
         </div>
@@ -312,7 +312,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               />
               <button 
                 type="submit"
-                className="bg-black text-white px-8 py-4 uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-black/80 transition-colors"
+                className="bg-black text-white px-8 py-4 uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-[#215650]/80 transition-colors"
               >
                 Subscribe
               </button>

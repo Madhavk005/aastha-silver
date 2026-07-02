@@ -49,7 +49,7 @@ export function CartDrawer() {
               </div>
               <p className="font-serif text-3xl text-[#0F0F0F]">Your cart is empty.</p>
               <p className="text-gray-500 text-sm font-light max-w-xs">Discover our elegant collections to find your next piece.</p>
-              <Button onClick={closeCart} className="mt-8 bg-transparent border-black text-black hover:bg-black hover:text-white rounded-none px-10 py-6 uppercase tracking-[0.15em] text-[10px] transition-colors" variant="outline">
+              <Button onClick={closeCart} className="mt-8 bg-transparent border-black text-black hover:bg-[#215650] hover:text-white rounded-none px-10 py-6 uppercase tracking-[0.15em] text-[10px] transition-colors" variant="outline">
                 Continue Shopping
               </Button>
             </div>
@@ -137,7 +137,7 @@ export function CartDrawer() {
             <Link 
               href="/checkout" 
               onClick={closeCart}
-              className="w-full h-14 bg-black text-white hover:bg-black/80 rounded-none uppercase tracking-[0.2em] text-[10px] transition-colors shadow-lg flex items-center justify-center font-medium"
+              className="w-full h-14 bg-black text-white hover:bg-[#215650]/80 rounded-none uppercase tracking-[0.2em] text-[10px] transition-colors shadow-lg flex items-center justify-center font-medium"
             >
               Proceed to Checkout
             </Link>

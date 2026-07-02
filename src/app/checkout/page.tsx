@@ -377,7 +377,7 @@ export default function CheckoutPage() {
               <Button 
                 type="submit"
                 disabled={isProcessing || !isScriptLoaded}
-                className="w-full h-14 bg-[#0F0F0F] text-white hover:bg-black rounded-none uppercase tracking-[0.2em] text-[10px] font-medium transition-all shadow-lg"
+                className="w-full h-14 bg-[#0F0F0F] text-white hover:bg-[#215650] rounded-none uppercase tracking-[0.2em] text-[10px] font-medium transition-all shadow-lg"
               >
                 {isProcessing ? "Processing..." : "Pay Securely with Razorpay"}
               </Button>

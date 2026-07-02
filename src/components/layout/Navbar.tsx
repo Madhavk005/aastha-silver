@@ -184,7 +184,7 @@ export function Navbar() {
           >
             <ShoppingBag className="w-5 h-5 stroke-[1.5]" />
             {isMounted && cartItemCount > 0 && (
-              <span className="absolute -top-1.5 -right-2 bg-black text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-medium">
+              <span className="absolute -top-1.5 -right-2 bg-[#215650] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-medium">
                 {cartItemCount}
               </span>
             )}

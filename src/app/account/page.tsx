@@ -29,11 +29,11 @@ export default async function AccountPage() {
               <User className="w-4 h-4 stroke-[1.5]" />
               Profile Details
             </button>
-            <button className="w-full text-left px-6 py-4 bg-transparent text-black hover:bg-black/5 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors flex items-center gap-3">
+            <button className="w-full text-left px-6 py-4 bg-transparent text-black hover:bg-[#215650]/5 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors flex items-center gap-3">
               <Package className="w-4 h-4 stroke-[1.5]" />
               Order History
             </button>
-            <button className="w-full text-left px-6 py-4 bg-transparent text-black hover:bg-black/5 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors flex items-center gap-3">
+            <button className="w-full text-left px-6 py-4 bg-transparent text-black hover:bg-[#215650]/5 text-[10px] uppercase tracking-[0.2em] font-medium transition-colors flex items-center gap-3">
               <MapPin className="w-4 h-4 stroke-[1.5]" />
               Addresses
             </button>
