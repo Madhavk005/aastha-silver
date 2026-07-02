@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { urlForImage } from "@/sanity/lib/image"
 import { Product } from "../types"
 import { formatCurrency } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -21,12 +20,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   const isWishlisted = hasWishlistItem(product._id)
   
-  // Support both Sanity Image objects and direct string URLs (for mocking/local files)
-  const mainImage = product.images?.[0]
-    ? typeof product.images[0] === 'string'
-      ? product.images[0]
-      : urlForImage(product.images[0])?.url()
-    : null
+  const mainImage = product.images?.[0] || null;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault() // prevent navigating to product page

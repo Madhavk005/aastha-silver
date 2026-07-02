@@ -15,11 +15,7 @@ export default function ProductClient({ product }: { product: Product }) {
 
   const isWishlisted = hasWishlistItem(product._id);
   
-  const mainImage = product.images?.[0]
-    ? typeof product.images[0] === 'string'
-      ? product.images[0]
-      : product.images[0] // fallback if it's not a string, though it should be handled
-    : "/images/featured-ring.png";
+  const mainImage = product.images?.[0] || "/images/featured-ring.png";
 
   const handleAddToCart = () => {
     addCartItem({
@@ -67,7 +63,7 @@ export default function ProductClient({ product }: { product: Product }) {
           <div className="flex flex-col justify-center">
             <div className="mb-8">
               <span className="uppercase tracking-[0.1em] text-[10px] text-gray-400 mb-4 block">
-                {product.category?._ref || "Jewellery"}
+                {product.category || "Jewellery"}
               </span>
               <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1A1D1A] mb-4">
                 {product.title}

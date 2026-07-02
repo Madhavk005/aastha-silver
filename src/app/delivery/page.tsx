@@ -1,15 +1,9 @@
 import React from "react";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { getPolicyBySlugQuery } from "@/sanity/lib/queries";
-import DeliveryClient, { PolicyData } from "./DeliveryClient";
+import DeliveryClient from "./DeliveryClient";
+import { getDeliveryPolicy } from "@/lib/data";
 
 // A server component to fetch the policy data
 export default async function DeliveryPage() {
-  // Fetch from Sanity
-  const policyData = await sanityFetch<PolicyData>({
-    query: getPolicyBySlugQuery,
-    params: { slug: "delivery-and-returns" },
-  });
-
+  const policyData = await getDeliveryPolicy();
   return <DeliveryClient initialData={policyData} />;
 }

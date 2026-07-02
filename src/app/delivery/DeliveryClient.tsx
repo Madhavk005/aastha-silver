@@ -4,16 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { PortableText, PortableTextBlock } from "@portabletext/react";
-
 export interface PolicyData {
   title?: string;
   subtitle?: string;
-  content?: {
-    _key: string;
-    heading?: string;
-    body: PortableTextBlock[];
-  }[];
+  content?: string;
 }
 
 export default function DeliveryClient({ initialData }: { initialData: PolicyData | null }) {
@@ -37,25 +31,14 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
 
         <div className="space-y-16">
           
-          {contentBlocks && contentBlocks.length > 0 ? (
-            // Dynamic content from Sanity
-            contentBlocks.map((section, index: number) => (
-              <motion.section 
-                key={section._key || index} 
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              >
-                {section.heading && (
-                  <h2 className="font-serif text-2xl text-[#1A1D1A] mb-6 border-b border-black/10 pb-4">
-                    {section.heading}
-                  </h2>
-                )}
-                <div className="prose prose-sm text-gray-600 font-light leading-relaxed">
-                  <PortableText value={section.body} />
-                </div>
-              </motion.section>
-            ))
+          {initialData?.content ? (
+            <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="prose prose-sm text-gray-600 font-light leading-relaxed">
+                <p>{initialData.content}</p>
+              </div>
+            </motion.section>
           ) : (
-            // Fallback content if Sanity is empty/not connected
+            // Fallback content
             <>
               <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                 <h2 className="font-serif text-2xl text-[#1A1D1A] mb-6 border-b border-black/10 pb-4">Shipping Methods & Costs</h2>

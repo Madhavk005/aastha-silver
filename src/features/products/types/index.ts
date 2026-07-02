@@ -4,10 +4,10 @@ export interface Product {
   slug: { current: string };
   price: number;
   compareAtPrice?: number;
-  images: any[]; // Using any for Sanity Image for now, should be strongly typed later
-  description?: any[];
-  category?: { _ref: string };
-  collection?: { _ref: string };
+  images: string[];
+  description?: string;
+  category?: string;
+  collection?: string;
   isFeatured?: boolean;
   sku?: string;
 }

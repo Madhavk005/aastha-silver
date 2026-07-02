@@ -1,39 +1,13 @@
 import React from "react";
 import { ProductGrid } from "@/features/products/components/ProductGrid";
-import { Product } from "@/features/products/types";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { getProductsByCategoryQuery, getAllProductsQuery } from "@/sanity/lib/queries";
-
-// Mock data generator for testing
-const generateMockProducts = (category: string): Product[] => {
-  return Array.from({ length: 12 }).map((_, i) => ({
-    _id: `product-${i}`,
-    title: `${category.charAt(0).toUpperCase() + category.slice(1)} Item ${i + 1}`,
-    slug: { current: `item-${i + 1}` },
-    price: Math.floor(Math.random() * 5000) + 1500,
-    images: ["/images/featured-ring.png"],
-    category: { _ref: category },
-    isNew: i < 3,
-  }));
-};
+import { getProductsByCategory } from "@/lib/data";
 
 export default async function CategoryPage(props: { params: Promise<{ category: string }> }) {
   const params = await props.params;
   const categorySlug = params.category;
   const categoryName = categorySlug.replace("-", " ");
   
-  // Choose query based on if it's "all" or specific
-  const query = categorySlug === "all" ? getAllProductsQuery : getProductsByCategoryQuery;
-  const queryParams = categorySlug === "all" ? {} : { category: categorySlug };
-
-  const fetchedProducts = await sanityFetch<Product[]>({
-    query,
-    params: queryParams,
-  });
-
-  const products = fetchedProducts && fetchedProducts.length > 0 
-    ? fetchedProducts 
-    : generateMockProducts(categoryName);
+  const products = await getProductsByCategory(categorySlug);
 
   return (
     <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-24">
