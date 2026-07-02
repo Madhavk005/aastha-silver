@@ -167,7 +167,7 @@ export function Navbar() {
           
           <div className="hidden lg:flex items-center gap-4">
             {isLoaded && isSignedIn ? (
-              <UserButton />
+              <UserButton userProfileMode="navigation" userProfileUrl="/account" />
             ) : isLoaded && !isSignedIn ? (
               <SignInButton mode="modal">
                 <button aria-label="Sign In" className="text-black/70 hover:text-black transition-colors flex items-center">

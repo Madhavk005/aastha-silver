@@ -28,9 +28,31 @@ export const metadata: Metadata = {
     template: "%s | Aastha Silver",
     default: "Aastha Silver | Premium Sterling Silver Jewellery",
   },
-  description: "Premium Sterling Silver Jewellery designed for everyday elegance. Elegant, authentic, modern luxury.",
-  keywords: ["silver jewellery", "premium silver", "sterling silver", "india", "luxury jewellery"],
+  description: "Premium Sterling Silver Jewellery designed for everyday elegance. Handcrafted pieces capturing quiet luxury.",
+  keywords: ["silver jewellery", "premium silver", "sterling silver", "india", "luxury jewellery", "minimalist jewellery"],
   metadataBase: new URL("https://aasthasilver.com"),
+  openGraph: {
+    title: "Aastha Silver | Premium Sterling Silver Jewellery",
+    description: "Premium Sterling Silver Jewellery designed for everyday elegance.",
+    url: "https://aasthasilver.com",
+    siteName: "Aastha Silver",
+    images: [
+      {
+        url: "/images/hero.png",
+        width: 1200,
+        height: 630,
+        alt: "Aastha Silver Collections",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aastha Silver | Premium Sterling Silver Jewellery",
+    description: "Premium Sterling Silver Jewellery designed for everyday elegance.",
+    images: ["/images/hero.png"],
+  },
 };
 
 export default function RootLayout({

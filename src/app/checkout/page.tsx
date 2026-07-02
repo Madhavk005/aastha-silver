@@ -13,6 +13,11 @@ export default function CheckoutPage() {
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  
+  // Coupon State
+  const [couponCode, setCouponCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [couponMessage, setCouponMessage] = useState("");
 
   // Form State
   const [formData, setFormData] = useState({
@@ -35,9 +40,20 @@ export default function CheckoutPage() {
   }, [items, router]);
 
   const subtotal = getTotal();
-  const tax = subtotal * 0.18; // Example 18% GST
+  const tax = (subtotal - discount) * 0.18; // Example 18% GST on discounted subtotal
   const shipping = subtotal > 10000 ? 0 : 500;
-  const total = subtotal + tax + shipping;
+  const total = (subtotal - discount) + tax + shipping;
+
+  const handleApplyCoupon = () => {
+    if (couponCode.toUpperCase() === "WELCOME10") {
+      const discountAmount = subtotal * 0.10;
+      setDiscount(discountAmount);
+      setCouponMessage("10% discount applied!");
+    } else {
+      setDiscount(0);
+      setCouponMessage("Invalid coupon code.");
+    }
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-IN", {
@@ -280,7 +296,7 @@ export default function CheckoutPage() {
 
           {/* Right Column: Order Summary & Payment Details */}
           <div className="lg:col-span-5">
-            <div className="bg-white p-8 rounded-[2rem] border border-black/5 shadow-xl shadow-black/5 sticky top-32">
+            <div className="bg-white p-8 rounded-none border border-black/5 shadow-xl shadow-black/5 sticky top-32">
               
               <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#1A1D1A] mb-6 pb-4 border-b border-black/10">
                 Order Summary
@@ -308,11 +324,41 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              <div className="space-y-4 mb-8 border-t border-black/10 pt-6">
+              {/* Coupon Code Section */}
+              <div className="mb-6 pb-6 border-b border-black/10">
+                <div className="flex gap-2">
+                  <Input 
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                    placeholder="Gift card or discount code" 
+                    className="h-12 rounded-none border-black/10 focus-visible:ring-0 focus-visible:border-black text-xs font-light"
+                  />
+                  <Button 
+                    type="button" 
+                    onClick={handleApplyCoupon}
+                    className="h-12 rounded-none bg-black text-white px-6 uppercase tracking-[0.1em] text-[10px]"
+                  >
+                    Apply
+                  </Button>
+                </div>
+                {couponMessage && (
+                  <p className={`mt-2 text-[10px] font-medium tracking-wide ${discount > 0 ? "text-green-600" : "text-red-500"}`}>
+                    {couponMessage}
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-4 mb-8">
                 <div className="flex justify-between text-sm text-gray-500 font-light">
                   <span>Subtotal</span>
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
+                {discount > 0 && (
+                  <div className="flex justify-between text-sm text-green-600 font-light">
+                    <span>Discount</span>
+                    <span>-{formatCurrency(discount)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-sm text-gray-500 font-light">
                   <span>Shipping</span>
                   <span>{shipping === 0 ? "Complimentary" : formatCurrency(shipping)}</span>
@@ -331,7 +377,7 @@ export default function CheckoutPage() {
               <Button 
                 type="submit"
                 disabled={isProcessing || !isScriptLoaded}
-                className="w-full h-14 bg-[#1A1D1A] text-white hover:bg-black rounded-full uppercase tracking-[0.1em] text-xs font-medium transition-all shadow-lg"
+                className="w-full h-14 bg-[#1A1D1A] text-white hover:bg-black rounded-none uppercase tracking-[0.2em] text-[10px] font-medium transition-all shadow-lg"
               >
                 {isProcessing ? "Processing..." : "Pay Securely with Razorpay"}
               </Button>
