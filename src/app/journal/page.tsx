@@ -34,11 +34,11 @@ const ARTICLES = [
 
 export default function JournalPage() {
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-24">
+    <div className="min-h-screen bg-white pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-7xl">
         <div className="text-center mb-16">
           <span className="uppercase tracking-[0.3em] text-[10px] text-gray-400 mb-4 block">Editorial</span>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1A1D1A]">
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#0F0F0F]">
             The Journal
           </h1>
         </div>
@@ -46,7 +46,7 @@ export default function JournalPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {ARTICLES.map((article, index) => (
             <Link key={index} href={`/journal/article-${index}`} className="group flex flex-col">
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#F5F3EC] mb-6">
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#F5F5F5] mb-6">
                 <Image 
                   src={article.image}
                   alt={article.title}
@@ -64,7 +64,7 @@ export default function JournalPage() {
                 </span>
               </div>
               
-              <h2 className="font-serif text-2xl text-[#1A1D1A] mb-3 group-hover:text-black/60 transition-colors">
+              <h2 className="font-serif text-2xl text-[#0F0F0F] mb-3 group-hover:text-black/60 transition-colors">
                 {article.title}
               </h2>
               <p className="text-gray-500 text-sm font-light leading-relaxed mb-6 flex-1">

@@ -197,13 +197,13 @@ export default function CheckoutPage() {
   if (items.length === 0) return null;
 
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-24 md:pt-32 pb-16">
+    <div className="min-h-screen bg-white pt-24 md:pt-32 pb-16">
       <Script 
         src="https://checkout.razorpay.com/v1/checkout.js" 
         onLoad={() => setIsScriptLoaded(true)}
       />
       <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-        <h1 className="font-serif text-4xl md:text-5xl text-[#1A1D1A] mb-12">Checkout</h1>
+        <h1 className="font-serif text-4xl md:text-5xl text-[#0F0F0F] mb-12">Checkout</h1>
         
         <form onSubmit={handlePayment} className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
           
@@ -212,7 +212,7 @@ export default function CheckoutPage() {
             
             {/* Contact Information */}
             <section>
-              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#1A1D1A] mb-6 pb-4 border-b border-black/10">
+              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#0F0F0F] mb-6 pb-4 border-b border-black/10">
                 Contact Information
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -229,7 +229,7 @@ export default function CheckoutPage() {
 
             {/* Shipping Address */}
             <section>
-              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#1A1D1A] mb-6 pb-4 border-b border-black/10">
+              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#0F0F0F] mb-6 pb-4 border-b border-black/10">
                 Shipping Address
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -266,7 +266,7 @@ export default function CheckoutPage() {
 
             {/* Billing Address Toggle */}
             <section>
-              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#1A1D1A] mb-6 pb-4 border-b border-black/10">
+              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#0F0F0F] mb-6 pb-4 border-b border-black/10">
                 Billing Address
               </h2>
               <label className="flex items-center gap-3 cursor-pointer group">
@@ -286,7 +286,7 @@ export default function CheckoutPage() {
               </label>
               
               {!billingSameAsShipping && (
-                <div className="mt-6 p-6 bg-[#F5F3EC] rounded-2xl">
+                <div className="mt-6 p-6 bg-[#F5F5F5] rounded-none">
                   <p className="text-xs text-gray-500 italic">In a complete implementation, a secondary address form would appear here.</p>
                 </div>
               )}
@@ -298,14 +298,14 @@ export default function CheckoutPage() {
           <div className="lg:col-span-5">
             <div className="bg-white p-8 rounded-none border border-black/5 shadow-xl shadow-black/5 sticky top-32">
               
-              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#1A1D1A] mb-6 pb-4 border-b border-black/10">
+              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#0F0F0F] mb-6 pb-4 border-b border-black/10">
                 Order Summary
               </h2>
               
               <div className="space-y-6 mb-8 max-h-[300px] overflow-y-auto pr-2 scrollbar-hide">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-4 items-center">
-                    <div className="relative w-16 h-20 bg-[#F5F3EC] overflow-hidden rounded-lg flex-shrink-0">
+                    <div className="relative w-16 h-20 bg-[#F5F5F5] overflow-hidden rounded-lg flex-shrink-0">
                       <Image
                         src={item.image || "/placeholder.jpg"}
                         alt={item.name}
@@ -314,10 +314,10 @@ export default function CheckoutPage() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xs font-medium text-[#1A1D1A] line-clamp-1">{item.name}</h3>
+                      <h3 className="text-xs font-medium text-[#0F0F0F] line-clamp-1">{item.name}</h3>
                       <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-wider">Qty: {item.quantity}</p>
                     </div>
-                    <div className="text-xs font-medium text-[#1A1D1A]">
+                    <div className="text-xs font-medium text-[#0F0F0F]">
                       {formatCurrency(item.price * item.quantity)}
                     </div>
                   </div>
@@ -370,19 +370,19 @@ export default function CheckoutPage() {
               </div>
 
               <div className="flex justify-between items-end mb-8 pt-6 border-t border-black/10">
-                <span className="text-sm font-medium text-[#1A1D1A]">Total</span>
-                <span className="text-2xl font-serif text-[#1A1D1A]">{formatCurrency(total)}</span>
+                <span className="text-sm font-medium text-[#0F0F0F]">Total</span>
+                <span className="text-2xl font-serif text-[#0F0F0F]">{formatCurrency(total)}</span>
               </div>
 
               <Button 
                 type="submit"
                 disabled={isProcessing || !isScriptLoaded}
-                className="w-full h-14 bg-[#1A1D1A] text-white hover:bg-black rounded-none uppercase tracking-[0.2em] text-[10px] font-medium transition-all shadow-lg"
+                className="w-full h-14 bg-[#0F0F0F] text-white hover:bg-black rounded-none uppercase tracking-[0.2em] text-[10px] font-medium transition-all shadow-lg"
               >
                 {isProcessing ? "Processing..." : "Pay Securely with Razorpay"}
               </Button>
               <div className="mt-6 flex justify-center items-center gap-4 opacity-50">
-                <span className="text-[10px] uppercase tracking-[0.1em] text-[#1A1D1A]">Encrypted & Secure Transactions</span>
+                <span className="text-[10px] uppercase tracking-[0.1em] text-[#0F0F0F]">Encrypted & Secure Transactions</span>
               </div>
             </div>
           </div>

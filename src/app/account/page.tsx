@@ -12,9 +12,9 @@ export default async function AccountPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-24">
+    <div className="min-h-screen bg-white pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-        <h1 className="font-serif text-4xl md:text-5xl text-[#1A1D1A] mb-4">
+        <h1 className="font-serif text-4xl md:text-5xl text-[#0F0F0F] mb-4">
           My Account
         </h1>
         <p className="text-gray-500 font-light mb-12">
@@ -56,9 +56,9 @@ export default async function AccountPage() {
             </div>
 
             {/* Example Orders Empty State */}
-            <div className="mt-12 bg-[#F9F8F5] p-12 text-center border border-black/5">
+            <div className="mt-12 bg-[#FAFAFA] p-12 text-center border border-black/5">
               <Package className="w-8 h-8 mx-auto mb-4 stroke-[1] text-black/50" />
-              <h3 className="font-serif text-2xl text-[#1A1D1A] mb-2">No Orders Yet</h3>
+              <h3 className="font-serif text-2xl text-[#0F0F0F] mb-2">No Orders Yet</h3>
               <p className="text-gray-500 text-sm font-light">You haven&apos;t placed any orders with us yet.</p>
             </div>
 

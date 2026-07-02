@@ -60,7 +60,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-[#FDFCF8]/98 backdrop-blur-xl animate-in fade-in duration-300">
+    <div className="fixed inset-0 z-50 flex flex-col bg-white/98 backdrop-blur-xl animate-in fade-in duration-300">
       {/* Search Header */}
       <div className="border-b border-black/5">
         <div className="container mx-auto px-4 md:px-8 py-6 flex items-center gap-4">
@@ -71,7 +71,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             placeholder="Search for jewelry, collections, or styles..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 bg-transparent border-none text-xl md:text-3xl font-serif text-[#1A1D1A] placeholder:text-black/20 focus:outline-none focus:ring-0"
+            className="flex-1 bg-transparent border-none text-xl md:text-3xl font-serif text-[#0F0F0F] placeholder:text-black/20 focus:outline-none focus:ring-0"
           />
           {query && (
             <button 
@@ -81,7 +81,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               Clear
             </button>
           )}
-          <button onClick={onClose} className="p-2 text-black/50 hover:text-black transition-colors bg-[#F5F3EC] rounded-full">
+          <button onClick={onClose} className="p-2 text-black/50 hover:text-black transition-colors bg-[#F5F5F5] rounded-full">
             <X className="w-5 h-5 stroke-[1.5]" />
           </button>
         </div>
@@ -98,7 +98,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   <li key={term}>
                     <button 
                       onClick={() => setQuery(term)}
-                      className="text-lg font-serif text-[#1A1D1A] hover:text-gray-500 transition-colors flex items-center gap-2 group"
+                      className="text-lg font-serif text-[#0F0F0F] hover:text-gray-500 transition-colors flex items-center gap-2 group"
                     >
                       <Search className="w-4 h-4 text-black/20 group-hover:text-black/50 transition-colors" />
                       {term}
@@ -116,7 +116,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     key={cat.slug} 
                     href={`/collections/${cat.slug}`}
                     onClick={onClose}
-                    className="px-6 py-3 bg-[#F5F3EC] text-xs uppercase tracking-[0.1em] text-[#1A1D1A] hover:bg-black hover:text-white transition-colors rounded-full"
+                    className="px-6 py-3 bg-[#F5F5F5] text-xs uppercase tracking-[0.1em] text-[#0F0F0F] hover:bg-black hover:text-white transition-colors rounded-full"
                   >
                     {cat.name}
                   </Link>
@@ -127,7 +127,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         ) : results.length === 0 ? (
           <div className="text-center mt-20 animate-in fade-in">
             <Search className="w-12 h-12 text-black/10 mx-auto mb-6" />
-            <h3 className="font-serif text-2xl text-[#1A1D1A] mb-2">No results found</h3>
+            <h3 className="font-serif text-2xl text-[#0F0F0F] mb-2">No results found</h3>
             <p className="text-gray-500 font-light">We couldn&apos;t find anything matching &quot;{query}&quot;.</p>
             <button 
               onClick={() => setQuery("")}
@@ -151,7 +151,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   onClick={onClose}
                   className="group flex flex-col"
                 >
-                  <div className="relative aspect-[4/5] bg-[#F5F3EC] overflow-hidden mb-4">
+                  <div className="relative aspect-[4/5] bg-[#F5F5F5] overflow-hidden mb-4">
                     <Image
                       src={product.images?.[0] || "/placeholder.jpg"}
                       alt={product.title}
@@ -159,7 +159,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   </div>
-                  <h3 className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#1A1D1A] group-hover:text-gray-500 transition-colors line-clamp-1">
+                  <h3 className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#0F0F0F] group-hover:text-gray-500 transition-colors line-clamp-1">
                     {product.title}
                   </h3>
                   <p className="text-xs text-gray-400 mt-2 font-light">{formatCurrency(product.price)}</p>

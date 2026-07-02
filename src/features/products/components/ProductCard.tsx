@@ -53,7 +53,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       href={`/product/${product.slug.current}`}
       className="group block"
     >
-      <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[#F9F8F5] mb-6">
+      <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[#FAFAFA] mb-6">
         {mainImage ? (
           <Image
             src={mainImage}
@@ -74,7 +74,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         
         <button
           onClick={handleToggleWishlist}
-          className="absolute top-4 right-4 p-2 rounded-full text-black/40 hover:text-black transition-all lg:opacity-0 lg:group-hover:opacity-100 lg:translate-y-2 lg:group-hover:translate-y-0 duration-500"
+          className="absolute top-4 right-4 p-2 rounded-none text-black/40 hover:text-black transition-all lg:opacity-0 lg:group-hover:opacity-100 lg:translate-y-2 lg:group-hover:translate-y-0 duration-500"
           aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
         >
           <Heart className={`w-5 h-5 transition-colors stroke-[1.2] ${isWishlisted ? 'fill-black text-black' : 'fill-transparent'}`} />
@@ -91,7 +91,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       </div>
 
       <div className="flex flex-col gap-2 items-center text-center px-2">
-        <h3 className="uppercase tracking-[0.2em] text-[10px] font-medium text-[#1A1D1A] group-hover:text-black/60 transition-colors duration-500">{product.title}</h3>
+        <h3 className="uppercase tracking-[0.2em] text-[10px] font-medium text-[#0F0F0F] group-hover:text-black/60 transition-colors duration-500">{product.title}</h3>
         <div className="flex items-center gap-3">
           <span className="text-gray-500 text-xs font-light tracking-wide">{formatCurrency(product.price)}</span>
           {product.compareAtPrice && product.compareAtPrice > product.price && (

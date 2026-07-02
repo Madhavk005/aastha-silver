@@ -27,11 +27,11 @@ const FAQS = [
 
 export default function FAQPage() {
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-24">
+    <div className="min-h-screen bg-white pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-3xl">
         <div className="text-center mb-16">
           <span className="uppercase tracking-[0.3em] text-[10px] text-gray-400 mb-4 block">Support</span>
-          <h1 className="font-serif text-4xl md:text-5xl text-[#1A1D1A]">
+          <h1 className="font-serif text-4xl md:text-5xl text-[#0F0F0F]">
             Frequently Asked Questions
           </h1>
         </div>
@@ -39,7 +39,7 @@ export default function FAQPage() {
         <div className="space-y-6">
           {FAQS.map((faq, index) => (
             <details key={index} className="group bg-white border border-black/5 p-6 cursor-pointer">
-              <summary className="flex justify-between items-center list-none text-sm font-medium uppercase tracking-[0.1em] text-[#1A1D1A]">
+              <summary className="flex justify-between items-center list-none text-sm font-medium uppercase tracking-[0.1em] text-[#0F0F0F]">
                 {faq.question}
                 <span className="transition group-open:rotate-45">
                   <Plus className="w-5 h-5 stroke-[1]" />

@@ -68,14 +68,14 @@ export function Navbar() {
                 <Menu className="w-5 h-5" />
               </button>
             } />
-            <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-[#FDFCF8] border-r-0 p-8 flex flex-col">
-              <SheetTitle className="font-serif text-2xl tracking-[0.05em] font-light mb-12 text-[#1A1D1A]">Aastha Silver</SheetTitle>
+            <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white border-r-0 p-8 flex flex-col">
+              <SheetTitle className="font-serif text-2xl tracking-[0.05em] font-light mb-12 text-[#0F0F0F]">Aastha Silver</SheetTitle>
               <nav className="flex flex-col gap-8 flex-1">
                 {NAV_LINKS.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="text-2xl font-serif font-light text-[#1A1D1A]/80 hover:text-[#1A1D1A] transition-colors"
+                    className="text-2xl font-serif font-light text-[#0F0F0F]/80 hover:text-[#0F0F0F] transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -86,11 +86,11 @@ export function Navbar() {
                 {isLoaded && isSignedIn ? (
                   <div className="flex items-center gap-4">
                     <UserButton />
-                    <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#1A1D1A]/70">My Account</span>
+                    <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#0F0F0F]/70">My Account</span>
                   </div>
                 ) : isLoaded && !isSignedIn ? (
                   <SignInButton mode="modal">
-                    <button aria-label="Sign In" className="text-xs uppercase tracking-[0.2em] font-medium text-[#1A1D1A]/70 hover:text-[#1A1D1A] transition-colors flex items-center gap-3">
+                    <button aria-label="Sign In" className="text-xs uppercase tracking-[0.2em] font-medium text-[#0F0F0F]/70 hover:text-[#0F0F0F] transition-colors flex items-center gap-3">
                       <User className="w-4 h-4 stroke-[1.5]" />
                       Sign In / Register
                     </button>
@@ -121,7 +121,7 @@ export function Navbar() {
             <div key={link.name} className="relative h-full flex items-center group">
               <Link
                 href={link.href}
-                className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#1A1D1A]/60 group-hover:text-[#1A1D1A] transition-colors duration-300 py-8 flex items-center gap-1"
+                className="text-[10px] uppercase tracking-[0.2em] font-medium text-[#0F0F0F]/60 group-hover:text-[#0F0F0F] transition-colors duration-300 py-8 flex items-center gap-1"
               >
                 {link.name}
                 {link.name === "Collections" && (
@@ -131,7 +131,7 @@ export function Navbar() {
               
               {/* Mega Menu Dropdown */}
               {link.name === "Collections" && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[800px] bg-[#FDFCF8] border-t border-black/5 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[800px] bg-white border-t border-black/5 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                   <div className="grid grid-cols-3 gap-8 p-12">
                     {[
                       { name: "Necklaces", slug: "necklaces", img: "/images/featured-necklace.png" },
@@ -139,10 +139,10 @@ export function Navbar() {
                       { name: "Earrings", slug: "earrings", img: "/images/editorial.png" },
                     ].map((cat) => (
                       <Link key={cat.name} href={`/collections/${cat.slug}`} className="group/item block text-center">
-                        <div className="relative aspect-[4/5] bg-[#F5F3EC] overflow-hidden mb-6">
+                        <div className="relative aspect-[4/5] bg-[#F5F5F5] overflow-hidden mb-6">
                           <Image src={cat.img} alt={cat.name} fill className="object-cover transition-transform duration-700 group-hover/item:scale-110" />
                         </div>
-                        <h3 className="font-serif text-xl text-[#1A1D1A] group-hover/item:text-black/60 transition-colors">{cat.name}</h3>
+                        <h3 className="font-serif text-xl text-[#0F0F0F] group-hover/item:text-black/60 transition-colors">{cat.name}</h3>
                       </Link>
                     ))}
                   </div>

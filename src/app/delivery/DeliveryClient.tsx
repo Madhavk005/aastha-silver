@@ -16,14 +16,14 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
   const contentBlocks = initialData?.content; // array of sections
 
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-24">
+    <div className="min-h-screen bg-white pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-3xl">
         <motion.div 
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
           <span className="uppercase tracking-[0.1em] text-[10px] text-gray-400 mb-4 block">Client Services</span>
-          <h1 className="font-serif text-4xl md:text-5xl text-[#1A1D1A] mb-6">
+          <h1 className="font-serif text-4xl md:text-5xl text-[#0F0F0F] mb-6">
             {title}
           </h1>
           <p className="text-gray-500 font-light">{subtitle}</p>
@@ -41,12 +41,12 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
             // Fallback content
             <>
               <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <h2 className="font-serif text-2xl text-[#1A1D1A] mb-6 border-b border-black/10 pb-4">Shipping Methods & Costs</h2>
+                <h2 className="font-serif text-2xl text-[#0F0F0F] mb-6 border-b border-black/10 pb-4">Shipping Methods & Costs</h2>
                 <div className="space-y-6 text-gray-600 font-light leading-relaxed text-sm">
                   <p>We take pride in securely packaging and delivering your luxury silver jewelry. All our shipments are fully insured until they reach your doorstep.</p>
                   
-                  <div className="bg-[#F5F3EC] p-6 rounded-2xl">
-                    <h3 className="font-medium text-[#1A1D1A] uppercase tracking-[0.1em] text-xs mb-4">Domestic (India)</h3>
+                  <div className="bg-[#F5F5F5] p-6 rounded-none">
+                    <h3 className="font-medium text-[#0F0F0F] uppercase tracking-[0.1em] text-xs mb-4">Domestic (India)</h3>
                     <ul className="space-y-4">
                       <li className="flex justify-between items-center border-b border-black/5 pb-2">
                         <span>Standard Delivery (3-5 business days)</span>
@@ -63,8 +63,8 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
                     </ul>
                   </div>
 
-                  <div className="bg-[#F5F3EC] p-6 rounded-2xl">
-                    <h3 className="font-medium text-[#1A1D1A] uppercase tracking-[0.1em] text-xs mb-4">International</h3>
+                  <div className="bg-[#F5F5F5] p-6 rounded-none">
+                    <h3 className="font-medium text-[#0F0F0F] uppercase tracking-[0.1em] text-xs mb-4">International</h3>
                     <ul className="space-y-4">
                       <li className="flex justify-between items-center border-b border-black/5 pb-2">
                         <span>Global Express (5-7 business days)</span>
@@ -77,7 +77,7 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
               </motion.section>
 
               <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <h2 className="font-serif text-2xl text-[#1A1D1A] mb-6 border-b border-black/10 pb-4">Order Tracking</h2>
+                <h2 className="font-serif text-2xl text-[#0F0F0F] mb-6 border-b border-black/10 pb-4">Order Tracking</h2>
                 <div className="prose prose-sm text-gray-600 font-light leading-relaxed">
                   <p>
                     Once your order has been dispatched, you will receive a confirmation email containing a tracking number. 
@@ -88,13 +88,13 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
               </motion.section>
 
               <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <h2 className="font-serif text-2xl text-[#1A1D1A] mb-6 border-b border-black/10 pb-4">Returns & Exchanges</h2>
+                <h2 className="font-serif text-2xl text-[#0F0F0F] mb-6 border-b border-black/10 pb-4">Returns & Exchanges</h2>
                 <div className="prose prose-sm text-gray-600 font-light leading-relaxed">
                   <p>
                     We want you to be completely satisfied with your Aastha Silver purchase. If for any reason you are not, 
                     we accept returns within 14 days of delivery for a full refund or exchange.
                   </p>
-                  <h3 className="text-[#1A1D1A] font-medium mt-6 mb-2">Conditions for Return</h3>
+                  <h3 className="text-[#0F0F0F] font-medium mt-6 mb-2">Conditions for Return</h3>
                   <ul className="list-disc pl-5 space-y-2">
                     <li>Items must be unworn, in their original condition, and with all tags attached.</li>
                     <li>The original packaging, including boxes and pouches, must be returned intact.</li>
@@ -102,7 +102,7 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
                     <li>Earrings cannot be returned for hygiene reasons, unless faulty.</li>
                   </ul>
                   
-                  <h3 className="text-[#1A1D1A] font-medium mt-6 mb-2">How to Return</h3>
+                  <h3 className="text-[#0F0F0F] font-medium mt-6 mb-2">How to Return</h3>
                   <ol className="list-decimal pl-5 space-y-2">
                     <li>Contact our client services team at care@aasthasilver.com with your order number.</li>
                     <li>We will provide you with a return authorization and a prepaid shipping label (for domestic orders).</li>
@@ -117,7 +117,7 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
         </div>
 
         <div className="mt-20 flex justify-center border-t border-black/10 pt-12">
-          <Link href="/collections" className="inline-flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A] group border-b border-black pb-3">
+          <Link href="/collections" className="inline-flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#0F0F0F] group border-b border-black pb-3">
             Continue Shopping
             <ArrowRight className="w-4 h-4 transition-transform duration-500 ease-out group-hover:translate-x-3 stroke-[1.5]" />
           </Link>

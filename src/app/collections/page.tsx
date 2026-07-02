@@ -11,9 +11,9 @@ const CATEGORIES = [
 
 export default function CollectionsIndex() {
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-24">
+    <div className="min-h-screen bg-white pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8">
-        <h1 className="font-serif text-5xl md:text-6xl text-[#1A1D1A] mb-16 text-center">
+        <h1 className="font-serif text-5xl md:text-6xl text-[#0F0F0F] mb-16 text-center">
           All Collections
         </h1>
 
@@ -24,7 +24,7 @@ export default function CollectionsIndex() {
               href={`/collections/${category.slug}`}
               className="group block"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#F5F3EC] mb-6">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-none bg-[#F5F5F5] mb-6">
                 <Image
                   src={category.image}
                   alt={category.name}
@@ -35,7 +35,7 @@ export default function CollectionsIndex() {
               </div>
               
               <div className="flex items-center justify-between">
-                <h2 className="font-serif text-2xl text-[#1A1D1A] group-hover:text-black transition-colors">
+                <h2 className="font-serif text-2xl text-[#0F0F0F] group-hover:text-black transition-colors">
                   {category.name}
                 </h2>
                 <ArrowRight className="w-5 h-5 -translate-x-4 opacity-0 transition-all duration-500 ease-out group-hover:translate-x-0 group-hover:opacity-100 stroke-[1.5]" />

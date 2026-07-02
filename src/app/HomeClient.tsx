@@ -17,7 +17,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FDFCF8] overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-white overflow-hidden">
       
       {/* Hero Section - Cinematic Bottom-Aligned with Parallax */}
       <section className="relative h-[100dvh] w-full flex items-end justify-start overflow-hidden bg-black">
@@ -52,7 +52,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
           <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="mb-4 md:mb-0">
             <Link 
               href="/collections/all"
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-white/5 backdrop-blur-xl border border-white/20 text-white px-12 py-6 text-[10px] font-medium tracking-[0.2em] uppercase transition-all duration-700 hover:border-white/60 hover:bg-white/10"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-none bg-white/5 backdrop-blur-xl border border-white/20 text-white px-12 py-6 text-[10px] font-medium tracking-[0.2em] uppercase transition-all duration-700 hover:border-white/60 hover:bg-white/10"
             >
               <span className="relative z-10 transition-colors duration-500">Shop Now</span>
               <div className="absolute inset-0 -translate-y-full bg-white/5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
@@ -62,7 +62,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </section>
 
       {/* Infinite Marquee */}
-      <div className="w-full bg-[#1A1D1A] py-6 overflow-hidden flex whitespace-nowrap">
+      <div className="w-full bg-[#0F0F0F] py-6 overflow-hidden flex whitespace-nowrap">
         <motion.div 
           className="flex gap-12 text-white/80 uppercase tracking-[0.1em] text-xs font-medium"
           animate={{ x: ["0%", "-50%"] }}
@@ -75,17 +75,17 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </div>
 
       {/* Editorial Categories - Offset Grid Layout */}
-      <section className="py-20 md:py-32 lg:py-48 bg-[#FDFCF8]">
+      <section className="py-20 md:py-32 lg:py-48 bg-white">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div 
             initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }}
             variants={FADE_UP_ANIMATION_VARIANTS}
             className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8"
           >
-            <h2 className="font-serif text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[5rem] text-[#1A1D1A] max-w-3xl leading-[1.05] tracking-tight font-light">
+            <h2 className="font-serif text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[5rem] text-[#0F0F0F] max-w-3xl leading-[1.05] tracking-tight font-light">
               Curated for the <span className="italic text-black/40">modern</span> wearer.
             </h2>
-            <Link href="/collections" className="hidden md:flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A] group pb-2 border-b border-transparent hover:border-black transition-all">
+            <Link href="/collections" className="hidden md:flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#0F0F0F] group pb-2 border-b border-transparent hover:border-black transition-all">
               Explore All 
               <ArrowRight className="w-4 h-4 transition-transform duration-500 ease-out group-hover:translate-x-2 stroke-[1.5]" />
             </Link>
@@ -98,7 +98,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               className="md:col-span-7"
             >
               <Link href="/collections/necklaces" className="group flex flex-col">
-                <div className="relative w-full aspect-[4/5] md:aspect-[16/11] overflow-hidden bg-[#F5F3EC] mb-8 rounded-[2rem]">
+                <div className="relative w-full aspect-[4/5] md:aspect-[16/11] overflow-hidden bg-[#F5F5F5] mb-8 rounded-none">
                   <Image
                     src="/images/featured-necklace.png"
                     alt="Necklaces"
@@ -108,7 +108,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
                   <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/10" />
                 </div>
                 <div className="flex justify-between items-center border-b border-black/10 pb-4">
-                  <h3 className="text-[#1A1D1A] uppercase tracking-[0.2em] text-xs font-medium">Necklaces</h3>
+                  <h3 className="text-[#0F0F0F] uppercase tracking-[0.2em] text-xs font-medium">Necklaces</h3>
                   <span className="text-gray-400 text-xs italic font-serif">01</span>
                 </div>
               </Link>
@@ -120,7 +120,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
                 initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Link href="/collections/rings" className="group flex flex-col">
-                  <div className="relative w-full aspect-square md:aspect-[4/5] overflow-hidden bg-[#F5F3EC] mb-8 rounded-[2rem]">
+                  <div className="relative w-full aspect-square md:aspect-[4/5] overflow-hidden bg-[#F5F5F5] mb-8 rounded-none">
                     <Image
                       src="/images/featured-ring.png"
                       alt="Rings"
@@ -130,7 +130,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
                     <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/10" />
                   </div>
                   <div className="flex justify-between items-center border-b border-black/10 pb-4">
-                    <h3 className="text-[#1A1D1A] uppercase tracking-[0.2em] text-xs font-medium">Rings</h3>
+                    <h3 className="text-[#0F0F0F] uppercase tracking-[0.2em] text-xs font-medium">Rings</h3>
                     <span className="text-gray-400 text-xs italic font-serif">02</span>
                   </div>
                 </Link>
@@ -148,7 +148,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
             className="flex flex-col items-center text-center mb-24"
           >
             <span className="uppercase tracking-[0.3em] text-[10px] text-gray-400 mb-6 block">The Essentials</span>
-            <h2 className="font-serif text-5xl md:text-6xl text-[#1A1D1A] tracking-tight">Most <span className="italic">Desired</span></h2>
+            <h2 className="font-serif text-5xl md:text-6xl text-[#0F0F0F] tracking-tight">Most <span className="italic">Desired</span></h2>
           </motion.div>
           
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
@@ -158,10 +158,10 @@ export default function HomeClient({ products }: { products: Product[] }) {
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={FADE_UP_ANIMATION_VARIANTS} className="mt-24 flex justify-center">
             <Link 
               href="/best-sellers" 
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-[#1A1D1A] bg-transparent text-[#1A1D1A] px-12 py-5 text-xs font-medium tracking-[0.1em] uppercase transition-all duration-700"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-none border border-[#1A1D1A] bg-transparent text-[#0F0F0F] px-12 py-5 text-xs font-medium tracking-[0.1em] uppercase transition-all duration-700"
             >
               <span className="relative z-10 group-hover:text-white transition-colors duration-500">View Full Collection</span>
-              <div className="absolute inset-0 translate-y-full bg-[#1A1D1A] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
+              <div className="absolute inset-0 translate-y-full bg-[#0F0F0F] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0" />
             </Link>
           </motion.div>
         </div>
@@ -175,7 +175,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
             className="text-center mb-16"
           >
             <span className="uppercase tracking-[0.1em] text-xs text-gray-400 mb-4 block">As Seen On</span>
-            <h2 className="font-serif text-4xl md:text-5xl text-[#1A1D1A] mb-6">
+            <h2 className="font-serif text-4xl md:text-5xl text-[#0F0F0F] mb-6">
               The Muse
             </h2>
           </motion.div>
@@ -190,7 +190,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               <motion.div 
                 key={celeb.id}
                 initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="relative min-w-[280px] md:min-w-[400px] aspect-[3/4] rounded-[2rem] overflow-hidden snap-center group cursor-pointer"
+                className="relative min-w-[280px] md:min-w-[400px] aspect-[3/4] rounded-none overflow-hidden snap-center group cursor-pointer"
               >
                 <Image
                   src={celeb.img}
@@ -210,7 +210,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
           <div className="flex justify-center mt-8">
             <Link 
               href="/celebrities"
-              className="inline-flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A] group border-b border-black pb-2"
+              className="inline-flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#0F0F0F] group border-b border-black pb-2"
             >
               View All Features
               <ArrowRight className="w-4 h-4 transition-transform duration-500 ease-out group-hover:translate-x-3 stroke-[1.5]" />
@@ -220,13 +220,13 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </section>
 
       {/* Editorial Section - Magazine Overlap */}
-      <section className="py-20 md:py-32 lg:py-48 bg-[#FDFCF8] overflow-hidden">
+      <section className="py-20 md:py-32 lg:py-48 bg-white overflow-hidden">
         <div className="container mx-auto px-4 md:px-8">
           <div className="relative grid grid-cols-1 lg:grid-cols-12 items-center">
             
             <motion.div 
               initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.5, ease: "easeOut" }}
-              className="lg:col-span-7 relative aspect-[3/4] lg:aspect-square overflow-hidden z-10 rounded-[2rem]"
+              className="lg:col-span-7 relative aspect-[3/4] lg:aspect-square overflow-hidden z-10 rounded-none"
             >
               <Image
                 src="/images/editorial.png"
@@ -238,10 +238,10 @@ export default function HomeClient({ products }: { products: Product[] }) {
             
             <motion.div 
               initial={{ x: 50, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:col-span-6 lg:-ml-32 z-20 bg-white p-12 md:p-16 lg:p-24 shadow-2xl shadow-black/5 mt-8 lg:mt-0 rounded-[2rem]"
+              className="lg:col-span-6 lg:-ml-32 z-20 bg-white p-12 md:p-16 lg:p-24 shadow-2xl shadow-black/5 mt-8 lg:mt-0 rounded-none"
             >
               <span className="uppercase tracking-[0.3em] text-[10px] text-gray-400 mb-8 block">Our Philosophy</span>
-              <h2 className="font-serif text-4xl md:text-6xl mb-8 text-[#1A1D1A] leading-[1.1] tracking-tight">
+              <h2 className="font-serif text-4xl md:text-6xl mb-8 text-[#0F0F0F] leading-[1.1] tracking-tight">
                 Quiet luxury.<br />
                 <span className="italic text-gray-400">Timeless</span> craft.
               </h2>
@@ -253,7 +253,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               </p>
               <Link 
                 href="/about"
-                className="inline-flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A] group border-b border-black pb-3"
+                className="inline-flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#0F0F0F] group border-b border-black pb-3"
               >
                 Discover Our Story
                 <ArrowRight className="w-4 h-4 transition-transform duration-500 ease-out group-hover:translate-x-3 stroke-[1.5]" />
@@ -265,7 +265,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </section>
       
       {/* Why Aastha Silver - Minimalist Grid */}
-      <section className="py-32 bg-[#1A1D1A] text-white">
+      <section className="py-32 bg-[#0F0F0F] text-white">
         <div className="container mx-auto px-4 md:px-8 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 text-center">
             {[
@@ -291,13 +291,13 @@ export default function HomeClient({ products }: { products: Product[] }) {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 md:py-32 lg:py-48 bg-[#FDFCF8] border-b border-black/5">
+      <section className="py-24 md:py-32 lg:py-48 bg-white border-b border-black/5">
         <div className="container mx-auto px-4 md:px-8 max-w-2xl text-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}
           >
             <span className="uppercase tracking-[0.2em] text-[10px] text-black/40 mb-8 block font-medium">Newsletter</span>
-            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1A1D1A] mb-6 leading-tight tracking-tight">
+            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#0F0F0F] mb-6 leading-tight tracking-tight">
               Join the inner circle.
             </h2>
             <p className="text-gray-500 text-xs md:text-sm mb-12 font-light tracking-wide">
