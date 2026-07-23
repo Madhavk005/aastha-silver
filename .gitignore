@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# raw brand assets (images copied to public/images/)
+/DATA
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -8,6 +8,13 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+interface FormErrors {
+  [key: string]: string;
+}
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_REGEX = /^[\d\+\-\(\)\s]{7,15}$/;
+
 export default function CheckoutPage() {
   const { items, getTotal, clearCart } = useCartStore();
   const router = useRouter();
@@ -30,7 +37,9 @@ export default function CheckoutPage() {
     state: "",
     zipCode: "",
     country: "India",
+    giftNote: "",
   });
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
 
   useEffect(() => {
@@ -40,14 +49,13 @@ export default function CheckoutPage() {
   }, [items, router]);
 
   const subtotal = getTotal();
-  const tax = (subtotal - discount) * 0.18; // Example 18% GST on discounted subtotal
+  const tax = (subtotal - discount) * 0.18;
   const shipping = subtotal > 10000 ? 0 : 500;
   const total = (subtotal - discount) + tax + shipping;
 
   const handleApplyCoupon = () => {
     if (couponCode.toUpperCase() === "WELCOME10") {
-      const discountAmount = subtotal * 0.10;
-      setDiscount(discountAmount);
+      setDiscount(subtotal * 0.10);
       setCouponMessage("10% discount applied!");
     } else {
       setDiscount(0);
@@ -76,13 +84,38 @@ export default function CheckoutPage() {
     };
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formErrors[name]) {
+      setFormErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const errors: FormErrors = {};
+
+    if (!formData.email) errors.email = "Email is required";
+    else if (!EMAIL_REGEX.test(formData.email)) errors.email = "Invalid email format";
+
+    if (!formData.phone) errors.phone = "Phone number is required";
+    else if (!PHONE_REGEX.test(formData.phone)) errors.phone = "Invalid phone number";
+
+    if (!formData.firstName.trim()) errors.firstName = "First name is required";
+    if (!formData.lastName.trim()) errors.lastName = "Last name is required";
+    if (!formData.address.trim()) errors.address = "Address is required";
+    if (!formData.city.trim()) errors.city = "City is required";
+    if (!formData.state.trim()) errors.state = "State is required";
+    if (!formData.zipCode.trim()) errors.zipCode = "ZIP code is required";
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
 
     if (!isScriptLoaded) {
       alert("Payment system is still loading. Please try again in a moment.");
@@ -92,12 +125,9 @@ export default function CheckoutPage() {
     setIsProcessing(true);
 
     try {
-      // 1. Create order on our backend
       const response = await fetch("/api/checkout/razorpay", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           amount: total,
           items,
@@ -118,12 +148,8 @@ export default function CheckoutPage() {
       });
 
       const orderData = await response.json();
+      if (orderData.error) throw new Error(orderData.error);
 
-      if (orderData.error) {
-        throw new Error(orderData.error);
-      }
-
-      // 2. Initialize Razorpay Checkout
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_placeholder",
         amount: orderData.amount,
@@ -143,9 +169,7 @@ export default function CheckoutPage() {
               }),
             });
 
-            if (!verifyRes.ok) {
-              throw new Error("Payment verification failed");
-            }
+            if (!verifyRes.ok) throw new Error("Payment verification failed");
             
             clearCart();
             router.push("/checkout/success");
@@ -161,10 +185,9 @@ export default function CheckoutPage() {
         },
         notes: {
           address: `${formData.address}, ${formData.city}, ${formData.state} - ${formData.zipCode}`,
+          giftNote: formData.giftNote || "None",
         },
-        theme: {
-          color: "#1A1D1A",
-        },
+        theme: { color: "#1A1D1A" },
       };
 
       interface RazorpayInstance {
@@ -196,6 +219,23 @@ export default function CheckoutPage() {
 
   if (items.length === 0) return null;
 
+  const renderField = (label: string, name: string, type: string = "text", placeholder: string, colSpan: boolean = false) => (
+    <div className={`space-y-2 text-sm ${colSpan ? 'md:col-span-2' : ''}`}>
+      <label htmlFor={name} className="text-gray-500 font-light">{label} *</label>
+      <Input
+        required
+        id={name}
+        type={type}
+        name={name}
+        value={(formData as Record<string, string>)[name]}
+        onChange={handleInputChange}
+        className={`h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-xl shadow-none ${formErrors[name] ? 'border-red-400 focus-visible:border-red-500' : ''}`}
+        placeholder={placeholder}
+      />
+      {formErrors[name] && <p className="text-red-500 text-[10px] mt-1">{formErrors[name]}</p>}
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-white pt-24 md:pt-32 pb-16">
       <Script 
@@ -207,7 +247,7 @@ export default function CheckoutPage() {
         
         <form onSubmit={handlePayment} className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
           
-          {/* Delivery & Personal Details Form */}
+          {/* Left Column: Form Fields */}
           <div className="lg:col-span-7 space-y-12">
             
             {/* Contact Information */}
@@ -216,14 +256,8 @@ export default function CheckoutPage() {
                 Contact Information
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2 text-sm">
-                  <label htmlFor="email" className="text-gray-500 font-light">Email Address *</label>
-                  <Input required id="email" type="email" name="email" value={formData.email} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="Enter your email" />
-                </div>
-                <div className="space-y-2 text-sm">
-                  <label htmlFor="phone" className="text-gray-500 font-light">Phone Number *</label>
-                  <Input required id="phone" type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="Enter your phone number" />
-                </div>
+                {renderField("Email Address", "email", "email", "Enter your email")}
+                {renderField("Phone Number", "phone", "tel", "Enter your phone number")}
               </div>
             </section>
 
@@ -233,34 +267,37 @@ export default function CheckoutPage() {
                 Shipping Address
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2 text-sm">
-                  <label htmlFor="firstName" className="text-gray-500 font-light">First Name *</label>
-                  <Input required id="firstName" name="firstName" value={formData.firstName} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="First Name" />
-                </div>
-                <div className="space-y-2 text-sm">
-                  <label htmlFor="lastName" className="text-gray-500 font-light">Last Name *</label>
-                  <Input required id="lastName" name="lastName" value={formData.lastName} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="Last Name" />
-                </div>
-                <div className="space-y-2 text-sm md:col-span-2">
-                  <label htmlFor="address" className="text-gray-500 font-light">Address *</label>
-                  <Input required id="address" name="address" value={formData.address} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="Street Address, Apartment, Suite, etc." />
-                </div>
-                <div className="space-y-2 text-sm">
-                  <label htmlFor="city" className="text-gray-500 font-light">City *</label>
-                  <Input required id="city" name="city" value={formData.city} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="City" />
-                </div>
-                <div className="space-y-2 text-sm">
-                  <label htmlFor="state" className="text-gray-500 font-light">State / Province *</label>
-                  <Input required id="state" name="state" value={formData.state} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="State" />
-                </div>
-                <div className="space-y-2 text-sm">
-                  <label htmlFor="zipCode" className="text-gray-500 font-light">ZIP / Postal Code *</label>
-                  <Input required id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="ZIP Code" />
-                </div>
+                {renderField("First Name", "firstName", "text", "First Name")}
+                {renderField("Last Name", "lastName", "text", "Last Name")}
+                {renderField("Address", "address", "text", "Street Address, Apartment, Suite, etc.", true)}
+                {renderField("City", "city", "text", "City")}
+                {renderField("State / Province", "state", "text", "State")}
+                {renderField("ZIP / Postal Code", "zipCode", "text", "ZIP Code")}
                 <div className="space-y-2 text-sm">
                   <label htmlFor="country" className="text-gray-500 font-light">Country *</label>
-                  <Input required id="country" name="country" value={formData.country} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-none shadow-none" placeholder="Country" />
+                  <Input required id="country" name="country" value={formData.country} onChange={handleInputChange} className="h-12 bg-transparent border-black/20 focus-visible:ring-black focus-visible:border-black rounded-xl shadow-none" placeholder="Country" />
                 </div>
+              </div>
+            </section>
+
+            {/* Gift Note */}
+            <section>
+              <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#0F0F0F] mb-6 pb-4 border-b border-black/10">
+                Gift Note <span className="text-gray-300 font-light normal-case tracking-normal">(optional)</span>
+              </h2>
+              <div className="space-y-2 text-sm">
+                <label htmlFor="giftNote" className="text-gray-500 font-light">Add a personal message</label>
+                <textarea
+                  id="giftNote"
+                  name="giftNote"
+                  value={formData.giftNote}
+                  onChange={handleInputChange}
+                  rows={3}
+                  maxLength={500}
+                  placeholder="Write a thoughtful note to accompany your gift..."
+                  className="w-full bg-transparent border border-black/20 rounded-xl px-4 py-3 text-sm font-light text-[#0F0F0F] placeholder:text-gray-300 focus:outline-none focus:ring-1 focus:ring-black focus:border-black resize-none transition-all"
+                />
+                <p className="text-gray-400 text-[10px] text-right">{formData.giftNote.length}/500</p>
               </div>
             </section>
 
@@ -286,7 +323,7 @@ export default function CheckoutPage() {
               </label>
               
               {!billingSameAsShipping && (
-                <div className="mt-6 p-6 bg-[#F5F5F5] rounded-none">
+                <div className="mt-6 p-6 bg-secondary rounded-xl">
                   <p className="text-xs text-gray-500 italic">In a complete implementation, a secondary address form would appear here.</p>
                 </div>
               )}
@@ -294,9 +331,9 @@ export default function CheckoutPage() {
 
           </div>
 
-          {/* Right Column: Order Summary & Payment Details */}
+          {/* Right Column: Order Summary */}
           <div className="lg:col-span-5">
-            <div className="bg-white p-8 rounded-none border border-black/5 shadow-xl shadow-black/5 sticky top-32">
+            <div className="bg-white p-8 rounded-2xl border border-black/5 shadow-xl shadow-black/5 sticky top-32">
               
               <h2 className="text-xs uppercase tracking-[0.1em] font-medium text-[#0F0F0F] mb-6 pb-4 border-b border-black/10">
                 Order Summary
@@ -305,13 +342,8 @@ export default function CheckoutPage() {
               <div className="space-y-6 mb-8 max-h-[300px] overflow-y-auto pr-2 scrollbar-hide">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-4 items-center">
-                    <div className="relative w-16 h-20 bg-[#F5F5F5] overflow-hidden rounded-lg flex-shrink-0">
-                      <Image
-                        src={item.image || "/placeholder.jpg"}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
+                    <div className="relative w-16 h-20 bg-secondary overflow-hidden rounded-lg flex-shrink-0">
+                      <Image src={item.image || "/placeholder.jpg"} alt={item.name} fill className="object-cover" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-xs font-medium text-[#0F0F0F] line-clamp-1">{item.name}</h3>
@@ -324,20 +356,16 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              {/* Coupon Code Section */}
+              {/* Coupon Code */}
               <div className="mb-6 pb-6 border-b border-black/10">
                 <div className="flex gap-2">
                   <Input 
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value)}
                     placeholder="Gift card or discount code" 
-                    className="h-12 rounded-none border-black/10 focus-visible:ring-0 focus-visible:border-black text-xs font-light"
+                    className="h-12 rounded-xl border-black/10 focus-visible:ring-0 focus-visible:border-black text-xs font-light"
                   />
-                  <Button 
-                    type="button" 
-                    onClick={handleApplyCoupon}
-                    className="h-12 rounded-none bg-black text-white px-6 uppercase tracking-[0.1em] text-[10px]"
-                  >
+                  <Button type="button" onClick={handleApplyCoupon} className="h-12 rounded-xl bg-black text-white px-6 uppercase tracking-[0.1em] text-[10px]">
                     Apply
                   </Button>
                 </div>
@@ -377,7 +405,7 @@ export default function CheckoutPage() {
               <Button 
                 type="submit"
                 disabled={isProcessing || !isScriptLoaded}
-                className="w-full h-14 bg-[#0F0F0F] text-white hover:bg-[#215650] rounded-none uppercase tracking-[0.2em] text-[10px] font-medium transition-all shadow-lg"
+                className="w-full h-14 bg-[#0F0F0F] text-white hover:bg-black rounded-xl uppercase tracking-[0.2em] text-[10px] font-medium transition-all shadow-lg"
               >
                 {isProcessing ? "Processing..." : "Pay Securely with Razorpay"}
               </Button>

@@ -10,4 +10,13 @@ export interface Product {
   collection?: string;
   isFeatured?: boolean;
   sku?: string;
+  rating?: number;
+  reviewCount?: number;
+  inStock?: boolean;
+  variants?: ProductVariant[];
+}
+
+export interface ProductVariant {
+  name: string;
+  value: string;
 }

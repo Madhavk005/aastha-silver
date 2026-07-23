@@ -15,19 +15,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const categoryUrls = [
     {
-      url: `${baseUrl}/collections/necklaces`,
+      url: `${baseUrl}/shop/necklaces`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/collections/rings`,
+      url: `${baseUrl}/shop/rings`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/collections/earrings`,
+      url: `${baseUrl}/shop/earrings`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.9,
@@ -42,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${baseUrl}/collections`,
+      url: `${baseUrl}/shop`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,

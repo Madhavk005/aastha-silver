@@ -14,21 +14,21 @@ const ARTICLES = [
     excerpt: "Discover how to perfectly balance lengths, weights, and textures to create an effortless stacked look.",
     category: "Styling",
     date: "July 2, 2026",
-    image: "/images/featured-necklace.png"
+    image: "/images/hero.jpg"
   },
   {
     title: "Understanding 925 Sterling Silver",
     excerpt: "What makes sterling silver the premier choice for accessible luxury? We break down the alloy that shapes our collections.",
     category: "Craftsmanship",
     date: "June 15, 2026",
-    image: "/images/featured-ring.png"
+    image: "/images/editorial-1.jpg"
   },
   {
     title: "Behind the Campaign: The Muse",
     excerpt: "An exclusive look behind the scenes of our latest editorial shoot capturing the essence of quiet luxury.",
     category: "Editorial",
     date: "May 28, 2026",
-    image: "/images/editorial.png"
+    image: "/images/editorial-2.jpg"
   }
 ];
 
@@ -46,7 +46,7 @@ export default function JournalPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {ARTICLES.map((article, index) => (
             <Link key={index} href={`/journal/article-${index}`} className="group flex flex-col">
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#F5F5F5] mb-6">
+              <div className="relative aspect-[4/5] overflow-hidden bg-secondary mb-6">
                 <Image 
                   src={article.image}
                   alt={article.title}

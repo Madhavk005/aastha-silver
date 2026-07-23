@@ -27,15 +27,15 @@ export function CartDrawer() {
         onClick={closeCart}
       />
       
-      <div className="fixed inset-y-0 right-0 w-full md:w-[450px] bg-white/80 backdrop-blur-3xl shadow-2xl border-l border-white/20 z-50 flex flex-col transform transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
-        <div className="flex items-center justify-between p-6 md:p-8 border-b border-black/5">
-          <h2 className="uppercase tracking-[0.2em] text-[10px] text-[#0F0F0F] font-medium flex items-center gap-3">
+      <div className="fixed inset-y-0 right-0 w-full md:w-[450px] bg-background/90 backdrop-blur-3xl shadow-2xl border-l border-foreground/10 z-50 flex flex-col transform transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]">
+        <div className="flex items-center justify-between p-6 md:p-8 border-b border-foreground/10">
+          <h2 className="uppercase tracking-[0.2em] text-[10px] text-foreground font-medium flex items-center gap-3">
             <ShoppingBag className="w-4 h-4 stroke-[1.5]" />
             Your Cart ({getItemCount()})
           </h2>
           <button 
             onClick={closeCart}
-            className="p-2 -mr-2 text-gray-400 hover:text-black transition-colors"
+            className="p-2 -mr-2 text-foreground/50 hover:text-foreground transition-colors"
           >
             <X className="w-5 h-5 stroke-[1.5]" />
           </button>
@@ -44,20 +44,20 @@ export function CartDrawer() {
         <div className="flex-1 overflow-y-auto p-6 md:p-8">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
-              <div className="w-16 h-16 rounded-full bg-[#F5F5F5] flex items-center justify-center text-black mb-2">
+              <div className="w-16 h-16 rounded-xl bg-secondary flex items-center justify-center text-foreground mb-2">
                 <ShoppingBag className="w-6 h-6 stroke-[1.5]" />
               </div>
-              <p className="font-serif text-3xl text-[#0F0F0F]">Your cart is empty.</p>
-              <p className="text-gray-500 text-sm font-light max-w-xs">Discover our elegant collections to find your next piece.</p>
-              <Button onClick={closeCart} className="mt-8 bg-transparent border-black text-black hover:bg-[#215650] hover:text-white rounded-full px-10 py-6 uppercase tracking-[0.15em] text-[10px] transition-colors" variant="outline">
+              <p className="font-serif text-3xl text-foreground">Your cart is empty.</p>
+              <p className="text-foreground/50 text-sm font-light max-w-xs">Discover our elegant collections to find your next piece.</p>
+              <Button onClick={closeCart} className="mt-8 bg-transparent border-foreground text-foreground hover:bg-foreground hover:text-background rounded-xl px-10 py-6 uppercase tracking-[0.15em] text-[10px] transition-colors" variant="outline">
                 Continue Shopping
               </Button>
             </div>
           ) : (
             <div className="space-y-8">
               {items.map((item) => (
-                <div key={item.id} className="flex gap-4 md:gap-6 border-b border-black/5 pb-6 last:border-0 last:pb-0">
-                  <div className="relative w-20 h-28 md:w-24 md:h-32 bg-[#FAFAFA] overflow-hidden flex-shrink-0">
+                <div key={item.id} className="flex gap-4 md:gap-6 border-b border-foreground/10 pb-6 last:border-0 last:pb-0">
+                  <div className="relative w-20 h-28 md:w-24 md:h-32 bg-secondary overflow-hidden flex-shrink-0">
                     <Image
                       src={item.image || "/placeholder.jpg"}
                       alt={item.name}
@@ -73,32 +73,32 @@ export function CartDrawer() {
                         <Link 
                           href={`/product/${item.slug}`} 
                           onClick={closeCart}
-                          className="font-serif text-xl text-[#0F0F0F] hover:text-gray-500 transition-colors leading-tight"
+                          className="font-serif text-xl text-foreground hover:text-foreground/50 transition-colors leading-tight"
                         >
                           {item.name}
                         </Link>
                         <button 
                           onClick={() => removeItem(item.id)}
-                          className="text-gray-400 hover:text-red-500 transition-colors mt-1"
+                          className="text-foreground/50 hover:text-red-500 transition-colors mt-1"
                         >
                           <X className="w-4 h-4 stroke-[1.5]" />
                         </button>
                       </div>
-                      <p className="text-gray-500 text-sm mt-2 font-light">{formatCurrency(item.price)}</p>
+                      <p className="text-foreground/50 text-sm mt-2 font-light">{formatCurrency(item.price)}</p>
                     </div>
 
                     <div className="flex items-center gap-4 mt-4">
-                      <div className="flex items-center border border-black/10 rounded-full">
+                      <div className="flex items-center border border-foreground/20 rounded-xl overflow-hidden">
                         <button
                           onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                          className="p-2.5 text-gray-400 hover:text-black transition-colors"
+                          className="p-2.5 text-foreground/50 hover:text-foreground transition-colors"
                         >
                           <Minus className="w-3 h-3 stroke-[1.5]" />
                         </button>
                         <span className="w-8 text-center text-xs">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="p-2.5 text-gray-400 hover:text-black transition-colors"
+                          className="p-2.5 text-foreground/50 hover:text-foreground transition-colors"
                         >
                           <Plus className="w-3 h-3 stroke-[1.5]" />
                         </button>
@@ -112,32 +112,32 @@ export function CartDrawer() {
         </div>
 
         {items.length > 0 && (
-          <div className="border-t border-black/5 p-6 md:p-8 bg-white">
+          <div className="border-t border-foreground/10 p-6 md:p-8 bg-background">
             {/* Shipping Progress */}
             <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-[10px] uppercase tracking-[0.15em] text-black/60 font-medium">Shipping</span>
-                <span className="text-[10px] font-medium text-black">
+                <span className="text-[10px] uppercase tracking-[0.15em] text-foreground/60 font-medium">Shipping</span>
+                <span className="text-[10px] font-medium text-foreground">
                   {getTotal() >= 10000 ? "Free" : `${formatCurrency(10000 - getTotal())} away from Free`}
                 </span>
               </div>
-              <div className="w-full h-1 bg-black/5 overflow-hidden">
+              <div className="w-full h-1 bg-foreground/10 overflow-hidden">
                 <div 
-                  className="h-full bg-black transition-all duration-700 ease-out" 
+                  className="h-full bg-foreground transition-all duration-700 ease-out" 
                   style={{ width: `${Math.min((getTotal() / 10000) * 100, 100)}%` }} 
                 />
               </div>
             </div>
 
             <div className="flex justify-between items-center mb-4 md:mb-6">
-              <span className="uppercase tracking-[0.2em] text-[10px] font-medium text-[#0F0F0F]">Subtotal</span>
-              <span className="text-lg font-light text-[#0F0F0F]">{formatCurrency(getTotal())}</span>
+              <span className="uppercase tracking-[0.2em] text-[10px] font-medium text-foreground">Subtotal</span>
+              <span className="text-lg font-light text-foreground">{formatCurrency(getTotal())}</span>
             </div>
-            <p className="text-[10px] text-black/40 mb-8 text-center font-light uppercase tracking-widest">Shipping and taxes calculated at checkout.</p>
+            <p className="text-[10px] text-foreground/40 mb-8 text-center font-light uppercase tracking-widest">Shipping and taxes calculated at checkout.</p>
             <Link 
               href="/checkout" 
               onClick={closeCart}
-              className="w-full h-14 bg-black text-white hover:bg-[#215650]/80 rounded-full uppercase tracking-[0.2em] text-[10px] transition-colors shadow-lg flex items-center justify-center font-medium"
+              className="w-full h-14 bg-foreground text-background hover:bg-foreground/80 rounded-xl uppercase tracking-[0.2em] text-[10px] transition-colors shadow-lg flex items-center justify-center font-medium"
             >
               Proceed to Checkout
             </Link>

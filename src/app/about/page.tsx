@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#FDFCF8] pt-32 pb-24">
+    <div className="min-h-screen bg-background pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-4xl">
         <h1 className="font-serif text-5xl md:text-6xl text-[#1A1D1A] mb-12 text-center leading-[1.1]">
           Our Story
@@ -13,9 +13,9 @@ export default function AboutPage() {
         
         <div className="prose prose-lg mx-auto text-gray-500 font-light leading-loose space-y-12">
           <p className="text-2xl font-serif text-[#1A1D1A] text-center leading-relaxed">
-            "We believe that true luxury lies in simplicity. It doesn't shout. It is found 
+            &quot;We believe that true luxury lies in simplicity. It doesn&apos;t shout. It is found 
             in the subtle details, the weight of a well-crafted piece, and the way it becomes 
-            a natural extension of the wearer."
+            a natural extension of the wearer.&quot;
           </p>
           
           <div className="w-16 h-[1px] bg-black/10 mx-auto my-12" />
@@ -32,9 +32,9 @@ export default function AboutPage() {
             in every curve, clasp, and polished surface.
           </p>
           
-          <div className="relative aspect-[16/9] w-full rounded-[2rem] overflow-hidden my-16 bg-[#F5F3EC]">
+          <div className="relative aspect-[16/9] w-full rounded-[2rem] overflow-hidden my-16 bg-secondary">
             <Image 
-              src="/images/editorial.png" 
+              src="/images/editorial-1.jpg" 
               alt="Artisan Craftsmanship" 
               fill 
               className="object-cover"
@@ -55,7 +55,7 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-20 flex justify-center">
-          <Link href="/collections" className="inline-flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A] group border-b border-black pb-3">
+          <Link href="/shop" className="inline-flex items-center gap-4 uppercase tracking-[0.1em] text-xs font-medium text-[#1A1D1A] group border-b border-black pb-3">
             Explore the Collection
             <ArrowRight className="w-4 h-4 transition-transform duration-500 ease-out group-hover:translate-x-3 stroke-[1.5]" />
           </Link>

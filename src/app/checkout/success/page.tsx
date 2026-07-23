@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+
 
 export default function CheckoutSuccessPage() {
   return (
-    <div className="min-h-screen bg-[#FDFCF8] flex items-center justify-center pt-24 pb-16">
+    <div className="min-h-screen bg-background flex items-center justify-center pt-24 pb-16">
       <div className="max-w-xl mx-auto px-4 text-center">
         <div className="mb-10 inline-flex items-center justify-center w-24 h-24 rounded-full bg-[#1A1D1A]/5 text-[#1A1D1A]">
           <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

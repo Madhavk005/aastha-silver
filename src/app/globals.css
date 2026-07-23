@@ -1,16 +1,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "@clerk/ui/themes/shadcn.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Primitive Colors */
+  /* Brand Colors */
   --color-cream: #EEE19F;
-  --color-gold: #BCAA5A;
-  --color-forest: #215650;
+  --color-champagne: #BCAA5A;
+  --color-emerald: #215650;
   --color-sage: #7D9780;
   --color-deep-forest: #395F4E;
+  --color-warm-white: #FAF8F5;
+  --color-soft-black: #1A1D1A;
   
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -27,38 +30,34 @@
   --color-chart-1: var(--chart-1);
 
   /* Typography Scale */
-  --text-display-xl: 72px;
-  --text-display-l: 60px;
+  --text-display-xl: 80px;
+  --text-display-l: 64px;
   --text-display-m: 48px;
-  --text-heading-xl: 40px;
-  --text-heading-l: 32px;
-  --text-heading-m: 28px;
-  --text-heading-s: 24px;
-  --text-title: 20px;
+  --text-heading-xl: 44px;
+  --text-heading-l: 36px;
+  --text-heading-m: 30px;
+  --text-heading-s: 26px;
+  --text-title: 22px;
   --text-body-large: 18px;
   --text-body: 16px;
   --text-body-small: 14px;
   --text-caption: 12px;
 
-  /* Font Families */
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
 
-  /* Semantic Colors - Surface */
   --color-surface-primary: var(--surface-primary);
   --color-surface-secondary: var(--surface-secondary);
   --color-surface-tertiary: var(--surface-tertiary);
   --color-surface-inverse: var(--surface-inverse);
   --color-surface-accent: var(--surface-accent);
 
-  /* Semantic Colors - Text */
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-tertiary: var(--text-tertiary);
   --color-text-inverse: var(--text-inverse);
 
-  /* Semantic Shadcn Mapping */
   --color-background: var(--surface-primary);
   --color-foreground: var(--text-primary);
   --color-card: var(--surface-secondary);
@@ -78,38 +77,37 @@
   --color-input: var(--border-default);
   --color-ring: var(--surface-accent);
 
-  /* Border Radius */
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-xl: 32px;
   --radius-full: 999px;
-  --radius: var(--radius-md);
+  --radius: 16px;
 
-  /* Shadows */
-  --shadow-xs: 0 2px 4px rgba(33, 86, 80, 0.05);
-  --shadow-sm: 0 4px 8px rgba(33, 86, 80, 0.06);
-  --shadow-md: 0 8px 16px rgba(33, 86, 80, 0.08);
+  --shadow-xs: 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.1);
 }
 
 :root {
-  /* Light Theme */
-  --surface-primary: #FAFAFA; /* Off-white for actual bg */
-  --surface-secondary: #FFFFFF;
-  --surface-tertiary: #F5F5F5;
-  --surface-inverse: #215650; /* Forest */
-  --surface-accent: #BCAA5A; /* Gold */
+  --surface-primary: #FFFFFF;
+  --surface-secondary: #FCFCFA;
+  --surface-tertiary: #F5F4F0;
+  --surface-inverse: #1A1D1A;
+  --surface-accent: #BCAA5A;
 
-  --text-primary: #395F4E; /* Deep Forest */
-  --text-secondary: #7D9780; /* Sage */
-  --text-tertiary: #9CA3AF;
-  --text-inverse: #EEE19F; /* Cream */
+  --text-primary: #1A1D1A;
+  --text-secondary: #5A5A5A;
+  --text-tertiary: #8C8A86;
+  --text-inverse: #FFFFFF;
 
-  --button-primary: #215650; /* Forest Green */
-  --button-primary-hover: #395F4E; /* Deep Forest */
+  --button-primary: #1A1D1A;
+  --button-primary-hover: #2A2D2A;
   
-  --border-default: rgba(33, 86, 80, 0.1);
+  --border-default: rgba(26, 29, 26, 0.08);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -121,22 +119,21 @@
 }
 
 .dark {
-  /* Dark Theme Placeholder */
-  --surface-primary: #395F4E; /* Deep Forest */
-  --surface-secondary: #215650; /* Forest */
-  --surface-tertiary: rgba(0,0,0,0.2);
-  --surface-inverse: #EEE19F; /* Cream */
-  --surface-accent: #BCAA5A; /* Gold */
+  --surface-primary: #1A1D1A;
+  --surface-secondary: #2A2D2A;
+  --surface-tertiary: rgba(255,255,255,0.03);
+  --surface-inverse: #FFFFFF;
+  --surface-accent: #BCAA5A;
 
-  --text-primary: #EEE19F; /* Cream */
-  --text-secondary: #BCAA5A; /* Gold */
-  --text-tertiary: #7D9780; /* Sage */
-  --text-inverse: #215650; /* Forest */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A3A3A3;
+  --text-tertiary: #666666;
+  --text-inverse: #1A1D1A;
 
   --button-primary: #EEE19F;
-  --button-primary-hover: #FFFFFF;
+  --button-primary-hover: #BCAA5A;
 
-  --border-default: rgba(238, 225, 159, 0.2);
+  --border-default: rgba(253, 251, 247, 0.1);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -148,50 +145,48 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
+  * { @apply border-border outline-ring/50; }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-gold selection:text-white leading-[160%];
+    @apply bg-background text-foreground antialiased selection:bg-champagne selection:text-white leading-[160%];
   }
-  html {
-    @apply font-sans scroll-smooth;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-serif leading-[120%] tracking-[-0.01em];
-  }
+  html { @apply font-sans scroll-smooth; }
+  h1, h2, h3, h4, h5, h6 { @apply font-serif leading-[110%] tracking-[-0.02em]; }
+  p { @apply leading-[180%]; }
 }
 
-/* Global Responsive Base Scaling */
-@media (max-width: 640px) {
-  html {
-    font-size: 14px;
-  }
-}
-@media (min-width: 641px) and (max-width: 1024px) {
-  html {
-    font-size: 15px;
-  }
-}
-@media (min-width: 1025px) {
-  html {
-    font-size: 16px;
-  }
-}
-@media (min-width: 1536px) {
-  html {
-    font-size: 18px;
-  }
-}
+@media (max-width: 640px)  { html { font-size: 14px; } }
+@media (min-width: 641px) and (max-width: 1024px) { html { font-size: 15px; } }
+@media (min-width: 1025px) { html { font-size: 16px; } }
+@media (min-width: 1536px)  { html { font-size: 18px; } }
 
-/* Hide Scrollbar Utility */
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .text-balance { text-wrap: balance; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

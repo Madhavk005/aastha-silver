@@ -1,70 +1,55 @@
-import { Product } from "@/features/products/types";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { getProductsByCategoryQuery, getFeaturedProductsQuery, getProductBySlugQuery, getAllProductsQuery, getAllCategoriesQuery, getOrdersByUserIdQuery, getOrderByOrderNumberQuery, getPolicyBySlugQuery } from "@/sanity/lib/queries";
+import type { Product } from "@/features/products/types";
 
-export const hardcodedProducts: Product[] = [
-  {
-    _id: "prod-1",
-    title: "Classic Silver Chain",
-    slug: { current: "classic-silver-chain" },
-    price: 4999,
-    images: ["/images/featured-necklace.png"],
-    description: "A timeless classic sterling silver chain, perfect for everyday wear.",
-    category: "necklaces",
-    isFeatured: true,
-  },
-  {
-    _id: "prod-2",
-    title: "Minimalist Silver Ring",
-    slug: { current: "minimalist-silver-ring" },
-    price: 2499,
-    images: ["/images/featured-ring.png"],
-    description: "A beautifully crafted minimal ring in 925 sterling silver.",
-    category: "rings",
-    isFeatured: true,
-  },
-  {
-    _id: "prod-3",
-    title: "Elegant Silver Earrings",
-    slug: { current: "elegant-silver-earrings" },
-    price: 3499,
-    images: ["/images/editorial.png"],
-    description: "Elegant and subtle silver earrings for a sophisticated look.",
-    category: "earrings",
-    isFeatured: true,
-  },
-  {
-    _id: "prod-4",
-    title: "Sterling Silver Bracelet",
-    slug: { current: "sterling-silver-bracelet" },
-    price: 5999,
-    images: ["/images/featured-necklace.png"],
-    description: "A premium sterling silver bracelet that adds a touch of quiet luxury.",
-    category: "bracelets",
-    isFeatured: false,
-  }
-];
+export async function getAllCategories(): Promise<{ title: string; slug: { current: string }; image?: string; description?: string }[]> {
+  const cats = await sanityFetch<{ title: string; slug: { current: string }; image?: string; description?: string }[]>({ query: getAllCategoriesQuery });
+  return cats || [];
+}
 
 export async function getProducts(): Promise<Product[]> {
-  return hardcodedProducts;
+  const products = await sanityFetch<Product[]>({ query: getAllProductsQuery });
+  return products || [];
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-  return hardcodedProducts.find(p => p.slug.current === slug) || null;
+  const product = await sanityFetch<Product>({ query: getProductBySlugQuery, params: { slug } });
+  return product || null;
 }
 
 export async function getProductsByCategory(category: string): Promise<Product[]> {
-  if (category === "all") return hardcodedProducts;
-  return hardcodedProducts.filter(p => p.category === category);
+  if (category === "all") return getProducts();
+  const products = await sanityFetch<Product[]>({ query: getProductsByCategoryQuery, params: { category } });
+  return products || [];
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
-  return hardcodedProducts.filter(p => p.isFeatured);
+  const products = await sanityFetch<Product[]>({ query: getFeaturedProductsQuery });
+  return products || [];
 }
 
-export const hardcodedDeliveryPolicy = {
-  title: "Delivery Information",
-  content: "We offer worldwide shipping. Domestic orders within India usually arrive in 3-5 business days. International orders may take 7-14 business days depending on the destination. All packages are insured and require a signature upon delivery.",
-};
+export async function getOrdersByUserId(userId: string) {
+  if (!userId || userId === "placeholder") return [];
+  const orders = await sanityFetch<unknown[]>({ query: getOrdersByUserIdQuery, params: { userId } });
+  return orders || [];
+}
+
+export async function getOrderByOrderNumber(orderNumber: string) {
+  if (!orderNumber) return null;
+  const order = await sanityFetch<unknown>({ query: getOrderByOrderNumberQuery, params: { orderNumber } });
+  return order || null;
+}
 
 export async function getDeliveryPolicy() {
-  return hardcodedDeliveryPolicy;
+  const policy = await sanityFetch<{ title?: string; content?: string } | null>({
+    query: getPolicyBySlugQuery,
+    params: { slug: "delivery-information" },
+  });
+  return policy || { title: "Delivery Information", content: "" };
+}
+
+export async function getPolicyBySlug(slug: string) {
+  if (!slug) return null;
+  const policy = await sanityFetch<unknown>({ query: getPolicyBySlugQuery, params: { slug } });
+  return policy || null;
 }

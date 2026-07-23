@@ -1,4 +1,3 @@
-import { Product } from "@/features/products/types";
 import HomeClient from "./HomeClient";
 import { getFeaturedProducts } from "@/lib/data";
 

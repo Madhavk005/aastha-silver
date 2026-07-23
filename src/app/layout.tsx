@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { CartDrawer } from "@/features/cart/components/CartDrawer";
 import { FloatingActions } from "@/components/layout/FloatingActions";
+import { ExitIntentPopup } from "@/components/layout/ExitIntentPopup";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -39,22 +40,25 @@ export const metadata: Metadata = {
     siteName: "Aastha Silver",
     images: [
       {
-        url: "/images/hero.png",
-        width: 1200,
-        height: 630,
-        alt: "Aastha Silver Collections",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Aastha Silver | Premium Sterling Silver Jewellery",
-    description: "Premium Sterling Silver Jewellery designed for everyday elegance.",
-    images: ["/images/hero.png"],
-  },
+          url: "/images/hero.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Aastha Silver Collections",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Aastha Silver | Premium Sterling Silver Jewellery",
+      description: "Premium Sterling Silver Jewellery designed for everyday elegance.",
+      images: ["/images/hero.jpg"],
+    },
 };
+
+import { shadcn } from "@clerk/ui/themes";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 
 export default function RootLayout({
   children,
@@ -62,23 +66,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html
-        lang="en"
-        className={`${inter.variable} ${cormorant.variable} ${jetbrainsMono.variable} h-full antialiased scroll-smooth`}
-      >
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
-        <TooltipProvider>
-          <Navbar />
-          <CartDrawer />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-          <FloatingActions />
-        </TooltipProvider>
+    <html
+      lang="en"
+      className={`${inter.variable} ${cormorant.variable} ${jetbrainsMono.variable} h-full antialiased scroll-smooth`}
+    >
+      <body className="min-h-full flex flex-col font-sans bg-background text-foreground cursor-none">
+        <CustomCursor />
+        <ClerkProvider appearance={{ theme: shadcn }}>
+          <TooltipProvider>
+            <Navbar />
+            <CartDrawer />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <FloatingActions />
+            <ExitIntentPopup />
+          </TooltipProvider>
+        </ClerkProvider>
       </body>
-      </html>
-    </ClerkProvider>
+    </html>
   );
 }
