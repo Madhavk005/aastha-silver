@@ -15,7 +15,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useCartStore } from "@/store/cart-store";
-import { useAuth, UserButton, SignInButton } from "@clerk/nextjs";
+import { useAuth } from "@/lib/auth";
 import { SearchModal } from "./SearchModal";
 import { CATEGORIES, GIFT_SECTIONS } from "@/lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
@@ -92,7 +92,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
         isScrolled
-          ? "bg-background/80 backdrop-blur-2xl border-b border-foreground/10 shadow-sm"
+          ? "glass-panel rounded-none border-t-0 border-x-0"
           : "bg-transparent"
       )}
     >
@@ -105,11 +105,13 @@ export function Navbar() {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-2"
           >
-            <svg className="w-3 h-3 text-champagne" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <span className="hidden sm:inline">Free shipping on orders above ₹10,000</span>
+            <svg className="w-3 h-3 text-champagne" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+            <span className="hidden sm:inline">Free shipping on all orders</span>
             <span className="hidden sm:inline mx-2">·</span>
             <span>Use&nbsp;<span className="font-semibold tracking-wider">WELCOME10</span>&nbsp;for 10% off</span>
           </motion.div>
+          {/* Continuous shimmer overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
         </div>
       </div>
 
@@ -233,18 +235,20 @@ export function Navbar() {
                     <Link
                       href="/account"
                       onClick={() => setMobileSubMenu(null)}
-                      className="flex items-center gap-4 text-xs uppercase tracking-[0.2em] font-medium text-foreground/70 hover:text-foreground transition-colors"
+                      className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-foreground/70 hover:text-foreground transition-colors"
                     >
-                      <UserButton />
+                      <User className="w-4 h-4 stroke-[1.5]" />
                       My Account
                     </Link>
                   ) : isLoaded && !isSignedIn ? (
-                    <SignInButton mode="modal">
-                      <button aria-label="Sign In" className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-foreground/70 hover:text-foreground transition-colors">
-                        <User className="w-4 h-4 stroke-[1.5]" />
-                        Sign In / Register
-                      </button>
-                    </SignInButton>
+                    <Link
+                      href="/sign-in"
+                      onClick={() => setMobileSubMenu(null)}
+                      className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-foreground/70 hover:text-foreground transition-colors"
+                    >
+                      <User className="w-4 h-4 stroke-[1.5]" />
+                      Sign In / Register
+                    </Link>
                   ) : null}
                 </div>
               </SheetContent>
@@ -301,7 +305,7 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 12, scale: 0.97 }}
                       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 w-[820px] bg-card border border-foreground/10 shadow-lg z-50"
+                      className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-[820px] glass-panel rounded-3xl z-50 overflow-hidden"
                       onMouseEnter={() => handleDropdownEnter("Shop")}
                       onMouseLeave={handleDropdownLeave}
                     >
@@ -351,7 +355,7 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 12, scale: 0.97 }}
                       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 bg-card border border-foreground/10 shadow-lg z-50 min-w-[260px]"
+                      className="absolute top-full mt-4 left-1/2 -translate-x-1/2 glass-panel rounded-3xl z-50 min-w-[260px] overflow-hidden"
                       onMouseEnter={() => handleDropdownEnter("Gift Guide")}
                       onMouseLeave={handleDropdownLeave}
                     >
@@ -402,15 +406,13 @@ export function Navbar() {
 
             <div className="hidden lg:flex items-center">
               {isLoaded && isSignedIn ? (
-                <div className={iconBtnClass}>
-                  <UserButton userProfileMode="navigation" userProfileUrl="/account" />
-                </div>
+                <Link href="/account" aria-label="My Account" className={iconBtnClass}>
+                  <User className="w-5 h-5 stroke-[1.5]" />
+                </Link>
               ) : isLoaded && !isSignedIn ? (
-                <SignInButton mode="modal">
-                  <button aria-label="Sign In" className={iconBtnClass}>
-                    <User className="w-5 h-5 stroke-[1.5]" />
-                  </button>
-                </SignInButton>
+                <Link href="/sign-in" aria-label="Sign In" className={iconBtnClass}>
+                  <User className="w-5 h-5 stroke-[1.5]" />
+                </Link>
               ) : null}
             </div>
 

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Star, ShieldCheck, Sparkles, Heart, Gift, RefreshCw, Truck, Camera } from "lucide-react";
+import { ArrowRight, Star, ShieldCheck, ShieldOff, Heart, Gift, Ban, Truck, Camera } from "lucide-react";
 import { ProductGrid } from "@/features/products/components/ProductGrid";
 import { RecentlyViewed } from "@/features/products/components/RecentlyViewed";
 import { Product } from "@/features/products/types";
@@ -31,17 +31,7 @@ function StarRating({ rating, size = "sm" }: { rating: number; size?: "sm" | "md
 }
 
 const ICON_MAP: Record<string, React.ElementType> = {
-  ShieldCheck, Sparkles, Heart, Gift, RefreshCw, Truck,
-};
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const } },
+  ShieldCheck, ShieldOff, Heart, Gift, Ban, Truck,
 };
 
 export default function HomeClient({ products }: { products: Product[] }) {
@@ -68,7 +58,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
             >
               <span className="inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.25em] text-foreground/40 px-4 py-2 rounded-full border border-sage/20 bg-sage/10 backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-sage" />
-                Autumn / Winter 2024
+                Spring / Summer 2026
               </span>
             </motion.div>
             <motion.div
@@ -77,7 +67,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               transition={{ delay: 0.4, duration: 0.8 }}
             >
               <span className="text-[9px] uppercase tracking-[0.25em] text-foreground/30 font-mono">
-                Est. 2024
+                Est. 2026
               </span>
             </motion.div>
           </div>
@@ -91,7 +81,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
                   initial={{ opacity: 0, y: 80 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                  className="font-serif text-[15vw] md:text-[8vw] leading-[0.85] tracking-tighter text-foreground font-light"
+                  className="font-serif text-[15vw] md:text-[8vw] leading-[0.85] tracking-tighter text-gradient font-light"
                 >
                   Aastha
                 </motion.h1>
@@ -101,7 +91,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
                   initial={{ opacity: 0, y: 60 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
-                  className="font-serif text-[15vw] md:text-[8vw] leading-[0.85] tracking-tighter text-foreground font-light italic mt-[-0.08em]"
+                  className="font-serif text-[15vw] md:text-[8vw] leading-[0.85] tracking-tighter text-gradient font-light italic mt-[-0.08em]"
                 >
                   Silver
                 </motion.h2>
@@ -159,8 +149,8 @@ export default function HomeClient({ products }: { products: Product[] }) {
                 <div className="absolute inset-0 ring-1 ring-inset ring-foreground/10 rounded-3xl" />
 
                 {/* Glass tag */}
-                <div className="absolute top-4 left-4 bg-background/40 backdrop-blur-xl px-4 py-2 rounded-xl border border-background/20">
-                  <p className="text-[8px] uppercase tracking-[0.2em] font-medium text-foreground/70">
+                <div className="absolute top-4 left-4 glass-panel px-4 py-2 rounded-xl">
+                  <p className="text-[8px] uppercase tracking-[0.2em] font-medium text-foreground/80">
                     Premium 925 Silver
                   </p>
                 </div>
@@ -243,64 +233,6 @@ export default function HomeClient({ products }: { products: Product[] }) {
                 </div>
               </Link>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Philosophy Banner */}
-      <section className="relative py-40 md:py-56 bg-foreground text-background overflow-hidden">
-        <motion.div
-          initial={{ scale: 1.1, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 0.08 }}
-          viewport={{ once: true }}
-          transition={{ duration: 2 }}
-          className="absolute inset-0"
-        >
-          <Image
-            src="/images/philosophy.jpg"
-            alt=""
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
-            <div className="md:col-span-4">
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="text-[9px] uppercase tracking-[0.3em] text-background/50 font-medium block"
-              >
-                The Philosophy
-              </motion.span>
-            </div>
-            <div className="md:col-span-8">
-              <motion.blockquote
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-10%" }}
-                variants={containerVariants}
-                className="text-4xl sm:text-5xl md:text-7xl font-serif leading-[1.1] tracking-tight font-light"
-              >
-                <motion.span variants={itemVariants} className="block text-balance">
-                  &ldquo;True elegance is&nbsp;whispered,
-                </motion.span>
-                <motion.span variants={itemVariants} className="block text-background/40 italic mt-2">
-                  not&nbsp;shouted.&rdquo;
-                </motion.span>
-              </motion.blockquote>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-background/40 text-sm font-light mt-12 max-w-lg leading-relaxed"
-              >
-                We craft modern heirlooms where form meets light. Every piece is a quiet rebellion against the ordinary — designed to be felt, not just seen.
-              </motion.p>
-            </div>
           </div>
         </div>
       </section>

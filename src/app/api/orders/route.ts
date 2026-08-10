@@ -1,15 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getOrdersByUserId } from "@/lib/data";
+import { NextResponse } from "next/server";
+import { getSessionFromCookies } from "@/lib/auth-server";
+import { getOrdersByUserId } from "@/lib/orders";
 
-export async function GET(request: NextRequest) {
-  const userId = request.nextUrl.searchParams.get("userId");
-
-  if (!userId) {
-    return NextResponse.json({ orders: [] });
-  }
+export async function GET() {
+  const user = await getSessionFromCookies();
+  if (!user) return NextResponse.json({ error: "Authentication required." }, { status: 401 });
 
   try {
-    const orders = await getOrdersByUserId(userId);
+    const orders = await getOrdersByUserId(user.id);
     return NextResponse.json({ orders });
   } catch {
     return NextResponse.json({ orders: [] });

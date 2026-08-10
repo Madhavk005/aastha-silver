@@ -2,35 +2,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { ARTICLES } from "./articles";
 
 export const metadata = {
   title: "Journal | Aastha Silver",
   description: "Read about our design philosophy, styling tips, and the craftsmanship behind Aastha Silver.",
 };
-
-const ARTICLES = [
-  {
-    title: "The Art of Layering: A Guide to Necklaces",
-    excerpt: "Discover how to perfectly balance lengths, weights, and textures to create an effortless stacked look.",
-    category: "Styling",
-    date: "July 2, 2026",
-    image: "/images/hero.jpg"
-  },
-  {
-    title: "Understanding 925 Sterling Silver",
-    excerpt: "What makes sterling silver the premier choice for accessible luxury? We break down the alloy that shapes our collections.",
-    category: "Craftsmanship",
-    date: "June 15, 2026",
-    image: "/images/editorial-1.jpg"
-  },
-  {
-    title: "Behind the Campaign: The Muse",
-    excerpt: "An exclusive look behind the scenes of our latest editorial shoot capturing the essence of quiet luxury.",
-    category: "Editorial",
-    date: "May 28, 2026",
-    image: "/images/editorial-2.jpg"
-  }
-];
 
 export default function JournalPage() {
   return (
@@ -44,8 +21,8 @@ export default function JournalPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {ARTICLES.map((article, index) => (
-            <Link key={index} href={`/journal/article-${index}`} className="group flex flex-col">
+          {ARTICLES.map((article) => (
+            <Link key={article.slug} href={`/journal/${article.slug}`} className="group flex flex-col">
               <div className="relative aspect-[4/5] overflow-hidden bg-secondary mb-6">
                 <Image 
                   src={article.image}

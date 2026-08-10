@@ -33,7 +33,7 @@ export function CollectionClient({ initialProducts, categoryName, categoryImage 
     switch (sortOption) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
       case "price-desc": result.sort((a, b) => b.price - a.price); break;
-      case "newest": break;
+      case "newest": result.sort((a, b) => new Date(b._createdAt ?? 0).getTime() - new Date(a._createdAt ?? 0).getTime()); break;
       case "featured": default: break;
     }
     return result;
@@ -47,13 +47,12 @@ export function CollectionClient({ initialProducts, categoryName, categoryImage 
 
   return (
     <div className="min-h-screen bg-background pb-24">
-
       {/* Category Banner */}
       <section className="relative pt-32 pb-24 md:pb-32 overflow-hidden min-h-[45vh] md:min-h-[55vh] flex items-center">
         {categoryImage && (
           <div className="absolute inset-0">
             <Image src={categoryImage} alt={categoryName} fill className="object-cover" priority />
-            <div className="absolute inset-0 bg-background/50 backdrop-blur-[1px]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
@@ -81,23 +80,23 @@ export function CollectionClient({ initialProducts, categoryName, categoryImage 
           <div className="flex items-center gap-6">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 text-[9px] uppercase tracking-[0.2em] font-medium text-foreground/50 hover:text-foreground transition-colors"
+              className="flex items-center gap-2 btn-ghost"
             >
               <SlidersHorizontal className="w-4 h-4 stroke-[1.5]" />
               {showFilters ? "Hide Filters" : "Filters"}
             </button>
 
-            <div className="flex items-center gap-1 border border-foreground/10 p-1">
+            <div className="flex items-center gap-1 border border-foreground/10 p-1 rounded-xl">
               <button
                 onClick={() => setViewMode("grid")}
-                className={`p-1.5 transition-colors ${viewMode === "grid" ? 'bg-foreground/10 text-foreground' : 'text-foreground/30 hover:text-foreground'}`}
+                className={`p-1.5 rounded-lg transition-colors ${viewMode === "grid" ? 'bg-foreground/10 text-foreground' : 'text-foreground/30 hover:text-foreground'}`}
                 aria-label="Grid view"
               >
                 <LayoutGrid className="w-4 h-4 stroke-[1.5]" />
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`p-1.5 transition-colors ${viewMode === "list" ? 'bg-foreground/10 text-foreground' : 'text-foreground/30 hover:text-foreground'}`}
+                className={`p-1.5 rounded-lg transition-colors ${viewMode === "list" ? 'bg-foreground/10 text-foreground' : 'text-foreground/30 hover:text-foreground'}`}
                 aria-label="List view"
               >
                 <List className="w-4 h-4 stroke-[1.5]" />
@@ -113,14 +112,14 @@ export function CollectionClient({ initialProducts, categoryName, categoryImage 
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value as SortOption)}
-                className="appearance-none bg-transparent border border-foreground/15 px-4 py-2 pr-8 text-[9px] uppercase tracking-[0.2em] font-medium text-foreground/60 cursor-pointer focus:outline-none focus:border-foreground transition-colors"
+                className="appearance-none bg-transparent border border-foreground/15 px-4 py-2 pr-8 text-[9px] uppercase tracking-[0.2em] font-medium text-foreground/60 cursor-pointer focus:outline-none focus:border-foreground/40 transition-colors rounded-xl"
               >
                 <option value="featured" className="bg-background">Featured</option>
                 <option value="newest" className="bg-background">New Arrivals</option>
                 <option value="price-asc" className="bg-background">Price: Low to High</option>
                 <option value="price-desc" className="bg-background">Price: High to Low</option>
               </select>
-              <ChevronDown className="w-3 h-3 stroke-[1.5] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-foreground/30" />
+              <ChevronDown className="w-3 h-3 stroke-[1.5] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-foreground/30" />
             </div>
           </div>
         </div>
@@ -181,11 +180,10 @@ export function CollectionClient({ initialProducts, categoryName, categoryImage 
                     <button
                       key={i}
                       onClick={() => setCurrentPage(i + 1)}
-                      className={`w-8 h-8 text-[10px] font-medium transition-colors ${
-                        currentPage === i + 1
-                          ? 'bg-foreground text-background'
-                          : 'text-foreground/40 hover:text-foreground'
-                      }`}
+                      className={`w-8 h-8 text-[10px] font-medium transition-all duration-300 rounded-lg ${currentPage === i + 1
+                          ? 'bg-foreground text-background shadow-sm'
+                          : 'text-foreground/40 hover:text-foreground hover:bg-foreground/5'
+                        }`}
                     >
                       {i + 1}
                     </button>

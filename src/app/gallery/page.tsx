@@ -44,13 +44,13 @@ export default function GalleryPage() {
               Tag your photos with <span className="text-foreground/80 font-medium">#AasthaSilver</span> for a chance to be featured in our gallery.
             </p>
             <a
-              href="https://instagram.com/aasthasilver"
+              href="https://instagram.com/aastha_silver"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] font-medium text-foreground group border border-foreground/30 px-8 py-4 hover:bg-foreground hover:text-background transition-colors"
             >
               <ExternalLink className="w-4 h-4 stroke-[1.5]" />
-              Follow @aasthasilver
+              Follow @aastha_silver
             </a>
           </motion.div>
         </div>

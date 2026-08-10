@@ -23,9 +23,9 @@ export const USP_CARDS = [
     icon: "ShieldCheck",
   },
   {
-    title: "Anti-Tarnish",
-    description: "Our proprietary finishing process resists tarnishing, keeping your jewellery radiant through everyday wear.",
-    icon: "Sparkles",
+    title: "No Anti-Tarnish",
+    description: "Real 925 silver tarnishes naturally with time — we never coat or plate it. A quick polish brings back the shine.",
+    icon: "ShieldOff",
   },
   {
     title: "Hypoallergenic",
@@ -38,13 +38,13 @@ export const USP_CARDS = [
     icon: "Gift",
   },
   {
-    title: "Easy Returns",
-    description: "Not in love? Return within 14 days for a full refund. No questions asked, free shipping included.",
-    icon: "RefreshCw",
+    title: "No Returns",
+    description: "Every piece is hand-inspected and quality-checked before dispatch. All sales are final — no returns, no exchanges.",
+    icon: "Ban",
   },
   {
     title: "Free Shipping",
-    description: "Complimentary express delivery across India on orders above ₹10,000. Fast, insured, and trackable.",
+    description: "Complimentary express delivery across India on every order — no minimums. Fast, insured, and trackable.",
     icon: "Truck",
   },
 ];
@@ -67,7 +67,7 @@ export const REVIEWS = [
   {
     name: "Rohan K.",
     rating: 5,
-    text: "Bought the chain as a gift for my wife. She hasn't taken it off since. The anti-tarnish quality is remarkable — still looks brand new after months of daily wear.",
+    text: "Bought the chain as a gift for my wife. She hasn't taken it off since. The finish is beautiful — it still looks lovely after months of daily wear.",
     image: "/images/product-showcase.jpg",
     product: "Everyday Chain",
   },

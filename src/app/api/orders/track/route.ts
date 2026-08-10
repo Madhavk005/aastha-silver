@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getOrderByOrderNumber } from "@/lib/data";
+import { getOrderByOrderNumber } from "@/lib/orders";
 
 export async function GET(request: NextRequest) {
   const orderNumber = request.nextUrl.searchParams.get("orderNumber");

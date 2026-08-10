@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import { UserProfile } from "@clerk/nextjs";
-import { Package, MapPin, User, Plus, X, Download, Search, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth";
+import { motion } from "framer-motion";
+import { Package, MapPin, User, Plus, X, Search, Loader2, LogOut, ChevronRight, Clock } from "lucide-react";
 import Link from "next/link";
 
 type AccountTab = "profile" | "orders" | "addresses";
@@ -50,8 +50,40 @@ const EMPTY_ADDRESS = {
   phone: "",
 };
 
+const easing = [0.22, 1, 0.36, 1] as const;
+
+function TabButton({ active, icon: Icon, label, onClick }: { active: boolean; icon: React.ElementType; label: string; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full text-left px-5 py-4 text-[10px] uppercase tracking-[0.2em] font-medium flex items-center gap-3 transition-all duration-300 rounded-xl ${active
+        ? "bg-foreground text-background shadow-lg shadow-foreground/10"
+        : "text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground"
+        }`}
+    >
+      <Icon className="w-4 h-4 stroke-[1.5]" />
+      {label}
+    </button>
+  );
+}
+
+function StatusBadge({ status }: { status: string }) {
+  const colors: Record<string, string> = {
+    delivered: "bg-emerald/10 text-emerald border-emerald/10",
+    shipped: "bg-champagne/10 text-champagne border-champagne/10",
+    processing: "bg-sage/10 text-sage border-sage/10",
+    cancelled: "bg-red-500/10 text-red-500 border-red-500/10",
+  };
+  return (
+    <span className={`text-[9px] uppercase tracking-[0.15em] px-3 py-1.5 font-medium rounded-lg border ${colors[status] || "bg-foreground/10 text-foreground/70 border-foreground/10"}`}>
+      {status}
+    </span>
+  );
+}
+
 export default function AccountPage() {
-  const { isLoaded, isSignedIn, user } = useUser();
+  const router = useRouter();
+  const { isLoaded, isSignedIn, user, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState<AccountTab>("orders");
   const [orders, setOrders] = useState<SanityOrder[]>([]);
   const [ordersLoading, setOrdersLoading] = useState(true);
@@ -61,16 +93,29 @@ export default function AccountPage() {
   const [addressForm, setAddressForm] = useState(EMPTY_ADDRESS);
 
   useEffect(() => {
-    if (!isLoaded || !isSignedIn) return;
-    fetch(`/api/orders?userId=${user.id}`)
-      .then(res => res.json())
-      .then(data => setOrders(data.orders || []))
+    if (!isLoaded) return;
+    if (!isSignedIn) {
+      router.push("/sign-in");
+      return;
+    }
+    if (!user) return;
+
+    fetch("/api/orders", { credentials: "include" })
+      .then((res) => res.json())
+      .then((data) => setOrders(data.orders || []))
       .catch(() => setOrders([]))
       .finally(() => setOrdersLoading(false));
-  }, [isLoaded, isSignedIn, user?.id]);
+  }, [isLoaded, isSignedIn, user, router]);
 
-  if (!isLoaded) return null;
-  if (!isSignedIn) redirect("/sign-in");
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin stroke-[1] text-foreground/30" />
+      </div>
+    );
+  }
+
+  if (!isSignedIn) return null;
 
   const resetAddressForm = () => {
     setAddressForm(EMPTY_ADDRESS);
@@ -81,9 +126,12 @@ export default function AccountPage() {
   const handleAddressSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingAddress) {
-      setAddresses(addresses.map(a => a.id === editingAddress ? { ...a, ...addressForm } : a));
+      setAddresses(addresses.map((a) => (a.id === editingAddress ? { ...a, ...addressForm } : a)));
     } else {
-      setAddresses([...addresses, { ...addressForm, id: Date.now().toString(), isDefault: addresses.length === 0 }]);
+      setAddresses([
+        ...addresses,
+        { ...addressForm, id: Date.now().toString(), isDefault: addresses.length === 0 },
+      ]);
     }
     resetAddressForm();
   };
@@ -95,11 +143,11 @@ export default function AccountPage() {
   };
 
   const handleDeleteAddress = (id: string) => {
-    setAddresses(addresses.filter(a => a.id !== id));
+    setAddresses(addresses.filter((a) => a.id !== id));
   };
 
   const handleSetDefault = (id: string) => {
-    setAddresses(addresses.map(a => ({ ...a, isDefault: a.id === id })));
+    setAddresses(addresses.map((a) => ({ ...a, isDefault: a.id === id })));
   };
 
   const tabs: { key: AccountTab; label: string; icon: React.ElementType }[] = [
@@ -108,83 +156,137 @@ export default function AccountPage() {
     { key: "profile", label: "Profile Details", icon: User },
   ];
 
-  const orderItemCount = (items: OrderItem[]) => items.reduce((sum, i) => sum + i.quantity, 0);
+  const orderItemCount = (items: OrderItem[]) =>
+    items.reduce((sum, i) => sum + i.quantity, 0);
 
   return (
     <div className="min-h-screen bg-background pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-        <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-2">My Account</h1>
-        <p className="text-foreground/50 font-light mb-12">Welcome back, {user.firstName || "Guest"}.</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-1">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.key}
-                  onClick={() => setActiveTab(tab.key)}
-                  className={`w-full text-left px-6 py-4 text-[10px] uppercase tracking-[0.2em] font-medium flex items-center gap-3 transition-colors ${
-                    activeTab === tab.key ? 'bg-foreground text-background' : 'text-foreground/60 hover:bg-foreground/5 hover:text-foreground'
-                  }`}
-                >
-                  <Icon className="w-4 h-4 stroke-[1.5]" />
-                  {tab.label}
-                </button>
-              );
-            })}
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: easing }}
+          className="flex flex-col md:flex-row md:items-start justify-between mb-12 gap-6"
+        >
+          <div>
+            <span className="text-[9px] uppercase tracking-[0.3em] text-foreground/30 mb-4 block font-medium">
+              Account
+            </span>
+            <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-2 tracking-tight">
+              My Account
+            </h1>
+            <p className="text-foreground/50 font-light text-sm">
+              Welcome back, <span className="font-medium text-foreground">{user?.name || "Guest"}</span>.
+            </p>
           </div>
 
-          {/* Content */}
-          <div className="lg:col-span-3 space-y-8">
+          <button
+            onClick={signOut}
+            className="btn-ghost text-foreground/40"
+          >
+            <LogOut className="w-3.5 h-3.5 stroke-[1.5]" />
+            Sign Out
+          </button>
+        </motion.div>
+
+        {/* Main Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-12">
+
+          {/* Sidebar */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: easing }}
+            className="lg:col-span-1 space-y-1"
+          >
+            {tabs.map((tab) => (
+              <TabButton
+                key={tab.key}
+                active={activeTab === tab.key}
+                icon={tab.icon}
+                label={tab.label}
+                onClick={() => setActiveTab(tab.key)}
+              />
+            ))}
+          </motion.div>
+
+          {/* Content Area */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: easing }}
+            className="lg:col-span-3 space-y-8"
+          >
+
             {/* Orders Tab */}
             {activeTab === "orders" && (
               <div>
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/60">Order History</h2>
-                  <Link href="/track-order" className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/50 hover:text-foreground transition-colors flex items-center gap-2">
-                    <Search className="w-3 h-3 stroke-[1.5]" />
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-foreground/40 font-medium">
+                    {orders.length} Order{orders.length !== 1 ? "s" : ""}
+                  </span>
+                  <Link
+                    href="/track-order"
+                    className="btn-ghost gap-2"
+                  >
+                    <Search className="w-3.5 h-3.5 stroke-[1.5]" />
                     Track Order
                   </Link>
                 </div>
+
                 {ordersLoading ? (
-                  <div className="bg-secondary p-16 text-center border border-foreground/5">
-                    <Loader2 className="w-6 h-6 mx-auto mb-4 animate-spin stroke-[1] text-foreground/30" />
+                  <div className="bg-secondary p-20 text-center border border-foreground/5 rounded-2xl">
+                    <Loader2 className="w-8 h-8 mx-auto mb-4 animate-spin stroke-[1] text-foreground/20" />
                     <p className="text-foreground/40 text-sm font-light">Loading your orders...</p>
                   </div>
                 ) : orders.length === 0 ? (
-                  <div className="bg-secondary p-16 text-center border border-foreground/5">
-                    <Package className="w-8 h-8 mx-auto mb-4 stroke-[1] text-foreground/30" />
+                  <div className="bg-background p-20 text-center border border-foreground/5 rounded-2xl">
+                    <div className="w-16 h-16 rounded-2xl bg-foreground/[0.02] border border-foreground/5 flex items-center justify-center mx-auto mb-6">
+                      <Package className="w-8 h-8 stroke-[1] text-foreground/20" />
+                    </div>
                     <h3 className="font-serif text-2xl text-foreground mb-2">No Orders Yet</h3>
-                    <p className="text-foreground/50 text-sm font-light">You haven&apos;t placed any orders with us yet.</p>
-                    <Link href="/shop" className="inline-block mt-8 text-[10px] uppercase tracking-[0.2em] font-medium border border-foreground/30 px-8 py-3 hover:bg-foreground hover:text-background transition-colors">
+                    <p className="text-foreground/40 text-sm font-light mb-10">
+                      {"You haven't placed any orders with us yet."}
+                    </p>
+                    <Link href="/shop" className="btn-primary">
                       Start Shopping
                     </Link>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {orders.map((order) => (
-                      <div key={order._id} className="border border-foreground/5 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-foreground/20 transition-colors">
-                        <div>
-                          <div className="flex items-center gap-4 mb-2">
-                            <span className="text-sm font-medium text-foreground">{order.orderNumber}</span>
-                            <span className={`text-[9px] uppercase tracking-[0.15em] px-3 py-1 font-medium ${
-                              order.status === "delivered" ? 'bg-green-500/10 text-green-700' : 'bg-foreground/10 text-foreground/70'
-                            }`}>{order.status}</span>
+                      <div
+                        key={order._id}
+                        className="group bg-background border border-foreground/5 hover:border-foreground/15 p-6 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-md"
+                      >
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2 flex-wrap">
+                              <span className="text-sm font-medium text-foreground">
+                                {order.orderNumber}
+                              </span>
+                              <StatusBadge status={order.status} />
+                            </div>
+                            <p className="text-xs text-foreground/50 font-light flex items-center gap-2">
+                              <Clock className="w-3 h-3 stroke-[1.5]" />
+                              {new Date(order._createdAt).toLocaleDateString("en-IN", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              })}
+                              <span className="text-foreground/20">&middot;</span>
+                              {orderItemCount(order.items)}{" "}
+                              {orderItemCount(order.items) === 1 ? "item" : "items"}
+                            </p>
                           </div>
-                          <p className="text-xs text-foreground/50 font-light">
-                            {new Date(order._createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                            {" "}&middot;{" "}
-                            {orderItemCount(order.items)} {orderItemCount(order.items) === 1 ? 'item' : 'items'}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-6">
-                          <span className="font-medium text-foreground">₹{(order.totalAmount || 0).toLocaleString("en-IN")}</span>
-                          <button className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/50 hover:text-foreground transition-colors flex items-center gap-1.5">
-                            <Download className="w-3 h-3 stroke-[1.5]" />
-                            Invoice
-                          </button>
+                          <div className="flex items-center gap-6">
+                            <span className="font-serif text-lg text-foreground">
+                              ₹{(order.totalAmount || 0).toLocaleString("en-IN")}
+                            </span>
+                            <ChevronRight className="w-4 h-4 text-foreground/10 stroke-[1.5] group-hover:text-foreground/30 transition-colors hidden md:block" />
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -197,101 +299,204 @@ export default function AccountPage() {
             {activeTab === "addresses" && (
               <div>
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/60">Saved Addresses</h2>
+                  <span className="text-[9px] uppercase tracking-[0.2em] text-foreground/40 font-medium">
+                    {addresses.length} {addresses.length === 1 ? "Address" : "Addresses"}
+                  </span>
                   <button
-                    onClick={() => { setShowAddressForm(true); setEditingAddress(null); setAddressForm(EMPTY_ADDRESS); }}
-                    className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/50 hover:text-foreground transition-colors flex items-center gap-2"
+                    onClick={() => {
+                      setShowAddressForm(true);
+                      setEditingAddress(null);
+                      setAddressForm(EMPTY_ADDRESS);
+                    }}
+                    className="btn-ghost gap-2"
                   >
-                    <Plus className="w-3 h-3 stroke-[1.5]" />
+                    <Plus className="w-3.5 h-3.5 stroke-[1.5]" />
                     Add Address
                   </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {addresses.map((addr) => (
-                    <div key={addr.id} className={`border p-6 relative ${addr.isDefault ? 'border-foreground/30' : 'border-foreground/5 hover:border-foreground/20'} transition-colors`}>
+                    <div
+                      key={addr.id}
+                      className={`border p-6 rounded-2xl relative ${addr.isDefault
+                        ? "border-foreground/30 bg-foreground/[0.02]"
+                        : "border-foreground/5 hover:border-foreground/20 bg-background"
+                        } transition-all duration-300`}
+                    >
                       {addr.isDefault && (
-                        <span className="absolute top-3 right-3 text-[8px] uppercase tracking-[0.15em] font-medium text-foreground/40">Default</span>
+                        <span className="absolute top-4 right-4 text-[8px] uppercase tracking-[0.15em] font-medium text-champagne bg-champagne/10 px-2 py-1 rounded-lg">
+                          Default
+                        </span>
                       )}
                       <h3 className="text-sm font-medium text-foreground mb-1">{addr.label}</h3>
-                      <p className="text-xs text-foreground/60 font-light">{addr.firstName} {addr.lastName}</p>
+                      <p className="text-xs text-foreground/60 font-light">
+                        {addr.firstName} {addr.lastName}
+                      </p>
                       <p className="text-xs text-foreground/60 font-light">{addr.address}</p>
-                      <p className="text-xs text-foreground/60 font-light">{addr.city}, {addr.state} - {addr.zipCode}</p>
+                      <p className="text-xs text-foreground/60 font-light">
+                        {addr.city}, {addr.state} - {addr.zipCode}
+                      </p>
                       <p className="text-xs text-foreground/60 font-light">{addr.phone}</p>
                       <div className="flex gap-4 mt-4 pt-4 border-t border-foreground/5">
-                        <button onClick={() => handleEditAddress(addr)} className="text-[9px] uppercase tracking-[0.15em] font-medium text-foreground/50 hover:text-foreground transition-colors">Edit</button>
+                        <button
+                          onClick={() => handleEditAddress(addr)}
+                          className="text-[9px] uppercase tracking-[0.15em] font-medium text-foreground/50 hover:text-foreground transition-colors"
+                        >
+                          Edit
+                        </button>
                         {!addr.isDefault && (
                           <>
-                            <button onClick={() => handleSetDefault(addr.id)} className="text-[9px] uppercase tracking-[0.15em] font-medium text-foreground/50 hover:text-foreground transition-colors">Set as Default</button>
-                            <button onClick={() => handleDeleteAddress(addr.id)} className="text-[9px] uppercase tracking-[0.15em] font-medium text-red-400/70 hover:text-red-500 transition-colors">Delete</button>
+                            <button
+                              onClick={() => handleSetDefault(addr.id)}
+                              className="text-[9px] uppercase tracking-[0.15em] font-medium text-foreground/50 hover:text-foreground transition-colors"
+                            >
+                              Set as Default
+                            </button>
+                            <button
+                              onClick={() => handleDeleteAddress(addr.id)}
+                              className="text-[9px] uppercase tracking-[0.15em] font-medium text-red-400/70 hover:text-red-500 transition-colors"
+                            >
+                              Delete
+                            </button>
                           </>
                         )}
                       </div>
                     </div>
                   ))}
                   {addresses.length === 0 && (
-                    <div className="col-span-full border border-foreground/5 p-16 text-center">
+                    <div className="col-span-full border border-foreground/5 p-20 text-center rounded-2xl">
                       <MapPin className="w-8 h-8 mx-auto mb-4 stroke-[1] text-foreground/20" />
                       <h3 className="font-serif text-xl text-foreground mb-2">No Saved Addresses</h3>
-                      <p className="text-foreground/40 text-sm font-light">Add an address to speed up checkout.</p>
+                      <p className="text-foreground/40 text-sm font-light">
+                        Add an address to speed up checkout.
+                      </p>
                     </div>
                   )}
                 </div>
 
                 {/* Address Form Modal */}
                 {showAddressForm && (
-                  <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={resetAddressForm}>
-                    <div className="bg-background w-full max-w-lg max-h-[90vh] overflow-y-auto p-8" onClick={e => e.stopPropagation()}>
+                  <div
+                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                    onClick={resetAddressForm}
+                  >
+                    <div
+                      className="bg-background w-full max-w-lg max-h-[90vh] overflow-y-auto p-8 rounded-2xl shadow-xl border border-foreground/5"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <div className="flex items-center justify-between mb-8">
-                        <h3 className="font-serif text-2xl text-foreground">{editingAddress ? "Edit Address" : "Add Address"}</h3>
-                        <button onClick={resetAddressForm} className="p-2 text-foreground/40 hover:text-foreground transition-colors">
+                        <h3 className="font-serif text-2xl text-foreground">
+                          {editingAddress ? "Edit Address" : "Add Address"}
+                        </h3>
+                        <button
+                          onClick={resetAddressForm}
+                          className="p-2 text-foreground/40 hover:text-foreground transition-colors"
+                        >
                           <X className="w-5 h-5 stroke-[1.5]" />
                         </button>
                       </div>
                       <form onSubmit={handleAddressSubmit} className="space-y-4">
                         <div className="space-y-2">
-                          <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">Label *</label>
-                          <input required value={addressForm.label} onChange={e => setAddressForm({ ...addressForm, label: e.target.value })} placeholder="e.g. Home, Office" className="w-full h-11 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" />
+                          <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">
+                            Label *
+                          </label>
+                          <input
+                            required
+                            value={addressForm.label}
+                            onChange={(e) => setAddressForm({ ...addressForm, label: e.target.value })}
+                            placeholder="e.g. Home, Office"
+                            className="input-bordered"
+                          />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">First Name *</label>
-                            <input required value={addressForm.firstName} onChange={e => setAddressForm({ ...addressForm, firstName: e.target.value })} className="w-full h-11 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" />
+                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">
+                              First Name *
+                            </label>
+                            <input
+                              required
+                              value={addressForm.firstName}
+                              onChange={(e) => setAddressForm({ ...addressForm, firstName: e.target.value })}
+                              className="input-bordered"
+                            />
                           </div>
                           <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">Last Name *</label>
-                            <input required value={addressForm.lastName} onChange={e => setAddressForm({ ...addressForm, lastName: e.target.value })} className="w-full h-11 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" />
+                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">
+                              Last Name *
+                            </label>
+                            <input
+                              required
+                              value={addressForm.lastName}
+                              onChange={(e) => setAddressForm({ ...addressForm, lastName: e.target.value })}
+                              className="input-bordered"
+                            />
                           </div>
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">Address *</label>
-                          <input required value={addressForm.address} onChange={e => setAddressForm({ ...addressForm, address: e.target.value })} className="w-full h-11 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" />
+                          <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">
+                            Address *
+                          </label>
+                          <input
+                            required
+                            value={addressForm.address}
+                            onChange={(e) => setAddressForm({ ...addressForm, address: e.target.value })}
+                            className="input-bordered"
+                          />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">City *</label>
-                            <input required value={addressForm.city} onChange={e => setAddressForm({ ...addressForm, city: e.target.value })} className="w-full h-11 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" />
+                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">
+                              City *
+                            </label>
+                            <input
+                              required
+                              value={addressForm.city}
+                              onChange={(e) => setAddressForm({ ...addressForm, city: e.target.value })}
+                              className="input-bordered"
+                            />
                           </div>
                           <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">State *</label>
-                            <input required value={addressForm.state} onChange={e => setAddressForm({ ...addressForm, state: e.target.value })} className="w-full h-11 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" />
+                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">
+                              State *
+                            </label>
+                            <input
+                              required
+                              value={addressForm.state}
+                              onChange={(e) => setAddressForm({ ...addressForm, state: e.target.value })}
+                              className="input-bordered"
+                            />
                           </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">ZIP Code *</label>
-                            <input required value={addressForm.zipCode} onChange={e => setAddressForm({ ...addressForm, zipCode: e.target.value })} className="w-full h-11 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" />
+                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">
+                              ZIP Code *
+                            </label>
+                            <input
+                              required
+                              value={addressForm.zipCode}
+                              onChange={(e) => setAddressForm({ ...addressForm, zipCode: e.target.value })}
+                              className="input-bordered"
+                            />
                           </div>
                           <div className="space-y-2">
-                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">Phone *</label>
-                            <input required value={addressForm.phone} onChange={e => setAddressForm({ ...addressForm, phone: e.target.value })} className="w-full h-11 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" />
+                            <label className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">
+                              Phone *
+                            </label>
+                            <input
+                              required
+                              value={addressForm.phone}
+                              onChange={(e) => setAddressForm({ ...addressForm, phone: e.target.value })}
+                              className="input-bordered"
+                            />
                           </div>
                         </div>
                         <div className="flex gap-4 pt-4">
-                          <button type="submit" className="flex-1 h-12 bg-foreground text-background uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-foreground/90 transition-colors">
+                          <button type="submit" className="btn-primary flex-1">
                             {editingAddress ? "Save Changes" : "Add Address"}
                           </button>
-                          <button type="button" onClick={resetAddressForm} className="px-8 h-12 border border-foreground/30 text-foreground uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-foreground/5 transition-colors">
+                          <button type="button" onClick={resetAddressForm} className="btn-outline">
                             Cancel
                           </button>
                         </div>
@@ -304,14 +509,28 @@ export default function AccountPage() {
 
             {/* Profile Tab */}
             {activeTab === "profile" && (
-              <div className="bg-background p-8 border border-foreground/5">
-                <h2 className="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/60 mb-8">Profile Management</h2>
-                <div className="clerk-account-override">
-                  <UserProfile routing="hash" />
+              <div className="bg-background p-8 border border-foreground/5 rounded-2xl">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/60 mb-8 block">
+                  Profile Details
+                </span>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4 py-4 border-b border-foreground/5">
+                    <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/40 w-24">
+                      Name
+                    </span>
+                    <span className="text-sm text-foreground font-light">{user?.name || "—"}</span>
+                  </div>
+                  <div className="flex items-center gap-4 py-4 border-b border-foreground/5">
+                    <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/40 w-24">
+                      Email
+                    </span>
+                    <span className="text-sm text-foreground font-light">{user?.email || "—"}</span>
+                  </div>
                 </div>
               </div>
             )}
-          </div>
+
+          </motion.div>
         </div>
       </div>
     </div>

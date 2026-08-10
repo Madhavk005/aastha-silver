@@ -36,7 +36,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="font-serif text-2xl text-foreground font-normal mb-4">4. Third-Party Services</h2>
-            <p>We use Razorpay for payment processing, Sanity for content management, and Clerk for authentication. These third-party providers have their own privacy policies governing the use of your personal information. We recommend reviewing their policies.</p>
+            <p>We use Razorpay for payment processing, Sanity for content management, and Supabase for authentication. These third-party providers have their own privacy policies governing the use of your personal information. We recommend reviewing their policies.</p>
           </section>
 
           <section>

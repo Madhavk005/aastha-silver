@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Heart, ChevronRight, Sparkles } from "lucide-react";
+import { Heart, ChevronRight, Sparkles, CheckCircle2 } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 
 const FOOTER_LINKS = {
@@ -36,6 +36,31 @@ const FOOTER_LINKS = {
 };
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [year, setYear] = useState(2026);
+
+  useEffect(() => {
+    const t = setTimeout(() => setYear(new Date().getFullYear()), 0);
+    return () => clearTimeout(t);
+  }, []);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setStatus(res.ok ? "success" : "error");
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <footer className="bg-foreground text-background relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8 pt-20 md:pt-28 pb-10">
@@ -56,19 +81,40 @@ export function Footer() {
                 </p>
               </div>
             </div>
-            <form className="w-full md:w-auto flex gap-3" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="your@email.com"
-                required
-                className="flex-1 md:w-64 bg-transparent border border-background/20 px-4 py-3 text-sm font-light text-background placeholder:text-background/25 focus:outline-none focus:border-champagne transition-all duration-500 rounded-xl"
-              />
-              <button
-                type="submit"
-                className="uppercase tracking-[0.2em] text-[9px] font-medium text-foreground bg-champagne px-6 py-3 transition-all duration-500 hover:bg-champagne rounded-xl whitespace-nowrap"
-              >
-                Subscribe
-              </button>
+            <form className="w-full md:w-auto flex gap-3" onSubmit={handleSubscribe}>
+              {status === "success" ? (
+                <p className="flex items-center gap-2 text-sm font-light text-champagne">
+                  <CheckCircle2 className="w-4 h-4 stroke-[1.5]" />
+                  You&apos;re in! Welcome to the Inner Circle.
+                </p>
+              ) : (
+                <>
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    required
+                    aria-label="Email address"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setStatus("idle");
+                    }}
+                    className="flex-1 md:w-64 bg-transparent border border-background/20 px-4 py-3 text-sm font-light text-background placeholder:text-background/25 focus:outline-none focus:border-champagne transition-all duration-500 rounded-xl"
+                  />
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    className="uppercase tracking-[0.2em] text-[9px] font-medium text-foreground bg-champagne px-6 py-3 transition-all duration-500 hover:bg-champagne/90 active:scale-[0.97] rounded-xl whitespace-nowrap disabled:opacity-60"
+                  >
+                    {status === "loading" ? "Subscribing…" : "Subscribe"}
+                  </button>
+                </>
+              )}
+              {status === "error" && (
+                <p className="w-full text-xs text-red-300 font-light">
+                  Something went wrong. Please try again.
+                </p>
+              )}
             </form>
           </div>
         </div>
@@ -127,7 +173,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-background/10 text-background/40 font-light text-xs text-center md:text-left gap-6 md:gap-0">
-          <p>&copy; {new Date().getFullYear()} Aastha Silver. Crafted with <Heart className="w-3 h-3 inline-block fill-background/30 text-background/30" /> in India.</p>
+          <p>&copy; {year} Aastha Silver. Crafted with <Heart className="w-3 h-3 inline-block fill-background/30 text-background/30" /> in India.</p>
           <div className="flex items-center gap-6">
             <a
               href="https://www.instagram.com/aastha_silver/"

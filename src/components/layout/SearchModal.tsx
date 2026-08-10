@@ -24,10 +24,10 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   const TRENDING_SEARCHES = ["Silver Chains", "Minimalist Rings", "Stud Earrings", "Wedding Bands"];
   const POPULAR_CATEGORIES = [
-    { name: "Necklaces", slug: "necklaces" },
+    { name: "Chains", slug: "chains" },
     { name: "Rings", slug: "rings" },
-    { name: "Earrings", slug: "earrings" },
-    { name: "Bracelets", slug: "bracelets" }
+    { name: "Bracelets", slug: "bracelets" },
+    { name: "Pendants & Charms", slug: "pendants-charms" }
   ];
 
   useEffect(() => {

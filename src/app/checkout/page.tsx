@@ -50,7 +50,7 @@ export default function CheckoutPage() {
 
   const subtotal = getTotal();
   const tax = (subtotal - discount) * 0.18;
-  const shipping = subtotal > 10000 ? 0 : 500;
+  const shipping = 0;
   const total = (subtotal - discount) + tax + shipping;
 
   const handleApplyCoupon = () => {
@@ -324,7 +324,7 @@ export default function CheckoutPage() {
               
               {!billingSameAsShipping && (
                 <div className="mt-6 p-6 bg-secondary rounded-xl">
-                  <p className="text-xs text-gray-500 italic">In a complete implementation, a secondary address form would appear here.</p>
+                  <p className="text-xs text-gray-500 italic">Your billing address is collected by our secure payment gateway at checkout.</p>
                 </div>
               )}
             </section>

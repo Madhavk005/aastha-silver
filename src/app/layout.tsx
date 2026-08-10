@@ -4,10 +4,11 @@ import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ClerkProvider } from "@clerk/nextjs";
+import { AuthProvider } from "@/context/AuthProvider";
 import { CartDrawer } from "@/features/cart/components/CartDrawer";
 import { FloatingActions } from "@/components/layout/FloatingActions";
 import { ExitIntentPopup } from "@/components/layout/ExitIntentPopup";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -57,8 +58,6 @@ export const metadata: Metadata = {
     },
 };
 
-import { shadcn } from "@clerk/ui/themes";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 
 export default function RootLayout({
   children,
@@ -72,7 +71,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground cursor-none">
         <CustomCursor />
-        <ClerkProvider appearance={{ theme: shadcn }}>
+        <AuthProvider>
           <TooltipProvider>
             <Navbar />
             <CartDrawer />
@@ -83,7 +82,7 @@ export default function RootLayout({
             <FloatingActions />
             <ExitIntentPopup />
           </TooltipProvider>
-        </ClerkProvider>
+        </AuthProvider>
       </body>
     </html>
   );

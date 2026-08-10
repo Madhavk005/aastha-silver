@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { prisma } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,10 +16,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
     }
 
-    // Signature is valid.
-    // NOTE: Because Sanity was removed, order metadata isn't stored in the database.
-    // In a real application, you would update the order status to "paid" in your DB here.
-    
+    await prisma.order.updateMany({
+      where: { razorpayOrderId: razorpay_order_id },
+      data: {
+        status: "paid",
+        paymentId: razorpay_payment_id,
+      },
+    });
+
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error("Verification error:", error);

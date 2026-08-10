@@ -9,7 +9,7 @@ export const metadata = {
 const FAQS = [
   {
     question: "What materials do you use?",
-    answer: "All our jewellery is handcrafted using premium 925 sterling silver. Many pieces feature cubic zirconia or semi-precious stones, and our gold-tone items are thickly plated with 18k gold over a sterling silver base (vermeil) to ensure longevity."
+    answer: "All our jewellery is handcrafted using premium 925 sterling silver, hallmarked for authenticity. Many pieces feature cubic zirconia or semi-precious stones. We never coat or plate our silver — real sterling tarnishes naturally with time, and a quick polish brings back its brilliance."
   },
   {
     question: "How should I care for my jewellery?",
@@ -21,7 +21,7 @@ const FAQS = [
   },
   {
     question: "What is your return policy?",
-    answer: "We accept returns within 14 days of delivery. Items must be unworn, in their original condition, and returned with all original packaging. Custom or engraved pieces are final sale."
+    answer: "We are a no-returns store. Every piece is hand-inspected and quality-checked before dispatch, so all sales are final. This lets us offer honest, industry-low prices. If your order arrives damaged, defective, or incorrect, contact us within 48 hours of delivery with your order number and an unboxing video."
   }
 ];
 

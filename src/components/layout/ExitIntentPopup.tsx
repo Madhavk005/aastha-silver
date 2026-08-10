@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Sparkles } from "lucide-react";
+import { X, Sparkles, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const POPUP_STORAGE_KEY = "aastha-exit-intent-dismissed";
@@ -9,6 +9,7 @@ const POPUP_STORAGE_KEY = "aastha-exit-intent-dismissed";
 export function ExitIntentPopup() {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   useEffect(() => {
     const dismissed = sessionStorage.getItem(POPUP_STORAGE_KEY);
@@ -34,10 +35,25 @@ export function ExitIntentPopup() {
     setIsVisible(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    sessionStorage.setItem(POPUP_STORAGE_KEY, "true");
-    setIsVisible(false);
+    if (!email.trim()) return;
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        sessionStorage.setItem(POPUP_STORAGE_KEY, "true");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -78,20 +94,37 @@ export function ExitIntentPopup() {
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="w-full h-12 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors text-center"
-                />
-                <button
-                  type="submit"
-                  className="w-full h-12 bg-foreground text-background uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-foreground/90 transition-colors"
-                >
-                  Claim 10% Off
-                </button>
+                {status === "success" ? (
+                  <p className="flex items-center justify-center gap-2 text-sm font-light text-emerald">
+                    <CheckCircle2 className="w-4 h-4 stroke-[1.5]" />
+                    You&apos;re in! Check your inbox for 10% off.
+                  </p>
+                ) : (
+                  <>
+                    <input
+                      type="email"
+                      required
+                      aria-label="Email address"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setStatus("idle");
+                      }}
+                      placeholder="Enter your email"
+                      className="w-full h-12 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors text-center"
+                    />
+                    <button
+                      type="submit"
+                      disabled={status === "loading"}
+                      className="w-full h-12 bg-foreground text-background uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-foreground/90 transition-colors disabled:opacity-60"
+                    >
+                      {status === "loading" ? "Sending…" : "Claim 10% Off"}
+                    </button>
+                    {status === "error" && (
+                      <p className="text-xs text-red-500 font-light">Something went wrong. Please try again.</p>
+                    )}
+                  </>
+                )}
               </form>
 
               <p className="mt-6 text-[10px] text-foreground/30 font-light">

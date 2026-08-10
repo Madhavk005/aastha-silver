@@ -1,13 +1,23 @@
-import React from "react";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+"use client";
+
+import React, { useState } from "react";
+import { Mail, Phone, MapPin, Clock, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Contact | Aastha Silver",
-  description: "Get in touch with Aastha Silver. We'd love to hear from you about our premium sterling silver jewellery.",
-};
-
 export default function ContactPage() {
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const subject = encodeURIComponent(`[Aastha Silver] ${data.get("subject") || "Website Inquiry"}`);
+    const body = encodeURIComponent(
+      `Name: ${data.get("name")}\nEmail: ${data.get("email")}\n\n${data.get("message")}`
+    );
+    window.location.href = `mailto:hello@aasthasilver.com?subject=${subject}&body=${body}`;
+    setSent(true);
+  };
+
   return (
     <div className="min-h-screen bg-background pt-32 pb-24">
       <div className="container mx-auto px-4 md:px-8 max-w-5xl">
@@ -21,24 +31,30 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
           <div>
-            <form className="space-y-6">
+            {sent && (
+              <div className="mb-6 flex items-center gap-3 px-5 py-4 bg-emerald/10 border border-emerald/20 text-emerald rounded-xl">
+                <CheckCircle2 className="w-4 h-4 stroke-[1.5]" />
+                <span className="text-sm font-light">Your email app should have opened. If not, write to us at hello@aasthasilver.com.</span>
+              </div>
+            )}
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">Full Name *</label>
-                  <input required id="name" type="text" className="w-full h-12 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" placeholder="Your name" />
+                  <input required id="name" name="name" type="text" className="w-full h-12 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" placeholder="Your name" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="email" className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">Email *</label>
-                  <input required id="email" type="email" className="w-full h-12 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" placeholder="your@email.com" />
+                  <input required id="email" name="email" type="email" className="w-full h-12 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" placeholder="your@email.com" />
                 </div>
               </div>
               <div className="space-y-2">
                 <label htmlFor="subject" className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">Subject</label>
-                <input id="subject" type="text" className="w-full h-12 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" placeholder="How can we help?" />
+                <input id="subject" name="subject" type="text" className="w-full h-12 bg-transparent border border-foreground/20 px-4 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors" placeholder="How can we help?" />
               </div>
               <div className="space-y-2">
                 <label htmlFor="message" className="text-[10px] uppercase tracking-[0.15em] font-medium text-foreground/60">Message *</label>
-                <textarea required id="message" rows={6} className="w-full bg-transparent border border-foreground/20 px-4 py-3 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors resize-none" placeholder="Tell us more about your inquiry..." />
+                <textarea required id="message" name="message" rows={6} className="w-full bg-transparent border border-foreground/20 px-4 py-3 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors resize-none" placeholder="Tell us more about your inquiry..." />
               </div>
               <button type="submit" className="w-full h-14 bg-foreground text-background hover:bg-foreground/90 uppercase tracking-[0.2em] text-[10px] font-medium transition-colors">
                 Send Message

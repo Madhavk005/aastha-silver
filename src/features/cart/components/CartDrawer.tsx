@@ -113,18 +113,17 @@ export function CartDrawer() {
 
         {items.length > 0 && (
           <div className="border-t border-foreground/10 p-6 md:p-8 bg-background">
-            {/* Shipping Progress */}
+            {/* Shipping */}
             <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-[10px] uppercase tracking-[0.15em] text-foreground/60 font-medium">Shipping</span>
                 <span className="text-[10px] font-medium text-foreground">
-                  {getTotal() >= 10000 ? "Free" : `${formatCurrency(10000 - getTotal())} away from Free`}
+                  Free on all orders
                 </span>
               </div>
               <div className="w-full h-1 bg-foreground/10 overflow-hidden">
                 <div 
-                  className="h-full bg-foreground transition-all duration-700 ease-out" 
-                  style={{ width: `${Math.min((getTotal() / 10000) * 100, 100)}%` }} 
+                  className="h-full w-full bg-foreground transition-all duration-700 ease-out" 
                 />
               </div>
             </div>

@@ -49,15 +49,11 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
                     <ul className="space-y-4">
                       <li className="flex justify-between items-center border-b border-black/5 pb-2">
                         <span>Standard Delivery (3-5 business days)</span>
-                        <span>Free on orders over ₹5,000</span>
+                        <span>Free on all orders</span>
                       </li>
                       <li className="flex justify-between items-center border-b border-black/5 pb-2">
-                        <span>Standard Delivery (Orders under ₹5,000)</span>
-                        <span>₹150</span>
-                      </li>
-                      <li className="flex justify-between items-center">
                         <span>Express Delivery (1-2 business days)</span>
-                        <span>₹350</span>
+                        <span>Free on all orders</span>
                       </li>
                     </ul>
                   </div>
@@ -87,27 +83,17 @@ export default function DeliveryClient({ initialData }: { initialData: PolicyDat
               </motion.section>
 
               <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <h2 className="font-serif text-2xl text-[#0F0F0F] mb-6 border-b border-black/10 pb-4">Returns & Exchanges</h2>
+                <h2 className="font-serif text-2xl text-[#0F0F0F] mb-6 border-b border-black/10 pb-4">No Returns — Every Order Is Final</h2>
                 <div className="prose prose-sm text-gray-600 font-light leading-relaxed">
                   <p>
-                    We want you to be completely satisfied with your Aastha Silver purchase. If for any reason you are not, 
-                    we accept returns within 14 days of delivery for a full refund or exchange.
+                    We are a no-returns store. Every piece is hand-inspected and quality-checked before it leaves our atelier,
+                    so what you receive is exactly what we promise. By keeping our operations lean — no returns, no exchanges,
+                    no restocking — we can offer honest, industry-low prices.
                   </p>
-                  <h3 className="text-[#0F0F0F] font-medium mt-6 mb-2">Conditions for Return</h3>
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>Items must be unworn, in their original condition, and with all tags attached.</li>
-                    <li>The original packaging, including boxes and pouches, must be returned intact.</li>
-                    <li>Custom or personalized pieces are final sale and cannot be returned.</li>
-                    <li>Earrings cannot be returned for hygiene reasons, unless faulty.</li>
-                  </ul>
-                  
-                  <h3 className="text-[#0F0F0F] font-medium mt-6 mb-2">How to Return</h3>
-                  <ol className="list-decimal pl-5 space-y-2">
-                    <li>Contact our client services team at care@aasthasilver.com with your order number.</li>
-                    <li>We will provide you with a return authorization and a prepaid shipping label (for domestic orders).</li>
-                    <li>Carefully package the item and hand it over to our courier partner.</li>
-                    <li>Refunds will be processed to your original payment method within 5-7 business days of receiving the return.</li>
-                  </ol>
+                  <p>
+                    If your order arrives damaged, defective, or incorrect, contact our client services team at hello@aasthasilver.com
+                    within 48 hours of delivery with your order number and a mandatory unboxing video.
+                  </p>
 
                   <h3 className="text-[#0F0F0F] font-medium mt-8 mb-2 border-l-2 border-black pl-4">Mandatory Unboxing Video</h3>
                   <div className="bg-secondary p-6 rounded-[1rem] mt-4">

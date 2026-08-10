@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { Search, Package } from "lucide-react";
+import { Search, Package, Truck, Home } from "lucide-react";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 
@@ -29,6 +29,64 @@ interface Order {
   date: string;
 }
 
+function buildTimeline(raw: {
+  status?: string;
+  _createdAt?: string;
+  updatedAt?: string;
+}): TimelineEvent[] {
+  const status = (raw.status || "processing").toLowerCase();
+  const created = raw._createdAt
+    ? new Date(raw._createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })
+    : "";
+  const updated = raw.updatedAt || raw._createdAt;
+
+  const events: Omit<TimelineEvent, "icon">[] = [
+    { label: "Order Placed", date: created, completed: true },
+    { label: "Processing", date: "", completed: status !== "cancelled" },
+    { label: "Shipped", date: "", completed: status === "shipped" || status === "delivered" },
+    { label: "Delivered", date: "", completed: status === "delivered" },
+  ];
+
+  if (status === "delivered" && updated) {
+    events[events.length - 1].date = new Date(updated).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  const icons = [Package, Truck, Truck, Home];
+  return events.map((event, i) => ({ ...event, icon: icons[i] })).filter((event) => event.completed || status !== "cancelled");
+}
+
+function normalizeOrder(raw: unknown): Order | null {
+  if (!raw || typeof raw !== "object") return null;
+  const order = raw as Record<string, unknown>;
+
+  const items: OrderItem[] = Array.isArray(order.items)
+    ? order.items
+        .filter((i): i is OrderItem => !!i && typeof i === "object")
+        .map((i) => ({
+          name: String(i.name ?? "Item"),
+          quantity: Number(i.quantity ?? 1),
+          price: Number(i.price ?? 0),
+        }))
+    : [];
+
+  const timeline = buildTimeline(order as { status?: string; _createdAt?: string });
+  const total = typeof order.totalAmount === "number" ? order.totalAmount : 0;
+
+  return {
+    id: String(order.orderNumber ?? order._id ?? "—"),
+    orderNumber: String(order.orderNumber ?? order._id ?? ""),
+    status: String(order.status ?? "processing"),
+    items,
+    total,
+    shipping: {
+      name: String(order.customerName ?? "Aastha Silver"),
+      address: typeof order.shippingAddress === "string" ? order.shippingAddress : "—",
+    },
+    timeline,
+    date: typeof order._createdAt === "string" ? order._createdAt : "",
+  };
+}
+
 
 
 export default function TrackOrderPage() {
@@ -45,7 +103,7 @@ export default function TrackOrderPage() {
     try {
       const res = await fetch(`/api/orders/track?orderNumber=${encodeURIComponent(orderId.trim())}`);
       const data = await res.json();
-      setOrder(data.order || null);
+      setOrder(normalizeOrder(data.order));
     } catch {
       setOrder(null);
     } finally {
@@ -81,9 +139,10 @@ export default function TrackOrderPage() {
           <div className="flex-1">
             <Input
               type="text"
+              aria-label="Order ID"
               value={orderId}
               onChange={(e) => setOrderId(e.target.value)}
-              placeholder="Enter order ID (e.g. AS-2024-0001)"
+              placeholder="Enter order ID (e.g. AS-2026-0001)"
               className="w-full h-14 bg-transparent border border-foreground/20 px-6 text-sm font-light text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground transition-colors rounded-xl"
             />
           </div>

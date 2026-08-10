@@ -1,5 +1,6 @@
 export interface Product {
   _id: string;
+  _createdAt?: string;
   title: string;
   slug: { current: string };
   price: number;

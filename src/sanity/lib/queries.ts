@@ -2,6 +2,7 @@ import { groq } from "next-sanity";
 
 const PRODUCT_PROJECTION = `
   _id,
+  _createdAt,
   title,
   slug,
   price,

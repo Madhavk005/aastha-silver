@@ -47,7 +47,7 @@ export default function ProductClient({ product, relatedProducts, sameCategoryPr
 
   const handleAddToCart = () => {
     addCartItem({
-      id: product._id,
+      id: hasVariants && selectedVariant ? `${product._id}:${selectedVariant}` : product._id,
       name: hasVariants && selectedVariant ? `${product.title} - ${selectedVariant}` : product.title,
       price: product.price,
       image: activeImage,
@@ -231,8 +231,8 @@ export default function ProductClient({ product, relatedProducts, sameCategoryPr
             <div className="mt-10 flex flex-wrap gap-6 border-t border-foreground/5 pt-8">
               {[
                 { icon: ShieldCheck, label: "Authentic 925 Silver" },
-                { icon: Truck, label: "Free shipping ₹10,000+" },
-                { icon: RotateCcw, label: "14-day returns" },
+                { icon: Truck, label: "Free shipping on all orders" },
+                { icon: RotateCcw, label: "No returns — final sale" },
               ].map(({ icon: TrustIcon, label }) => (
                 <div key={label} className="flex items-center gap-2 text-[9px] uppercase tracking-[0.15em] font-medium text-foreground/40">
                   <TrustIcon className="w-3.5 h-3.5 stroke-[1.5]" />
@@ -262,7 +262,7 @@ export default function ProductClient({ product, relatedProducts, sameCategoryPr
                   </span>
                 </summary>
                 <p className="text-foreground/40 mt-4 text-sm font-light leading-relaxed">
-                  Complimentary express shipping on orders above ₹10,000. Returns accepted within 14 days of delivery in original, unworn condition.
+                  Complimentary express shipping on every order across India, no minimums. All sales are final — every piece is hand-inspected and quality-checked before dispatch.
                 </p>
               </details>
             </div>

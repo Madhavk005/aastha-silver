@@ -1,5 +1,5 @@
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { getProductsByCategoryQuery, getFeaturedProductsQuery, getProductBySlugQuery, getAllProductsQuery, getAllCategoriesQuery, getOrdersByUserIdQuery, getOrderByOrderNumberQuery, getPolicyBySlugQuery } from "@/sanity/lib/queries";
+import { getProductsByCategoryQuery, getFeaturedProductsQuery, getProductBySlugQuery, getAllProductsQuery, getAllCategoriesQuery, getPolicyBySlugQuery } from "@/sanity/lib/queries";
 import type { Product } from "@/features/products/types";
 
 export async function getAllCategories(): Promise<{ title: string; slug: { current: string }; image?: string; description?: string }[]> {
@@ -26,18 +26,6 @@ export async function getProductsByCategory(category: string): Promise<Product[]
 export async function getFeaturedProducts(): Promise<Product[]> {
   const products = await sanityFetch<Product[]>({ query: getFeaturedProductsQuery });
   return products || [];
-}
-
-export async function getOrdersByUserId(userId: string) {
-  if (!userId || userId === "placeholder") return [];
-  const orders = await sanityFetch<unknown[]>({ query: getOrdersByUserIdQuery, params: { userId } });
-  return orders || [];
-}
-
-export async function getOrderByOrderNumber(orderNumber: string) {
-  if (!orderNumber) return null;
-  const order = await sanityFetch<unknown>({ query: getOrderByOrderNumberQuery, params: { orderNumber } });
-  return order || null;
 }
 
 export async function getDeliveryPolicy() {
