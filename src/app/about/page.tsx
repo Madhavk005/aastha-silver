@@ -18,7 +18,7 @@ export default function AboutPage() {
             a natural extension of the wearer.&quot;
           </p>
           
-          <div className="w-16 h-[1px] bg-black/10 mx-auto my-12" />
+          <div className="w-16 h-[1px] bg-foreground/10 mx-auto my-12" />
 
           <p>
             Aastha Silver was born from a desire to return to the essentials. In a world saturated 

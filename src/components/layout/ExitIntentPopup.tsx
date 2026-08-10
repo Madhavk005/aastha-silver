@@ -116,7 +116,7 @@ export function ExitIntentPopup() {
                     <button
                       type="submit"
                       disabled={status === "loading"}
-                      className="w-full h-12 bg-foreground text-background uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-foreground/90 transition-colors disabled:opacity-60"
+                      className="w-full h-12 bg-primary text-primary-foreground uppercase tracking-[0.2em] text-[10px] font-medium hover:bg-primary-hover transition-colors disabled:opacity-60 rounded-xl"
                     >
                       {status === "loading" ? "Sending…" : "Claim 10% Off"}
                     </button>

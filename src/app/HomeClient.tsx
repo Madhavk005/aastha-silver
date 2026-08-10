@@ -47,6 +47,10 @@ export default function HomeClient({ products }: { products: Product[] }) {
       <section className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-foreground/[0.02] pointer-events-none" />
+        <div
+          className="absolute top-1/4 -left-1/4 md:left-0 w-[70vw] h-[70vw] md:w-[42vw] md:h-[42vw] rounded-full pointer-events-none opacity-60"
+          style={{ background: "radial-gradient(circle, rgba(197,160,89,0.16) 0%, rgba(197,160,89,0.05) 45%, transparent 70%)" }}
+        />
 
         <div className="flex-1 flex flex-col px-6 md:px-12 pt-36 pb-10 relative z-10">
           {/* Top bar */}
@@ -56,8 +60,8 @@ export default function HomeClient({ products }: { products: Product[] }) {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              <span className="inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.25em] text-foreground/40 px-4 py-2 rounded-full border border-sage/20 bg-sage/10 backdrop-blur-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-sage" />
+              <span className="inline-flex items-center gap-2 text-[9px] uppercase tracking-[0.25em] text-champagne px-4 py-2 rounded-full border border-champagne/30 bg-champagne/5 backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-champagne animate-pulse-subtle" />
                 Spring / Summer 2026
               </span>
             </motion.div>
@@ -114,7 +118,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
               >
                 <Link
                   href="/shop"
-                  className="group inline-flex items-center gap-3 bg-emerald text-background px-8 py-4 text-[9px] uppercase tracking-[0.2em] font-medium transition-all duration-500 hover:bg-deep-forest rounded-xl"
+                  className="btn-primary btn-shine"
                 >
                   Explore Collection
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1 stroke-[1.5]" />
@@ -273,8 +277,8 @@ export default function HomeClient({ products }: { products: Product[] }) {
                   transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
                   className="group p-8 md:p-10 bg-foreground/[0.02] hover:bg-foreground/[0.04] transition-all duration-500 rounded-2xl border border-foreground/5 hover:border-foreground/10"
                 >
-                  <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-xl bg-foreground/5 transition-colors duration-500">
-                    <Icon className="w-5 h-5 text-foreground/50 transition-colors duration-500 stroke-[1.5]" />
+                  <div className="w-10 h-10 flex items-center justify-center mb-6 rounded-xl bg-champagne/10 border border-champagne/20 transition-colors duration-500 group-hover:bg-champagne/20">
+                    <Icon className="w-5 h-5 text-champagne transition-colors duration-500 stroke-[1.5]" />
                   </div>
                   <h3 className="font-serif text-xl text-foreground mb-3">{card.title}</h3>
                   <p className="text-foreground/50 text-sm font-light leading-relaxed">{card.description}</p>
@@ -317,7 +321,7 @@ export default function HomeClient({ products }: { products: Product[] }) {
             >
               <Link
                 href="/shop"
-                className="hidden md:inline-flex items-center justify-center bg-emerald text-background px-8 py-4 text-[9px] font-medium tracking-[0.2em] uppercase transition-all duration-500 hover:bg-deep-forest rounded-xl"
+                className="hidden md:inline-flex items-center justify-center btn-primary btn-shine"
               >
                 Discover All
               </Link>

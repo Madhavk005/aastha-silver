@@ -204,14 +204,13 @@ export default function ProductClient({ product, relatedProducts, sameCategoryPr
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
                 onClick={handleAddToCart}
-                variant="outline"
-                className="flex-1 h-12 bg-transparent border-foreground text-foreground hover:bg-foreground hover:text-background uppercase tracking-[0.2em] text-[9px] font-medium transition-all duration-500"
+                className="flex-1 h-12 bg-primary text-primary-foreground hover:bg-primary-hover uppercase tracking-[0.2em] text-[9px] font-medium transition-all duration-500"
               >
                 Add to Cart
               </Button>
               <Button
                 onClick={handleBuyNow}
-                className="flex-1 h-12 bg-foreground text-background hover:bg-foreground/90 uppercase tracking-[0.2em] text-[9px] font-medium transition-all duration-500"
+                className="flex-1 h-12 btn-gold uppercase tracking-[0.2em] text-[9px] font-medium transition-all duration-500"
               >
                 Buy Now
               </Button>
@@ -219,7 +218,7 @@ export default function ProductClient({ product, relatedProducts, sameCategoryPr
                 onClick={toggleWishlist}
                 variant="outline"
                 className={`w-12 h-12 border-foreground flex items-center justify-center transition-colors duration-500 ${
-                  isWishlisted ? "bg-foreground/5 border-foreground text-foreground" : "hover:bg-foreground hover:text-background"
+                  isWishlisted ? "bg-foreground/5 border-foreground text-foreground" : "hover:bg-primary hover:border-primary hover:text-primary-foreground"
                 }`}
                 aria-label="Wishlist"
               >
@@ -273,14 +272,13 @@ export default function ProductClient({ product, relatedProducts, sameCategoryPr
         <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-xl border-t border-foreground/10 p-4 flex gap-3 md:hidden">
           <Button
             onClick={handleAddToCart}
-            variant="outline"
-            className="flex-1 h-12 bg-transparent border-foreground text-foreground hover:bg-foreground hover:text-background uppercase tracking-[0.2em] text-[9px] font-medium transition-all duration-500"
+            className="flex-1 h-12 bg-primary text-primary-foreground hover:bg-primary-hover uppercase tracking-[0.2em] text-[9px] font-medium transition-all duration-500"
           >
             Add to Cart — {formatCurrency(product.price)}
           </Button>
           <Button
             onClick={handleBuyNow}
-            className="flex-1 h-12 bg-foreground text-background hover:bg-foreground/90 uppercase tracking-[0.2em] text-[9px] font-medium transition-all duration-500"
+            className="flex-1 h-12 btn-gold uppercase tracking-[0.2em] text-[9px] font-medium transition-all duration-500"
           >
             Buy Now
           </Button>

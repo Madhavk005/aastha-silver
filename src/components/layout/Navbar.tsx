@@ -92,12 +92,12 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
         isScrolled
-          ? "glass-panel rounded-none border-t-0 border-x-0"
+          ? "glass-panel rounded-none border-t-0 border-x-0 shadow-lg"
           : "bg-transparent"
       )}
     >
       {/* Announcement Banner */}
-      <div className="bg-foreground text-background relative overflow-hidden">
+      <div className="bg-deep-forest text-background relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 py-2.5 flex items-center justify-center text-[9px] uppercase tracking-[0.2em] font-medium">
           <motion.div
             initial={{ opacity: 0, y: -8 }}
@@ -108,10 +108,10 @@ export function Navbar() {
             <svg className="w-3 h-3 text-champagne" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
             <span className="hidden sm:inline">Free shipping on all orders</span>
             <span className="hidden sm:inline mx-2">·</span>
-            <span>Use&nbsp;<span className="font-semibold tracking-wider">WELCOME10</span>&nbsp;for 10% off</span>
+            <span className="text-champagne">Use&nbsp;<span className="font-semibold tracking-wider">WELCOME10</span>&nbsp;for 10% off</span>
           </motion.div>
           {/* Continuous shimmer overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
         </div>
       </div>
 

@@ -64,6 +64,7 @@
   --color-popover: var(--surface-secondary);
   --color-popover-foreground: var(--text-primary);
   --color-primary: var(--button-primary);
+  --color-primary-hover: var(--button-primary-hover);
   --color-primary-foreground: var(--text-inverse);
   --color-secondary: var(--surface-tertiary);
   --color-secondary-foreground: var(--text-primary);
@@ -84,29 +85,30 @@
   --radius-full: 999px;
   --radius: 16px;
 
-  --shadow-xs: 0 2px 4px rgba(0, 0, 0, 0.02);
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
-  --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.1);
+  --shadow-xs: 0 2px 4px rgba(34, 29, 21, 0.03);
+  --shadow-sm: 0 4px 12px rgba(34, 29, 21, 0.05);
+  --shadow-md: 0 8px 24px rgba(34, 29, 21, 0.07);
+  --shadow-lg: 0 16px 40px rgba(34, 29, 21, 0.09);
+  --shadow-xl: 0 24px 60px rgba(34, 29, 21, 0.12);
+  --shadow-gold: 0 12px 32px rgba(197, 160, 89, 0.28);
 }
 
 :root {
-  --surface-primary: #FAFAFA;
+  --surface-primary: #FAF6EF;
   --surface-secondary: #FFFFFF;
-  --surface-tertiary: #F3F4F6;
-  --surface-inverse: #09090B;
+  --surface-tertiary: #F1EAE0;
+  --surface-inverse: #13110C;
   --surface-accent: #C5A059;
 
-  --text-primary: #0F1115;
-  --text-secondary: #52525B;
-  --text-tertiary: #A1A1AA;
-  --text-inverse: #FAFAFA;
+  --text-primary: #221D15;
+  --text-secondary: #5C554A;
+  --text-tertiary: #A49C8C;
+  --text-inverse: #FBF8F2;
 
-  --button-primary: #0F1115;
-  --button-primary-hover: #27272A;
+  --button-primary: #215650;
+  --button-primary-hover: #1B4A45;
 
-  --border-default: rgba(15, 17, 21, 0.08);
+  --border-default: rgba(34, 29, 21, 0.1);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -118,21 +120,21 @@
 }
 
 .dark {
-  --surface-primary: #09090B;
-  --surface-secondary: #18181B;
-  --surface-tertiary: #27272A;
-  --surface-inverse: #FAFAFA;
-  --surface-accent: #E2C374;
+  --surface-primary: #0E0D0A;
+  --surface-secondary: #17150F;
+  --surface-tertiary: #211E16;
+  --surface-inverse: #F4EFE6;
+  --surface-accent: #D4AF6A;
 
-  --text-primary: #FAFAFA;
-  --text-secondary: #A1A1AA;
-  --text-tertiary: #71717A;
-  --text-inverse: #09090B;
+  --text-primary: #F2EDE3;
+  --text-secondary: #A8A191;
+  --text-tertiary: #6F6A5D;
+  --text-inverse: #0E0D0A;
 
-  --button-primary: #FAFAFA;
-  --button-primary-hover: #E4E4E7;
+  --button-primary: #3F7A6E;
+  --button-primary-hover: #4C8A7D;
 
-  --border-default: rgba(250, 250, 250, 0.1);
+  --border-default: rgba(242, 237, 227, 0.1);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -158,7 +160,11 @@
 }
 
 .text-gradient-gold {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-champagne via-cream to-champagne;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#B08D3E] via-[#E8D9A0] to-[#8C6D2F];
+}
+
+.eyebrow {
+  @apply text-[9px] uppercase tracking-[0.3em] text-foreground/40 font-medium;
 }
 
 /* ─── Base Styles ─────────────────────────────────────────── */
@@ -395,15 +401,46 @@
 /* ─── Button Base Refinements ───────────────────────────── */
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-3 bg-foreground text-background px-8 py-4 text-[9px] uppercase tracking-[0.2em] font-medium transition-all duration-500 hover:bg-foreground/90 active:scale-[0.97] rounded-xl;
+  @apply inline-flex items-center justify-center gap-3 bg-primary text-primary-foreground px-8 py-4 text-[9px] uppercase tracking-[0.2em] font-medium transition-all duration-500 hover:bg-primary-hover active:scale-[0.97] rounded-xl;
+}
+
+.btn-gold {
+  @apply inline-flex items-center justify-center gap-3 px-8 py-4 text-[9px] uppercase tracking-[0.2em] font-medium text-[#221D15] transition-all duration-500 active:scale-[0.97] rounded-xl;
+  background: linear-gradient(135deg, #D9BC6F 0%, #C5A059 45%, #E4CE8E 100%);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-gold:hover {
+  box-shadow: 0 16px 40px rgba(197, 160, 89, 0.38);
+  filter: brightness(1.05);
 }
 
 .btn-outline {
-  @apply inline-flex items-center justify-center gap-3 border border-foreground/20 text-foreground px-8 py-4 text-[9px] uppercase tracking-[0.2em] font-medium transition-all duration-500 hover:bg-foreground hover:text-background active:scale-[0.97] rounded-xl;
+  @apply inline-flex items-center justify-center gap-3 border border-foreground/20 text-foreground px-8 py-4 text-[9px] uppercase tracking-[0.2em] font-medium transition-all duration-500 hover:bg-primary hover:border-primary hover:text-primary-foreground active:scale-[0.97] rounded-xl;
 }
 
 .btn-ghost {
   @apply inline-flex items-center justify-center gap-2 text-[9px] uppercase tracking-[0.2em] font-medium text-foreground/50 hover:text-foreground transition-colors duration-300;
+}
+
+.btn-shine {
+  @apply relative overflow-hidden;
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: translateX(-150%) skewX(-20deg);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-shine:hover::after {
+  transform: translateX(320%) skewX(-20deg);
 }
 
 /* ─── Form Element Refinements ──────────────────────────── */

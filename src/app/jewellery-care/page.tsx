@@ -27,32 +27,32 @@ export default function JewelleryCarePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
-          <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-black/5">
-            <Sparkles className="w-8 h-8 text-black mb-6 stroke-[1.5]" />
+          <div className="bg-card p-10 rounded-[2rem] shadow-sm border border-foreground/5">
+            <Sparkles className="w-8 h-8 text-foreground mb-6 stroke-[1.5]" />
             <h3 className="font-serif text-2xl text-[#1A1D1A] mb-4">Everyday Wear</h3>
             <p className="text-gray-500 font-light text-sm leading-relaxed">
               Sterling silver thrives when worn. The natural oils in your skin help keep tarnishing at bay. We encourage you to make Aastha Silver a part of your daily rotation, but advise removing your pieces during strenuous activities to prevent scratching.
             </p>
           </div>
 
-          <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-black/5">
-            <Droplets className="w-8 h-8 text-black mb-6 stroke-[1.5]" />
+          <div className="bg-card p-10 rounded-[2rem] shadow-sm border border-foreground/5">
+            <Droplets className="w-8 h-8 text-foreground mb-6 stroke-[1.5]" />
             <h3 className="font-serif text-2xl text-[#1A1D1A] mb-4">Water & Chemicals</h3>
             <p className="text-gray-500 font-light text-sm leading-relaxed">
               Always remove your jewelry before swimming, showering, or bathing. Chemicals in chlorine, salt water, perfumes, lotions, and cosmetics can accelerate tarnishing and compromise the silver&apos;s finish.
             </p>
           </div>
 
-          <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-black/5">
-            <Box className="w-8 h-8 text-black mb-6 stroke-[1.5]" />
+          <div className="bg-card p-10 rounded-[2rem] shadow-sm border border-foreground/5">
+            <Box className="w-8 h-8 text-foreground mb-6 stroke-[1.5]" />
             <h3 className="font-serif text-2xl text-[#1A1D1A] mb-4">Proper Storage</h3>
             <p className="text-gray-500 font-light text-sm leading-relaxed">
               When not being worn, store your pieces in the original Aastha Silver pouch or an airtight container. Keep pieces separate to avoid scratching, and store them in a cool, dark place.
             </p>
           </div>
 
-          <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-black/5">
-            <Sun className="w-8 h-8 text-black mb-6 stroke-[1.5]" />
+          <div className="bg-card p-10 rounded-[2rem] shadow-sm border border-foreground/5">
+            <Sun className="w-8 h-8 text-foreground mb-6 stroke-[1.5]" />
             <h3 className="font-serif text-2xl text-[#1A1D1A] mb-4">Cleaning Ritual</h3>
             <p className="text-gray-500 font-light text-sm leading-relaxed">
               To restore your silver&apos;s natural luster, gently polish it using a microfiber or specialized silver cleaning cloth. Avoid using harsh chemical dips or abrasive materials, which can permanently damage the surface.

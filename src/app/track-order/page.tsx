@@ -149,7 +149,7 @@ export default function TrackOrderPage() {
           <button
             type="submit"
             disabled={loading || !orderId.trim()}
-            className="h-14 px-8 bg-foreground text-background hover:bg-foreground/90 disabled:opacity-40 disabled:cursor-not-allowed uppercase tracking-[0.2em] text-[10px] font-medium transition-all rounded-xl flex items-center gap-3"
+            className="h-14 px-8 bg-primary text-primary-foreground hover:bg-primary-hover disabled:opacity-40 disabled:cursor-not-allowed uppercase tracking-[0.2em] text-[10px] font-medium transition-all rounded-xl flex items-center gap-3 btn-shine"
           >
             <Search className="w-4 h-4 stroke-[1.5]" />
             {loading ? "Searching..." : "Track"}

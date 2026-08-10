@@ -63,6 +63,7 @@ export function Footer() {
 
   return (
     <footer className="bg-foreground text-background relative overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-champagne/60 to-transparent" />
       <div className="container mx-auto px-4 md:px-8 pt-20 md:pt-28 pb-10">
 
         {/* Newsletter — Inner Circle */}

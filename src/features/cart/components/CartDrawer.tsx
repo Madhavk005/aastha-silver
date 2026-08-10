@@ -121,9 +121,9 @@ export function CartDrawer() {
                   Free on all orders
                 </span>
               </div>
-              <div className="w-full h-1 bg-foreground/10 overflow-hidden">
+              <div className="w-full h-1 bg-foreground/10 overflow-hidden rounded-full">
                 <div 
-                  className="h-full w-full bg-foreground transition-all duration-700 ease-out" 
+                  className="h-full w-full bg-gradient-to-r from-primary via-emerald to-champagne transition-all duration-700 ease-out" 
                 />
               </div>
             </div>
@@ -136,7 +136,7 @@ export function CartDrawer() {
             <Link 
               href="/checkout" 
               onClick={closeCart}
-              className="w-full h-14 bg-foreground text-background hover:bg-foreground/80 rounded-xl uppercase tracking-[0.2em] text-[10px] transition-colors shadow-lg flex items-center justify-center font-medium"
+              className="w-full h-14 bg-primary text-primary-foreground hover:bg-primary-hover rounded-xl uppercase tracking-[0.2em] text-[10px] transition-all duration-500 shadow-lg flex items-center justify-center font-medium btn-shine"
             >
               Proceed to Checkout
             </Link>

@@ -16,11 +16,11 @@ export default function AuthenticityPage() {
           </p>
         </div>
 
-        <div className="bg-white rounded-[2rem] p-8 md:p-16 shadow-sm border border-black/5 mb-16">
+        <div className="bg-card rounded-[2rem] p-8 md:p-16 shadow-sm border border-foreground/5 mb-16">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="w-full md:w-1/2 flex justify-center">
               <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden bg-secondary flex items-center justify-center border-4 border-white shadow-inner">
-                 <ShieldCheck className="w-24 h-24 text-black stroke-[1]" />
+                 <ShieldCheck className="w-24 h-24 text-foreground stroke-[1]" />
               </div>
             </div>
             <div className="w-full md:w-1/2">
@@ -37,21 +37,21 @@ export default function AuthenticityPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           <div className="flex flex-col items-center text-center p-8">
-            <CheckCircle2 className="w-6 h-6 text-black mb-4 stroke-[1.5]" />
+            <CheckCircle2 className="w-6 h-6 text-foreground mb-4 stroke-[1.5]" />
             <h3 className="uppercase tracking-[0.15em] text-xs font-medium text-[#1A1D1A] mb-3">Sourced Ethically</h3>
             <p className="text-gray-500 font-light text-xs leading-relaxed">
               We trace our materials back to their origins, ensuring they are mined and processed under strict environmental and ethical standards.
             </p>
           </div>
           <div className="flex flex-col items-center text-center p-8">
-            <CheckCircle2 className="w-6 h-6 text-black mb-4 stroke-[1.5]" />
+            <CheckCircle2 className="w-6 h-6 text-foreground mb-4 stroke-[1.5]" />
             <h3 className="uppercase tracking-[0.15em] text-xs font-medium text-[#1A1D1A] mb-3">Nickel-Free</h3>
             <p className="text-gray-500 font-light text-xs leading-relaxed">
               All our jewelry is entirely free of nickel, making it hypoallergenic and perfectly safe for sensitive skin.
             </p>
           </div>
           <div className="flex flex-col items-center text-center p-8">
-            <CheckCircle2 className="w-6 h-6 text-black mb-4 stroke-[1.5]" />
+            <CheckCircle2 className="w-6 h-6 text-foreground mb-4 stroke-[1.5]" />
             <h3 className="uppercase tracking-[0.15em] text-xs font-medium text-[#1A1D1A] mb-3">Artisan Crafted</h3>
             <p className="text-gray-500 font-light text-xs leading-relaxed">
               Beyond the metal itself, our authenticity lies in the hands of the master artisans who shape each individual piece.

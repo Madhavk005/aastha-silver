@@ -14,6 +14,8 @@ interface ProductCardProps {
   priority?: boolean
 }
 
+const NEW_CUTOFF_MS = Date.now() - 45 * 24 * 60 * 60 * 1000
+
 export function ProductCard({ product, priority = false }: ProductCardProps) {
   const { addItem: addCartItem } = useCartStore()
   const { addItem: addWishlistItem, hasItem: hasWishlistItem, removeItem: removeWishlistItem } = useWishlistStore()
@@ -53,9 +55,11 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   const rating = Math.round(product.rating || 0)
 
+  const isNew = !!product._createdAt && new Date(product._createdAt).getTime() >= NEW_CUTOFF_MS
+
   return (
-    <Link href={`/product/${slug}`} className="group block">
-      <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden mb-5">
+    <Link href={`/product/${slug}`} className="group block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5">
+      <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden mb-5 rounded-xl bg-secondary transition-all duration-500 group-hover:shadow-lg group-hover:shadow-foreground/10 ring-1 ring-transparent group-hover:ring-champagne/40">
         {mainImage ? (
           <Image
             src={mainImage}
@@ -73,11 +77,15 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
         <div className="absolute inset-0 bg-foreground/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-        {product.inStock === false && (
-          <div className="absolute top-3 left-3 bg-background/90 backdrop-blur-sm px-3 py-1">
+        {product.inStock === false ? (
+          <div className="absolute top-3 left-3 bg-background/90 backdrop-blur-sm px-3 py-1 rounded-md">
             <span className="text-[7px] uppercase tracking-[0.2em] font-medium text-foreground/70">Out of Stock</span>
           </div>
-        )}
+        ) : isNew ? (
+          <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-3 py-1 rounded-md shadow-sm">
+            <span className="text-[7px] uppercase tracking-[0.2em] font-medium">New</span>
+          </div>
+        ) : null}
 
         <button
           onClick={handleToggleWishlist}
@@ -90,7 +98,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         <div className="absolute inset-x-3 bottom-3 lg:inset-x-4 lg:bottom-6 lg:translate-y-[120%] lg:group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
           <Button
             onClick={handleAddToCart}
-            className="w-full bg-background/80 backdrop-blur-xl border border-foreground/10 text-foreground hover:bg-foreground hover:text-background h-10 lg:h-12 uppercase tracking-[0.2em] text-[9px] lg:text-[10px] font-medium transition-all duration-500"
+            className="w-full bg-background/80 backdrop-blur-xl border border-foreground/10 text-foreground hover:bg-primary hover:border-primary hover:text-primary-foreground h-10 lg:h-12 uppercase tracking-[0.2em] text-[9px] lg:text-[10px] font-medium transition-all duration-500"
           >
             <ShoppingBag className="w-3 h-3 mr-2 lg:hidden" strokeWidth={1.5} />
             <span className="hidden lg:inline">Quick Add</span>

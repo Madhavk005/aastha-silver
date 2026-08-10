@@ -31,12 +31,12 @@ export default function WishlistPage() {
 
       {items.length === 0 ? (
         <div className="flex flex-col items-center justify-center text-center space-y-6 py-20 bg-secondary/50 rounded-sm">
-          <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-black mb-2 shadow-sm">
+          <div className="w-16 h-16 rounded-full bg-card flex items-center justify-center text-foreground mb-2 shadow-sm">
             <Heart className="w-6 h-6 stroke-[1.5]" />
           </div>
-          <p className="font-serif text-3xl text-[#0F0F0F]">Your wishlist is empty.</p>
+          <p className="font-serif text-3xl text-foreground">Your wishlist is empty.</p>
           <p className="text-gray-500 text-sm font-light max-w-xs">Save your favorite pieces here to find them quickly later.</p>
-          <Link href="/shop/all" className="mt-8 bg-transparent border border-black text-black hover:bg-black hover:border-black hover:text-white rounded-full px-10 py-4 uppercase tracking-[0.15em] text-[10px] transition-colors inline-flex items-center justify-center font-medium">
+          <Link href="/shop/all" className="mt-8 bg-transparent border border-foreground text-foreground hover:bg-primary hover:border-primary hover:text-primary-foreground rounded-full px-10 py-4 uppercase tracking-[0.15em] text-[10px] transition-colors inline-flex items-center justify-center font-medium">
             Continue Shopping
           </Link>
         </div>
