@@ -99,10 +99,10 @@ export default function ContactPage() {
 
             <div className="border-t border-foreground/10 pt-8">
               <h3 className="font-serif text-xl text-foreground mb-4">Prefer self-service?</h3>
-              <p className="text-sm text-foreground/60 font-light mb-6">Browse our FAQ or check your order status from your account.</p>
+              <p className="text-sm text-foreground/60 font-light mb-6">Browse our FAQ or track your order anytime.</p>
               <div className="flex gap-4">
                 <Link href="/faq" className="text-[10px] uppercase tracking-[0.2em] font-medium border border-foreground/30 px-6 py-3 hover:bg-foreground hover:text-background transition-colors">FAQ</Link>
-                <Link href="/account" className="text-[10px] uppercase tracking-[0.2em] font-medium border border-foreground/30 px-6 py-3 hover:bg-foreground hover:text-background transition-colors">My Account</Link>
+                <Link href="/track-order" className="text-[10px] uppercase tracking-[0.2em] font-medium border border-foreground/30 px-6 py-3 hover:bg-foreground hover:text-background transition-colors">Track Order</Link>
               </div>
             </div>
           </div>

@@ -4,7 +4,6 @@ import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { AuthProvider } from "@/context/AuthProvider";
 import { CartDrawer } from "@/features/cart/components/CartDrawer";
 import { FloatingActions } from "@/components/layout/FloatingActions";
 import { ExitIntentPopup } from "@/components/layout/ExitIntentPopup";
@@ -73,18 +72,16 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground cursor-none">
         <CustomCursor />
         <Analytics />
-        <AuthProvider>
-          <TooltipProvider>
-            <Navbar />
-            <CartDrawer />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-            <FloatingActions />
-            <ExitIntentPopup />
-          </TooltipProvider>
-        </AuthProvider>
+        <TooltipProvider>
+          <Navbar />
+          <CartDrawer />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <FloatingActions />
+          <ExitIntentPopup />
+        </TooltipProvider>
       </body>
     </html>
   );

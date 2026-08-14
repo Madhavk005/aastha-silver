@@ -10,7 +10,7 @@ datasource db {
 
 model Order {
   id              String   @id @default(uuid())
-  userId          String
+  userId          String?
   items           Json
   subtotal        Int
   shipping        Int

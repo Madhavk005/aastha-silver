@@ -6,9 +6,9 @@ Premium sterling silver jewellery e-commerce platform.
 
 - **Framework** — Next.js 16 (App Router, TypeScript, Tailwind CSS v4)
 - **CMS** — Sanity (products, collections, pages, journal)
-- **Database** — PostgreSQL (Supabase) via Prisma ORM (`Order`, `NewsletterSubscriber`)
-- **Auth** — Supabase Auth (email/password + Google OAuth)
+- **Database** — PostgreSQL (Supabase host) via Prisma ORM (`Order`, `NewsletterSubscriber`)
 - **Payments** — Razorpay (order creation + signature verification)
+- **Auth** — none (guest checkout)
 - **State** — Zustand (cart, wishlist)
 
 ## Getting Started
@@ -26,7 +26,6 @@ Open [http://localhost:3000](http://localhost:3000).
 
 All secrets live in `.env.local` (gitignored). Required:
 
-- Supabase: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `SUPABASE_JWKS_URL`
 - Database: `DATABASE_URL` (transaction pooler), `DIRECT_URL` (session pooler — used by Prisma CLI)
 - Sanity: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`
 - Razorpay: `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `NEXT_PUBLIC_RAZORPAY_KEY_ID`
@@ -46,12 +45,7 @@ npm test         # vitest unit tests
 
 ## Google OAuth — one-time setup
 
-The Google provider is **already enabled** in Supabase. To make it work end-to-end:
-
-1. Create an OAuth client at [console.cloud.google.com](https://console.cloud.google.com) (APIs & Services → Credentials → Create OAuth Client ID → Web application)
-2. Add the Supabase callback as an Authorized redirect URI: `https://aejrqivtvgciyeverqwd.supabase.co/auth/v1/callback`
-3. Add your site URLs (e.g. `http://localhost:3000`, your domain) as Authorized origins
-4. Paste the Client ID and Secret into Supabase: dashboard → Authentication → Providers → Google
+Google OAuth was removed with the auth layer; the app uses guest checkout. If auth is ever re-added, the Supabase provider remains enabled in the project (`aejrqivtvgciyeverqwd`), needing a Google Cloud OAuth client with callback `https://aejrqivtvgciyeverqwd.supabase.co/auth/v1/callback` configured as a redirect URI.
 
 ## Commands
 
@@ -64,5 +58,5 @@ Local studio lives in `studio/` (run from that directory); production studio is 
 ## Known Pending Work
 
 - Razorpay keys are placeholders — replace with live/test keys before launch
-- Google OAuth needs a Google Cloud OAuth client ID/secret added to Supabase (steps above)
 - Sentry/analytics/order emails are wired but need real account keys/IDs to start reporting
+- Orders are tracked by order ID (track-order page); no per-user order history (auth removed — guest checkout)

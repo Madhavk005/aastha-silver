@@ -103,12 +103,7 @@ Responsible for
 
 ## Authentication
 
-Supabase Auth
-
-Supports
-
-- Email / Password
-- Google OAuth
+None (guest checkout — auth layer removed)
 
 ---
 
@@ -663,8 +658,6 @@ Centralized interfaces.
 providers/
 
 theme-provider.tsx
-
-auth-provider.tsx
 ```
 
 Global providers only.
@@ -701,7 +694,7 @@ All content editable.
 
 # Database
 
-Supabase
+PostgreSQL (Supabase host) via Prisma ORM
 
 Main Tables (Prisma)
 
@@ -711,30 +704,30 @@ Order
 NewsletterSubscriber
 ```
 
-(Users live in Supabase Auth; wishlist/addresses/reviews/coupons are not yet modelled)
+(`Order.userId` is nullable — orders are guest orders; wishlist/addresses/reviews/coupons are not yet modelled)
 
 ---
 
-# Authentication Flow
+# Order Flow
 
 ```
 Visitor
 
 ↓
 
-Supabase Auth
+Checkout (guest)
 
 ↓
 
-JWT
+Razorpay order
 
 ↓
 
-Server
+Payment verified (signature)
 
 ↓
 
-Database
+Order stored
 ```
 
 ---

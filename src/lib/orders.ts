@@ -1,24 +1,9 @@
 import "server-only";
 import { prisma } from "@/lib/db";
 
-export async function getOrdersByUserId(userId: string) {
-  if (!userId || userId === "placeholder") return [];
-  const orders = await prisma.order.findMany({
-    where: { userId },
-    orderBy: { createdAt: "desc" },
-  });
-  return orders.map(orderToApiShape);
-}
-
-export async function getOrderByOrderNumber(orderNumber: string) {
-  if (!orderNumber) return null;
-  const order = await prisma.order.findUnique({ where: { id: orderNumber } });
-  return order ? orderToApiShape(order) : null;
-}
-
-function orderToApiShape(order: {
+export type OrderRecord = {
   id: string;
-  userId: string;
+  userId: string | null;
   items: unknown;
   subtotal: number;
   shipping: number;
@@ -31,7 +16,15 @@ function orderToApiShape(order: {
   shippingAddress: unknown;
   createdAt: Date;
   updatedAt: Date;
-}) {
+};
+
+export async function getOrderByOrderNumber(orderNumber: string) {
+  if (!orderNumber) return null;
+  const order = await prisma.order.findUnique({ where: { id: orderNumber } });
+  return order ? orderToApiShape(order) : null;
+}
+
+function orderToApiShape(order: OrderRecord) {
   const items = Array.isArray(order.items)
     ? (order.items as { id?: string; name?: string; quantity?: number; price?: number }[]).map(
         (i) => ({

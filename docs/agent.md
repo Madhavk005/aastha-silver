@@ -119,7 +119,7 @@ Database
 
 Authentication
 
-- Supabase Auth (email/password + Google OAuth)
+- None (guest checkout — auth layer removed)
 
 Payments
 

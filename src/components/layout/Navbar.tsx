@@ -15,7 +15,6 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { useCartStore } from "@/store/cart-store";
-import { useAuth } from "@/lib/auth";
 import { SearchModal } from "./SearchModal";
 import { CATEGORIES, GIFT_SECTIONS } from "@/lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
@@ -49,7 +48,6 @@ export function Navbar() {
   const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { openCart, getItemCount } = useCartStore();
   const cartItemCount = getItemCount();
-  const { isLoaded, isSignedIn } = useAuth();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -231,25 +229,14 @@ export function Navbar() {
                 </div>
 
                 <div className="px-6 py-6 border-t border-foreground/10">
-                  {isLoaded && isSignedIn ? (
-                    <Link
-                      href="/account"
-                      onClick={() => setMobileSubMenu(null)}
-                      className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-foreground/70 hover:text-foreground transition-colors"
-                    >
-                      <User className="w-4 h-4 stroke-[1.5]" />
-                      My Account
-                    </Link>
-                  ) : isLoaded && !isSignedIn ? (
-                    <Link
-                      href="/sign-in"
-                      onClick={() => setMobileSubMenu(null)}
-                      className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-foreground/70 hover:text-foreground transition-colors"
-                    >
-                      <User className="w-4 h-4 stroke-[1.5]" />
-                      Sign In / Register
-                    </Link>
-                  ) : null}
+                  <Link
+                    href="/contact"
+                    onClick={() => setMobileSubMenu(null)}
+                    className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-medium text-foreground/70 hover:text-foreground transition-colors"
+                  >
+                    <User className="w-4 h-4 stroke-[1.5]" />
+                    Contact Us
+                  </Link>
                 </div>
               </SheetContent>
             </Sheet>
@@ -405,15 +392,9 @@ export function Navbar() {
             </Link>
 
             <div className="hidden lg:flex items-center">
-              {isLoaded && isSignedIn ? (
-                <Link href="/account" aria-label="My Account" className={iconBtnClass}>
-                  <User className="w-5 h-5 stroke-[1.5]" />
-                </Link>
-              ) : isLoaded && !isSignedIn ? (
-                <Link href="/sign-in" aria-label="Sign In" className={iconBtnClass}>
-                  <User className="w-5 h-5 stroke-[1.5]" />
-                </Link>
-              ) : null}
+              <Link href="/contact" aria-label="Contact" className={iconBtnClass}>
+                <User className="w-5 h-5 stroke-[1.5]" />
+              </Link>
             </div>
 
             <button

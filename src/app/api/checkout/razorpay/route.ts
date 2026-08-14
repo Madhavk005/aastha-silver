@@ -1,18 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { getProducts } from "@/lib/data";
-import { getSessionFromCookies } from "@/lib/auth-server";
 import { prisma } from "@/lib/db";
 import { calculateServerTotal, recomputeItems, type CartLine } from "@/lib/payments";
 import { sendOrderConfirmationEmail, type OrderForEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
-    const user = await getSessionFromCookies();
-    if (!user) {
-      return NextResponse.json({ error: "Authentication required." }, { status: 401 });
-    }
-
     const body = await req.json();
     const { items } = body;
 
@@ -40,7 +34,6 @@ export async function POST(req: NextRequest) {
 
     const order = await prisma.order.create({
       data: {
-        userId: user.id,
         items: recomputed.lines,
         subtotal: recomputed.subtotal,
         shipping: 0,
