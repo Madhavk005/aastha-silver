@@ -41,7 +41,7 @@ Premium Sterling Silver Jewellery
 
 Framework
 
-Next.js 15 App Router
+Next.js 16 App Router
 
 Language
 
@@ -49,7 +49,7 @@ TypeScript
 
 Package Manager
 
-pnpm
+npm
 
 Repository Type
 
@@ -65,7 +65,7 @@ Vercel
 
 Framework
 
-Next.js 15
+Next.js 16
 
 Language
 
@@ -81,7 +81,7 @@ Tailwind CSS v4
 
 Component Library
 
-shadcn/ui
+shadcn/ui (+ @base-ui/react)
 
 Icons
 
@@ -99,29 +99,15 @@ Sanity
 
 Database
 
-Supabase
+PostgreSQL (Supabase) via Prisma ORM
 
 Authentication
 
-Clerk
+Supabase Auth (email/password + Google OAuth)
 
 Payments
 
-Stripe
-
 Razorpay
-
-Forms
-
-React Hook Form
-
-Validation
-
-Zod
-
-Email
-
-Resend
 
 State
 
@@ -129,13 +115,7 @@ Zustand
 
 Server State
 
-TanStack Query
-
-Testing
-
-Vitest
-
-Playwright
+Server Components + API routes (no client cache layer)
 
 Hosting
 
@@ -143,15 +123,11 @@ Vercel
 
 Monitoring
 
-Sentry
+Not configured
 
 Analytics
 
-GA4
-
-Microsoft Clarity
-
-Meta Pixel
+Not configured
 
 ---
 
@@ -271,7 +247,7 @@ Zustand
 
 Server
 
-TanStack Query
+API routes / Server Components (data fetched server-side)
 
 Never use Context API for application-wide state.
 
@@ -451,13 +427,9 @@ Never mix business logic with UI.
 
 # Forms
 
-Always use
+Prefer native HTML forms with server-side validation.
 
-React Hook Form
-
-+
-
-Zod
+React Hook Form + Zod are not yet installed — add them when forms grow complex.
 
 Every form must support
 
@@ -645,7 +617,7 @@ console
 
 Production
 
-Sentry
+Not configured (no Sentry yet — no sensitive data in logs)
 
 Never leave debug logs in production.
 
@@ -733,23 +705,9 @@ chore:
 
 # Testing
 
-Unit
+Not yet configured (no Vitest/Playwright setup — see the testing task in the roadmap).
 
-Vitest
-
-Integration
-
-React Testing Library
-
-E2E
-
-Playwright
-
-Coverage
-
-90%+
-
-Critical flows must always have tests.
+Critical checkout and payment flows must always have automated tests once the framework is added.
 
 ---
 

@@ -34,7 +34,7 @@ Modern Full-Stack E-commerce
 
 **Framework**
 
-Next.js 15 App Router
+Next.js 16 App Router
 
 **Language**
 
@@ -86,7 +86,7 @@ Analyze first.
 
 Framework
 
-- Next.js 15
+- Next.js 16
 
 Language
 
@@ -115,25 +115,19 @@ CMS
 
 Database
 
-- Supabase
+- PostgreSQL (Supabase) via Prisma ORM
 
 Authentication
 
-- Clerk
+- Supabase Auth (email/password + Google OAuth)
 
 Payments
 
 - Razorpay
-- Stripe
 
 Forms
 
-- React Hook Form
-- Zod
-
-Email
-
-- Resend
+- Native HTML forms + server-side validation (React Hook Form / Zod not yet installed)
 
 State
 
@@ -141,7 +135,7 @@ State
 
 Server State
 
-- TanStack Query
+- Server Components + API routes (no client cache layer)
 
 Hosting
 
@@ -149,12 +143,11 @@ Hosting
 
 Monitoring
 
-- Sentry
+- Not configured
 
 Testing
 
-- Vitest
-- Playwright
+- Not yet configured
 
 ---
 
@@ -372,7 +365,7 @@ Zustand
 Server
 
 ```
-TanStack Query
+API routes / Server Components
 ```
 
 Never use Context API for global application state.
@@ -564,13 +557,9 @@ Always sanitize user data.
 
 # Forms
 
-Always use
+Prefer native HTML forms with server-side validation.
 
-React Hook Form
-
-+
-
-Zod
+React Hook Form + Zod not yet installed — add when forms grow complex.
 
 Every form supports
 
@@ -627,23 +616,9 @@ Explain **why**, not **what**.
 
 # Testing Requirements
 
-Unit
+Not yet configured (no Vitest/Playwright setup).
 
-Vitest
-
-Integration
-
-React Testing Library
-
-End-to-End
-
-Playwright
-
-Coverage Target
-
-90%+
-
-Critical checkout and payment flows must always have automated tests.
+Critical checkout and payment flows must always have automated tests once the framework is added.
 
 ---
 

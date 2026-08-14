@@ -7,7 +7,7 @@ Status: Production Ready
 
 # Overview
 
-AASTHA SILVER follows a modern **Headless Commerce Architecture** built on Next.js 15 App Router.
+AASTHA SILVER follows a modern **Headless Commerce Architecture** built on Next.js 16 App Router.
 
 The architecture prioritizes:
 
@@ -30,7 +30,7 @@ The system follows a **Feature-Driven + Layered Architecture** instead of tradit
                          │
                          │
               ┌──────────▼──────────┐
-              │     Next.js 15      │
+              │     Next.js 16     │
               │     App Router       │
               └──────────┬──────────┘
                          │
@@ -53,7 +53,7 @@ The system follows a **Feature-Driven + Layered Architecture** instead of tradit
           ┌──────────┼───────────┐
           │          │           │
           ▼          ▼           ▼
-      Supabase     Sanity      Clerk
+      Supabase     Sanity      Prisma
           │
           ▼
       PostgreSQL
@@ -65,7 +65,7 @@ The system follows a **Feature-Driven + Layered Architecture** instead of tradit
 
 ## Frontend
 
-- Next.js 15
+- Next.js 16
 - React 19
 - TypeScript
 - Tailwind CSS v4
@@ -103,27 +103,24 @@ Responsible for
 
 ## Authentication
 
-Clerk
+Supabase Auth
 
 Supports
 
-- Google
-- Email
-- OTP
-- Magic Link
+- Email / Password
+- Google OAuth
 
 ---
 
 ## Payments
 
 - Razorpay
-- Stripe
 
 ---
 
 ## Emails
 
-Resend
+Not configured
 
 ---
 
@@ -469,7 +466,7 @@ user
 
 ## Server
 
-TanStack Query
+API routes / Server Components
 
 ---
 
@@ -667,9 +664,7 @@ providers/
 
 theme-provider.tsx
 
-query-provider.tsx
-
-clerk-provider.tsx
+auth-provider.tsx
 ```
 
 Global providers only.
@@ -708,25 +703,15 @@ All content editable.
 
 Supabase
 
-Main Tables
+Main Tables (Prisma)
 
 ```
-users
+Order
 
-orders
-
-order_items
-
-wishlist
-
-addresses
-
-reviews
-
-payments
-
-coupons
+NewsletterSubscriber
 ```
+
+(Users live in Supabase Auth; wishlist/addresses/reviews/coupons are not yet modelled)
 
 ---
 
@@ -737,7 +722,7 @@ Visitor
 
 ↓
 
-Clerk
+Supabase Auth
 
 ↓
 
@@ -1006,10 +991,10 @@ Purchase
 
 # Monitoring
 
-- Sentry
-- Vercel Analytics
-- Speed Insights
+- Vercel Analytics (optional)
 - Google Search Console
+
+Not configured yet.
 
 ---
 

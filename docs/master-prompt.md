@@ -327,7 +327,7 @@ Never create page-specific components if reusable alternatives exist.
 
 Framework
 
-Next.js 15
+Next.js 16
 
 Language
 
@@ -353,21 +353,15 @@ Sanity
 
 Database
 
-Supabase
+PostgreSQL (Supabase) via Prisma ORM
 
 Authentication
 
-Clerk
+Supabase Auth (email/password + Google OAuth)
 
 Payments
 
-Stripe
-
 Razorpay
-
-Emails
-
-Resend
 
 Hosting
 
@@ -375,11 +369,7 @@ Vercel
 
 Forms
 
-React Hook Form
-
-Validation
-
-Zod
+Native HTML forms + server-side validation
 
 Icons
 

@@ -1,37 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AASTHA SILVER
+
+Premium sterling silver jewellery e-commerce platform.
+
+## Stack
+
+- **Framework** — Next.js 16 (App Router, TypeScript, Tailwind CSS v4)
+- **CMS** — Sanity (products, collections, pages, journal)
+- **Database** — PostgreSQL (Supabase) via Prisma ORM (`Order`, `NewsletterSubscriber`)
+- **Auth** — Supabase Auth (email/password + Google OAuth)
+- **Payments** — Razorpay (order creation + signature verification)
+- **State** — Zustand (cart, wishlist)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.local.example .env.local   # if not present
+npx prisma migrate dev             # apply DB migrations
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All secrets live in `.env.local` (gitignored). Required:
 
-## Learn More
+- Supabase: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `SUPABASE_JWKS_URL`
+- Database: `DATABASE_URL` (transaction pooler), `DIRECT_URL` (session pooler — used by Prisma CLI)
+- Sanity: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`
+- Razorpay: `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `NEXT_PUBLIC_RAZORPAY_KEY_ID`
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run dev      # dev server
+npm run build    # production build
+npm run lint     # eslint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Commands
 
-## Deploy on Vercel
+- `npx prisma migrate dev` / `npx prisma migrate status` — uses `DIRECT_URL` (Prisma CLI requires a session-mode connection; see `prisma.config.ts`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Sanity Studio
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# aastha-silver
+Local studio lives in `studio/` (run from that directory); production studio is served at `/studio` via the Next.js app.
+
+## Known Pending Work
+
+- Razorpay keys are placeholders — replace with live/test keys before launch
+- Google OAuth provider must be enabled in the Supabase dashboard
+- No automated tests yet (Vitest/Playwright not configured)
