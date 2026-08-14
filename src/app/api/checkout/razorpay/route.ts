@@ -3,49 +3,8 @@ import Razorpay from "razorpay";
 import { getProducts } from "@/lib/data";
 import { getSessionFromCookies } from "@/lib/auth-server";
 import { prisma } from "@/lib/db";
-import type { Product } from "@/features/products/types";
-
-const GST_RATE = 0.18;
-
-type CartLine = {
-  id: string;
-  price?: number;
-  quantity?: unknown;
-};
-
-function parseQuantity(raw: unknown): number | null {
-  const qty = typeof raw === "number" ? raw : typeof raw === "string" ? Number(raw) : NaN;
-  return Number.isInteger(qty) && qty >= 1 && qty <= 99 ? qty : null;
-}
-
-async function recomputeItems(
-  items: CartLine[],
-  products: Product[]
-): Promise<{ lines: { id: string; name: string; quantity: number; price: number }[]; subtotal: number } | null> {
-  if (!Array.isArray(items) || items.length === 0) return null;
-
-  const byId = new Map(products.map((p) => [p._id, p]));
-  const lines: { id: string; name: string; quantity: number; price: number }[] = [];
-  let subtotal = 0;
-
-  for (const line of items) {
-    const productId = typeof line.id === "string" ? line.id.split(":")[0] : "";
-    const product = byId.get(productId);
-    const quantity = parseQuantity(line.quantity);
-    if (!product || typeof product.price !== "number" || product.price < 0 || quantity === null) {
-      return null;
-    }
-    lines.push({
-      id: line.id,
-      name: typeof product.title === "string" ? product.title : "",
-      quantity,
-      price: product.price,
-    });
-    subtotal += product.price * quantity;
-  }
-
-  return { lines, subtotal };
-}
+import { calculateServerTotal, recomputeItems, type CartLine } from "@/lib/payments";
+import { sendOrderConfirmationEmail, type OrderForEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -58,7 +17,7 @@ export async function POST(req: NextRequest) {
     const { items } = body;
 
     const products = (await getProducts()) || [];
-    const recomputed = await recomputeItems(items ?? [], products);
+    const recomputed = await recomputeItems((items ?? []) as CartLine[], products);
     if (recomputed === null) {
       return NextResponse.json(
         { error: "Invalid or empty cart. Please refresh your cart and try again." },
@@ -67,7 +26,7 @@ export async function POST(req: NextRequest) {
     }
 
     const clientAmount = typeof body.amount === "number" ? Math.round(body.amount) : NaN;
-    const serverTotal = Math.round(recomputed.subtotal * (1 + GST_RATE));
+    const serverTotal = calculateServerTotal(recomputed.subtotal);
     if (!Number.isFinite(clientAmount) || Math.abs(clientAmount - serverTotal) > 1) {
       console.warn(`Amount mismatch: client=${clientAmount}, server=${serverTotal}`);
       return NextResponse.json(
@@ -107,6 +66,14 @@ export async function POST(req: NextRequest) {
       await prisma.order.update({
         where: { id: order.id },
         data: { razorpayOrderId: razorpayOrder.id },
+      });
+
+      sendOrderConfirmationEmail({
+        id: order.id,
+        total: order.total,
+        currency: order.currency,
+        items: recomputed.lines,
+        customer: (order.customer as OrderForEmail["customer"]) ?? null,
       });
 
       return NextResponse.json(razorpayOrder, { status: 200 });

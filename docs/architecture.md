@@ -991,10 +991,8 @@ Purchase
 
 # Monitoring
 
-- Vercel Analytics (optional)
-- Google Search Console
-
-Not configured yet.
+- Sentry (`@sentry/nextjs`, env-gated — requires `NEXT_PUBLIC_SENTRY_DSN` + optionally `SENTRY_AUTH_TOKEN`/`SENTRY_ORG`/`SENTRY_PROJECT` for sourcemap upload)
+- Analytics: GA4 / Microsoft Clarity / Meta Pixel via `Analytics` component (prod only, env-gated)
 
 ---
 

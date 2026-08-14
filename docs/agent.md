@@ -125,6 +125,10 @@ Payments
 
 - Razorpay
 
+Email
+
+- Resend (order confirmations, env-gated)
+
 Forms
 
 - Native HTML forms + server-side validation (React Hook Form / Zod not yet installed)
@@ -143,11 +147,15 @@ Hosting
 
 Monitoring
 
-- Not configured
+- Sentry (env-gated)
+
+Analytics
+
+- GA4 + Microsoft Clarity + Meta Pixel (env-gated, prod only)
 
 Testing
 
-- Not yet configured
+- Vitest + React Testing Library (`npm test`); Playwright not yet configured
 
 ---
 
@@ -616,9 +624,9 @@ Explain **why**, not **what**.
 
 # Testing Requirements
 
-Not yet configured (no Vitest/Playwright setup).
+Unit / integration via Vitest + React Testing Library (`npm test`).
 
-Critical checkout and payment flows must always have automated tests once the framework is added.
+Critical checkout and payment flows must always have automated tests.
 
 ---
 

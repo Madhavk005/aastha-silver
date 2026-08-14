@@ -117,17 +117,21 @@ Server State
 
 Server Components + API routes (no client cache layer)
 
+Email
+
+Resend (order confirmations, env-gated)
+
 Hosting
 
 Vercel
 
 Monitoring
 
-Not configured
+Sentry (env-gated — no-ops without NEXT_PUBLIC_SENTRY_DSN)
 
 Analytics
 
-Not configured
+GA4 + Microsoft Clarity + Meta Pixel (env-gated, prod only)
 
 ---
 
@@ -617,7 +621,7 @@ console
 
 Production
 
-Not configured (no Sentry yet — no sensitive data in logs)
+Sentry (when NEXT_PUBLIC_SENTRY_DSN is set)
 
 Never leave debug logs in production.
 
@@ -705,9 +709,17 @@ chore:
 
 # Testing
 
-Not yet configured (no Vitest/Playwright setup — see the testing task in the roadmap).
+Unit / Integration
 
-Critical checkout and payment flows must always have automated tests once the framework is added.
+Vitest + React Testing Library (`npm test`)
+
+E2E
+
+Playwright — not yet configured
+
+Coverage
+
+Add tests for critical flows (checkout/payment logic, cart, orders) before shipping features.
 
 ---
 

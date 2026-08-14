@@ -1,18 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
 import { prisma } from "@/lib/db";
+import { verifyRazorpaySignature } from "@/lib/payments";
 
 export async function POST(req: NextRequest) {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json();
 
-    const secret = process.env.RAZORPAY_KEY_SECRET || "placeholder_secret";
-    const generated_signature = crypto
-      .createHmac("sha256", secret)
-      .update(razorpay_order_id + "|" + razorpay_payment_id)
-      .digest("hex");
-
-    if (generated_signature !== razorpay_signature) {
+    const secret = process.env.RAZORPAY_KEY_SECRET || "";
+    if (!secret || !verifyRazorpaySignature(razorpay_order_id, razorpay_payment_id, razorpay_signature, secret)) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
     }
 

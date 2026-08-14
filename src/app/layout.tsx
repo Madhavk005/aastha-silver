@@ -9,6 +9,7 @@ import { CartDrawer } from "@/features/cart/components/CartDrawer";
 import { FloatingActions } from "@/components/layout/FloatingActions";
 import { ExitIntentPopup } from "@/components/layout/ExitIntentPopup";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { Analytics } from "@/components/layout/Analytics";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -71,6 +72,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground cursor-none">
         <CustomCursor />
+        <Analytics />
         <AuthProvider>
           <TooltipProvider>
             <Navbar />
