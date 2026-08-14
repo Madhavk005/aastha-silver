@@ -4,128 +4,128 @@
     "clerk": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/core/clerk/SKILL.md",
-      "computedHash": "2ec160843e0e4d4a46d46f9442f5dc97d82055384189881e80d128c090651bb7"
+      "skillPath": "skills/clerk/SKILL.md",
+      "computedHash": "5e76a304b279ded52514ee1cc3478fc64f1c0f19e67cff3b575c06d3a8a3af2b"
     },
     "clerk-backend-api": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/core/clerk-backend-api/SKILL.md",
-      "computedHash": "723ee35b2727923bbc9050c103369985d3d2ced00c9d25d79ff6383a23d8fea9"
+      "skillPath": "skills/clerk-backend-api/SKILL.md",
+      "computedHash": "a96917330774f7d67e505bf975ce3650f23c7c34871a67063265c014595f9e60"
     },
     "clerk-cli": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/core/clerk-cli/SKILL.md",
-      "computedHash": "290991c9f0a714eaa64aca4fb4b49326f05b7973539f062ecb41ffcc09d4cc46"
+      "skillPath": "skills/clerk-cli/SKILL.md",
+      "computedHash": "a897472c442f4d13827cd1c18466df81f8c9ff587d154a6f650caec035a84987"
     },
     "clerk-custom-ui": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/core/clerk-custom-ui/SKILL.md",
-      "computedHash": "72dcda42d3755a468049e828180b66c25fb2ac66fd99bd1514699404445924c6"
+      "skillPath": "skills/clerk-custom-ui/SKILL.md",
+      "computedHash": "16398a39c8241e51f05cf6465deceb6d551996e1e0164ded597d43de9be42038"
     },
     "clerk-nextjs-patterns": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/frameworks/clerk-nextjs-patterns/SKILL.md",
-      "computedHash": "6c5b897dcef62550436b24b3cc9087658dd97c9ca88272ab48a5c094276d72fb"
+      "skillPath": "skills/clerk-nextjs-patterns/SKILL.md",
+      "computedHash": "51a833e5f5edab03b5632b1da1a7587fe1d812fc149e3acc69f59cccd39369e3"
     },
     "clerk-orgs": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/features/clerk-orgs/SKILL.md",
-      "computedHash": "50a514001d6e1f51dd1bf4e3b0b62336ea5209e36c76be5afe16a4445087124c"
+      "skillPath": "skills/clerk-orgs/SKILL.md",
+      "computedHash": "111f671b2eeec790b16cfe748d2dff16f3cc065bc882bc1a3e868adfe505189a"
     },
     "clerk-setup": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/core/clerk-setup/SKILL.md",
-      "computedHash": "a35fe4e4d03a71825d9880c9cd76ddcae536beed535a2be44908117b4661e749"
+      "skillPath": "skills/clerk-setup/SKILL.md",
+      "computedHash": "2357d8a7e8a1a6e01c4d3ba31d5bedadbeef9f44b969cf311107831994b91b5e"
     },
     "clerk-testing": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/features/clerk-testing/SKILL.md",
-      "computedHash": "3655e0e561d99e41ec06fea0ca39736c3ecbce8e6fb703f0a09373297e56bc82"
+      "skillPath": "skills/clerk-testing/SKILL.md",
+      "computedHash": "0db14edb4d69fe703eb3cf7c2e99421e2283e49c5b1c35b3fd8a22827ae0afbf"
     },
     "clerk-webhooks": {
       "source": "clerk/skills",
       "sourceType": "github",
-      "skillPath": "skills/features/clerk-webhooks/SKILL.md",
-      "computedHash": "de12deda380be19d32d62c4106a6b78736cd4d9cc6dd5b214f6039853ad89e54"
+      "skillPath": "skills/clerk-webhooks/SKILL.md",
+      "computedHash": "99138f2fc461c25ce7181f805aa785ae3d8219c3f125e02870593280d7be9ad3"
     },
     "prisma-cli": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-cli/SKILL.md",
-      "computedHash": "129e77cba93984b88d66cf0f66d5788f5487431f17f189a1ab2d839976874e3b"
+      "skillPath": "skills/prisma-cli/SKILL.md",
+      "computedHash": "947f1767a903a36f378bd707fcaff2e43a53822099da5a5ff80c1d1eb4feccb3"
     },
     "prisma-client-api": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-client-api/SKILL.md",
-      "computedHash": "cbbabff961c8e16b2d59f8c1ffb4e7e20be52154e778ab95121e0211d6d09969"
+      "skillPath": "skills/prisma-client-api/SKILL.md",
+      "computedHash": "d033821313dc64b2b7dee120c6904b7d4457813e3b9c82d9584f7dee74baabe4"
     },
     "prisma-compute": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-compute/SKILL.md",
-      "computedHash": "8d6053aefdf0b7c80e981e93c1300d617292efb6a5b0bdd826bc85e47431f3e3"
+      "skillPath": "skills/prisma-compute/SKILL.md",
+      "computedHash": "0df1590fa5a99b0b9a2219266ac88a34675fafc55f744bd86975ba7914a231b7"
     },
     "prisma-database-setup": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-database-setup/SKILL.md",
-      "computedHash": "6a991a2530a6da7131e3fc71c353e8278702d0146b8b6e1d2fdfc2d3d0a21bd2"
+      "skillPath": "skills/prisma-database-setup/SKILL.md",
+      "computedHash": "0763c2b684fff47a89afa495dd0e3439f7e892f08e38d01a89def934ff5b71fb"
     },
     "prisma-driver-adapter-implementation": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-driver-adapter-implementation/SKILL.md",
-      "computedHash": "cc487f1bf36f616ddb3a9478b3527d288dd706d77a9e5dbee9af52dca1eee8e4"
+      "skillPath": "skills/prisma-driver-adapter-implementation/SKILL.md",
+      "computedHash": "cb8f4127acb259a1827140ee6201ed46f872021254902a86d5fadcd6d2b8a409"
     },
     "prisma-mongodb-upgrade": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-mongodb-upgrade/SKILL.md",
-      "computedHash": "b94149ad5f1ec269dfd717b321538de6d39943b2ae6721a0d82302057f57ae18"
+      "skillPath": "skills/prisma-mongodb-upgrade/SKILL.md",
+      "computedHash": "c43759e8d8d640bb94963ab68aec9c906e5a8a3054845716b43c8ea87608d346"
     },
     "prisma-postgres": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-postgres/SKILL.md",
-      "computedHash": "0422727e18019add9208b86ce862964025acc011ff31fba1d59a01b836bd6272"
+      "skillPath": "skills/prisma-postgres/SKILL.md",
+      "computedHash": "43126db95eb7d266464ca30097894bc6c9d039d5f9c670f8cc4930b8abd53db5"
     },
     "prisma-postgres-setup": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-postgres-setup/SKILL.md",
-      "computedHash": "5dbcf5a488d7cb7136340b86dcf781d6d92cf793f92c105ef644ac31ccac4d3b"
+      "skillPath": "skills/prisma-postgres-setup/SKILL.md",
+      "computedHash": "39693cabe74943b36d797c3a56dee2eca0cb1a0dc23a33c1fc26afdbd6421474"
     },
     "prisma-upgrade-v7": {
       "source": "prisma/skills",
       "sourceType": "github",
-      "skillPath": "prisma-upgrade-v7/SKILL.md",
-      "computedHash": "0e07dc2831f86cf27627df914db43d862b0fc75d72c1f9070434aab7940bad7c"
+      "skillPath": "skills/prisma-upgrade-v7/SKILL.md",
+      "computedHash": "077570831ea7f4fdae87b77fb49276a25b8842196de7f766027aa626e19dc800"
     },
     "supabase": {
       "source": "supabase/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/supabase/SKILL.md",
-      "computedHash": "886743d08edece523e48b5c6c737afa29029503bdd3b28a722795712cedfcd91"
+      "computedHash": "16817870f69bb9db58343cfa41c6fb864713c01f3680a64e0fb869605a5d81c3"
     },
     "supabase-postgres-best-practices": {
       "source": "supabase/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/supabase-postgres-best-practices/SKILL.md",
-      "computedHash": "e14e276241805c97dbcfe40dcbea1a3035269cc7293cac4b1832dda41a835e60"
+      "computedHash": "ad65e776f45e761bafc609d3f506c77c1032225aa65e0c4c02f241b8071e5855"
     },
     "supabase-server": {
       "source": "supabase/server",
       "sourceType": "github",
       "skillPath": "skills/supabase-server/SKILL.md",
-      "computedHash": "b430ad2b08734bba89f2168c201bc7e090729d38a0206eebba338a7a5c1de3d6"
+      "computedHash": "a5050c0ba63d3efd075d16270398ff8f5163e9aca573e325c6d43930f5824841"
     }
   }
 }
